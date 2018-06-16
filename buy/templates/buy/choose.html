@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script>
+			function get_random_eos_name() {
+				function choices(population, k) {
+					var out = [];
+					for(var i=0; i < k; i++) {
+						out.push(population[Math.floor(population.length * Math.random())]);
+					}
+					return out.join("");
+				}
+				let alphabet = 'abcdefghijklmnopqrstuvwxyz12345';
+				return choices(alphabet, 12);
+			}
+			
+			$(function() {
+				$("#gen_random").click(function(event) { 
+					event.preventDefault();
+					$('input[name=account_name]').val(get_random_eos_name());
+				 });
+				
+			});
+		</script>
+	</head>
+	<body>
+		<h1>Please choose your EOS Account Name</h1>
+		<div>
+			EOS Account names must be exactly 12 characters long and consist of lower case characters and digits up until 5.
+		</div>
+		<form action="/submit_account_name/" method="POST">
+			{% csrf_token %}
+			<label>Account Name: </label><input type="text" name="account_name"></input><button id="gen_random">I'm feeling lucky</button><br/>
+			<button type="submit">Continue</button>
+		</form>
+	</body>
+</html>

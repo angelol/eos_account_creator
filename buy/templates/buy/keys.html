@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/eosjs-ecc@4.0.1/dist/eosjs-ecc.js"></script>
+        <script>
+			function genkey() {
+			    eosjs_ecc.randomKey().then(x => {
+			        var private_key = x;
+			        var public_key = eosjs_ecc.privateToPublic(private_key);
+			        document.getElementById("public").innerHTML = public_key;
+			        document.getElementById("private").innerHTML = private_key;
+					$(".random input[name=public_key]").val(public_key);
+			    });
+			}
+
+			$(function() {
+				$("button#generate").click(function(event) { 
+					event.preventDefault();
+					genkey();
+				});
+				
+				$(".provided input[name=public_key]").keyup(function(event) {
+					var valid = is_valid_public_key($(this).val());
+					console.log("valid: " + valid);
+				});
+				
+			});
+			
+			function is_valid_public_key(key) {
+				return eosjs_ecc.isValidPublic(key);
+			}
+			
+			
+			
+		</script>
+	</head>
+	<body>
+		<h2>If you already have generated an EOS private/public key pair, please enter your <b>public</b> key here:</h2>
+		<form class="provided" action="/submit_public_key/" method="POST">
+			{% csrf_token %}
+			<label><b>Public</b> key: </label><input type="text" name="public_key"></input><br/>
+			<button type="submit">Continue</button>
+		</form>
+		<h2>You can also generate a public/private key pair here:</h2>
+		<button id="generate">Generate random key!</button><br />
+		Public Key: <span id="public" class="private_key"></span><br/>
+		Private Key: <span id="private" class="private_key"></span><br/>
+		<form class="random" action="/submit_public_key/" method="POST">
+			{% csrf_token %}
+			<input type="hidden" name="public_key"></input><br/>
+			<input required="required" type="checkbox" id="required_1"></input><label for="required_1">I have written down and stored my private key safely<label><br />
+			<input required="required" type="checkbox" id="required_2"></input><label for="required_2">I understand that I alone am responsible for the safety of my private key. If I lose my private key, I will lose access to my EOS account and any money in it. Nobody will be able to recover my funds.</label><br />
+
+			<button type="submit">Continue</button>
+		</form>
+	</body>
+</html>
