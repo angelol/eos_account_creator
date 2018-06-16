@@ -27,7 +27,7 @@ SECRET_KEY = ''
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '7deadf03.ngrok.io']
 
 
 # Application definition
@@ -121,6 +121,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+ML = 512
+EOS_API_NODES = ['https://publicapi-mainnet.eosauthority.com', 'https://api.eosnewyork.io', 'https://node2.liquideos.com:443']
 
 
 try:

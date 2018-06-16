@@ -36,6 +36,9 @@
 		</script>
 	</head>
 	<body>
+		<div>
+			Your chosen EOS Account Name is: <span id="chosen_name">{{account_name}}</span> <a href="/choose/">Change</a>
+		</div>
 		<h2>If you already have generated an EOS private/public key pair, please enter your <b>public</b> key here:</h2>
 		<form class="provided" action="/submit_public_key/" method="POST">
 			{% csrf_token %}
