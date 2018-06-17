@@ -110,6 +110,7 @@ def success(request):
         'purchase': p,
     })
 
+@csrf_exempt
 @require_account_name
 @require_public_key
 def check_progress(request):

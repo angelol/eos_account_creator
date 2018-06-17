@@ -10,10 +10,11 @@
 			function check_progress() {
 				$.ajax({
 					url: "/check_progress/",
+					method: "POST",
 					success: function(data) {
-						console.log(data);
+						// console.log(data);
 						if(data.purchase.account_created) {
-							console.log("account was created");
+							// console.log("account was created");
 							$(".account_created").show();
 							$(".payment_received").hide();
 							$(".please_wait").hide();
