@@ -27,3 +27,11 @@ def create_charge(account_name, public_key, price_usd):
     
     
     return r.json()
+    
+def create_sha256_signature(key, message):
+    byte_key = key.encode()
+    return hmac.new(byte_key, message, hashlib.sha256).hexdigest()
+
+def check_coinbase_signature(request):
+    signature = request.META['HTTP_X_CC_WEBHOOK_SIGNATURE']
+    assert signature == create_sha256_signature(settings.COINBASE_SECRET, request.body), "Signature mismatch"

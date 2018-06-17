@@ -23,15 +23,6 @@ def require_public_key(func):
             return func(request, *args, **kwargs)
         return redirect("/keys/")        
     return inner
-
-def create_sha256_signature(key, message):
-    byte_key = key.encode()
-    return hmac.new(byte_key, message, hashlib.sha256).hexdigest()
-        
-def check_coinbase_signature(request):
-    signature = request.META['HTTP_X_CC_WEBHOOK_SIGNATURE']
-    assert signature == create_sha256_signature(settings.COINBASE_SECRET, request.body), "Signature mismatch"
-    
     
 def is_eos_account_available(account_name):
     c = eosapi.Client(nodes=settings.EOS_API_NODES)

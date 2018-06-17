@@ -17,7 +17,7 @@ class Purchase(models.Model):
         
     def complete_purchase_and_save(self):
         import subprocess
-        subprocess.run(["cleos", "--url", "http://api.eosnewyork.io", "system", "newaccount", settings.ACCOUNT_CREATOR, self.account_name, self.public_key, self.public_key, "--stake-net", str(settings.NEWACCOUNT_NET_STAKE) + " EOS", "--stake-cpu", str(settings.NEWACCOUNT_CPU_STAKE) + " EOS", "--buy-ram-kbytes", str(settings.NEWACCOUNT_RAM_KB), "--transfer", "-p", settings.ACCOUNT_CREATOR], check=True)
+        subprocess.run(["/usr/bin/env", "node", "buy/gen_account.js", self.account_name, self.public_key], check=True)
         self.account_created = True
         self.save()
         

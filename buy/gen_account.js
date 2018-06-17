@@ -1,16 +1,17 @@
 let Eos = require('eosjs');
+let fs = require('fs');
 
 let httpEndpoint = 'http://api.eosnewyork.io';
 let chainId = 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906';
-keyProvider = [''];
 
 creator = 'accountcreat';
 
 
 let newaccount = process.argv[2];
 let public_key = process.argv[3];
-console.log("newaccount: " + newaccount +"EOL");
-console.log("public_key: " + public_key + "EOL");
+
+var secret = fs.readFileSync('buy/key.txt', {encoding: 'utf8'});
+let keyProvider = [secret];
 
 eos = Eos({httpEndpoint, chainId, keyProvider});
 eos.transaction(tr => {
@@ -23,7 +24,7 @@ eos.transaction(tr => {
   tr.buyrambytes({
     payer: creator,
     receiver: newaccount,
-    bytes: Number(4000)
+    bytes: 4000
   })
   tr.delegatebw({
     from: creator,
