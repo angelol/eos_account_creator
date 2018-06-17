@@ -66,12 +66,14 @@ def purchase(request):
 def buy_action(request):
     j = create_charge(request.account_name, request.public_key, get_account_price_usd())
     hosted_url = j['data']['hosted_url']
-    p = Purchase.objects.create(
+    p, created = Purchase.objects.get_or_create(
         account_name=request.account_name, 
-        public_key=request.public_key, 
-        coinbase_charge=json.dumps(j),
-        coinbase_code=j['data']['code'],
-        user_uuid=request.session['uuid'],
+        defaults=dict(
+            public_key=request.public_key, 
+            coinbase_charge=json.dumps(j),
+            coinbase_code=j['data']['code'],
+            user_uuid=request.session['uuid'],
+        )
     )
     request.session['coinbase_code'] = j['data']['code']
     return redirect(hosted_url)
@@ -133,5 +135,10 @@ def check_progress(request):
     return JsonResponse({
         'purchase': p.as_json(),
     })
-    
 
+@require_POST
+def delete(request):
+    account_name = request.POST['account_name']
+    user_uuid = uuid.UUID(request.session['uuid'])
+    Purchase.objects.filter(account_name=account_name, user_uuid=user_uuid).delete()
+    return HttpResponse("okay")

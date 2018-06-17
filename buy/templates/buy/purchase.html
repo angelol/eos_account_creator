@@ -5,12 +5,20 @@
 	{% endblock %}
 	{% block body %}
 	<div class="shadow p-3 mb-5 bg-white rounded">
-		The EOS account name you have chosen is: {{account_name}}<br />
+		<p>The EOS account name you have chosen is: {{account_name}}<br />
 Your public key is: {{public_key}}<br />
 The current price for the account creation service is: USD {{price_usd|floatformat:2}}<br />
-We accept Bitcoin, Bitcoin Cash, Ethereum and Litecoin. When clicking the button below, you will be redirected to our coinbase page for payment.
+We accept Bitcoin, Bitcoin Cash, Ethereum and Litecoin. When clicking the button below, you will be redirected to our coinbase page for payment. After successful payment, you will be redirected back here and we will create the EOS account for you. In case of problems, your payment will be refunded.</p>
 <form action="/buy_action/" method="POST">
 	{% csrf_token %}
+	<div class="form-group">
+	<input required="required" type="checkbox" id="privacy_policy"></input><label for="privacy_policy">I have read an accept the <a href="/privacy_policy/" target="_new">privacy policy</a><label><br />
+	</div>
+	<div class="form-group">
+	<input required="required" type="checkbox" id="constitution"></input><label for="constitution">I have read an accept the <a href="https://github.com/EOS-Mainnet/governance/blob/master/eosio.system/eosio.system-clause-constitution-rc.md" target="_new">EOS Constitution</a><label><br />
+	</div>
+	
+	
 	<button class="btn btn-primary" type="submit">Create EOS Account for USD {{price_usd|floatformat:2}}</button>
 </form>
 

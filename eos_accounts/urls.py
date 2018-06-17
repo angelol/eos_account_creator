@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.views.generic.base import TemplateView
-from buy.views import choose, submit_account_name, keys, submit_public_key, purchase, buy_action, webhook, success, check_progress, index
+from buy.views import *
 
 urlpatterns = [
     path('', index, name="index"),
@@ -31,5 +31,7 @@ urlpatterns = [
     
     path('success/', success, name='success'),
     path('check_progress/', check_progress, name='check_progress'),
+    path('privacy_policy/', TemplateView.as_view(template_name='buy/privacy_policy.html')),
+    path('delete/', delete, name='delete'),
     
 ]

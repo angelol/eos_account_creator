@@ -1,0 +1,17 @@
+{% extends "buy/base.html" %}
+{% load static %}
+
+		{% block head %}
+		 	{{block.super}}
+		{% endblock %}
+	{% block body %}
+	<h1>Privacy Policy</p>
+	<h2>Cookies</h2>
+	<p>This site requires cookies for the purchasing of accounts functionality. This site uses signed cookies which means no session information is stored on our server.</p>
+	<h2>Which information is stored?</h2>
+	<p>For privacy reasons, we store no personal information from the user like name, email address, residency and such. When the user purchases an account, we only store the desired account name and public key that the user entered. We require this data to being able to create the EOS account. After the account has been created, this data will enter the EOS blockchain and become public record.
+	</p>
+	<h2>Payment</h2>
+	<p>When the user pays with any of the supported cryptocurrencies, there will be a pseudonymous public record of that purchase in the respective blockchain.
+	</p>
+	{% endblock %}

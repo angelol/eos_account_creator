@@ -27,8 +27,8 @@ SECRET_KEY = ''
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '7deadf03.ngrok.io']
-CANONICAL_BASE_URL = 'https://7deadf03.ngrok.io/'
+ALLOWED_HOSTS = ['localhost', 'eos-account-creator.com']
+CANONICAL_BASE_URL = 'https://eos-account-creator.com/'
 
 # Application definition
 
