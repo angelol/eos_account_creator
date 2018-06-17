@@ -22,8 +22,15 @@
 				$(".provided input[name=public_key]").keyup(function(event) {
 					var valid = is_valid_public_key($(this).val());
 					// console.log("valid: " + valid);
+					set_form(valid);
 				});
-				
+				function set_form(enabled) {
+					if(enabled) {
+						
+					} else {
+						
+					}
+				}
 			});
 			
 			function is_valid_public_key(key) {
@@ -35,25 +42,34 @@
 		</script>
 	{% endblock %}
 	{% block body %}
+		<div class="shadow p-3 mb-5 bg-white rounded">
 		<div>
 			Your chosen EOS Account Name is: <span id="chosen_name">{{account_name}}</span> <a href="/choose/">Change</a>
 		</div>
-		<h2>If you already have generated an EOS private/public key pair, please enter your <b>public</b> key here:</h2>
+		<h4>If you already have generated an EOS private/public key pair, please enter your <b>public</b> key here:</h4>
 		<form class="provided" action="/submit_public_key/" method="POST">
 			{% csrf_token %}
 			<label><b>Public</b> key: </label><input type="text" name="public_key"></input><br/>
-			<button type="submit">Continue</button>
+			You can also use an external key generator like <a href="https://ipfs.io/ipfs/QmakCmYZf3SSmBbRWexBgAULUMg2W72eXEouxapHkPXJaH" target="_new">this one</a> (<a href="https://github.com/angelol/eos-keygen">source here</a>), <a href="https://nadejde.github.io/eos-token-sale/" target="_new">that one</a> or <a href="https://medium.com/@eosnewyork/securely-generating-an-eos-public-private-key-pair-using-official-eos-io-code-9859880957af" target="_new">this method</a>.<br />
+			<button class="btn btn-primary" type="submit">Continue</button>
 		</form>
-		<h2>You can also generate a public/private key pair here:</h2>
-		<button id="generate">Generate random key!</button><br />
+		</div>
+		<div class="shadow p-3 mb-5 bg-white rounded">
+		<h4>You can also generate a public/private key pair here:</h4>
+		The private key will be generated in the browser using the official <a href="https://github.com/EOSIO/eosjs-ecc">eosjs-ecc</a> code. If your computer is not compromised, it should be perfectly safe to use.<br />
+		<button class="btn btn-primary" id="generate">Generate random key!</button><br />
 		Public Key: <span id="public" class="private_key"></span><br/>
 		Private Key: <span id="private" class="private_key"></span><br/>
 		<form class="random" action="/submit_public_key/" method="POST">
 			{% csrf_token %}
 			<input type="hidden" name="public_key"></input><br/>
+			<div class="form-group">
 			<input required="required" type="checkbox" id="required_1"></input><label for="required_1">I have written down and stored my private key safely<label><br />
-			<input required="required" type="checkbox" id="required_2"></input><label for="required_2">I understand that I alone am responsible for the safety of my private key. If I lose my private key, I will lose access to my EOS account and any money in it. Nobody will be able to recover my funds.</label><br />
-
-			<button type="submit">Continue</button>
+			</div>
+			<div class="form-group">
+			<input required="required" type="checkbox" id="required_2"></input><label for="required_2">I understand that I alone am responsible for the safety of my private key. If I lose my private key, I will lose access to my EOS account and any money in it. Nobody will be able to recover my funds.</label>
+			</div>
+			<button class="btn btn-primary" type="submit">Continue</button>
 		</form>
+		</div>
 	{% endblock %}
