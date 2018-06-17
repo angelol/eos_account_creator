@@ -28,8 +28,8 @@ eos.transaction(tr => {
   tr.delegatebw({
     from: creator,
     receiver: newaccount,
-    stake_net_quantity: '0.0000 EOS',
-    stake_cpu_quantity: '0.0000 EOS',
+    stake_net_quantity: '0.1000 EOS',
+    stake_cpu_quantity: '0.1000 EOS',
     transfer: 1
   })
 }).then((data) => {

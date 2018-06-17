@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .view_helper import *
 from .models import CoinbaseEvent, PriceData
 from .coinbase import *
+from django.http import JsonResponse
     
 # Create your views here.
 def choose(request):
@@ -59,9 +60,9 @@ def buy_action(request):
         account_name=request.account_name, 
         public_key=request.public_key, 
         coinbase_charge=json.dumps(j),
-        coinbase_code=j['code'],
+        coinbase_code=j['data']['code'],
     )
-    request.session['coinbase_code'] = j['code']
+    request.session['coinbase_code'] = j['data']['code']
     return redirect(hosted_url)
     
 @csrf_exempt
@@ -100,13 +101,13 @@ def webhook(request):
 @require_account_name
 @require_public_key
 def success(request):
-    # p = Purchase.objects.get(
-    #     account_name=request.account_name, 
-    #     public_key=request.public_key,
-    #     # coinbase_code=request.session['coinbase_code'],
-    # )
+    p = Purchase.objects.get(
+            account_name=request.account_name, 
+            public_key=request.public_key,
+            coinbase_code=request.session['coinbase_code'],
+        )
     return render(request, "buy/success.html", {
-        # 'purchase': p,
+        'purchase': p,
     })
 
 @require_account_name
@@ -117,5 +118,8 @@ def check_progress(request):
         public_key=request.public_key,
         coinbase_code=request.session['coinbase_code'],
     )
+    return JsonResponse({
+        'purchase': p.as_json(),
+    })
     
 

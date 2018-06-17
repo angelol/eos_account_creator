@@ -16,7 +16,19 @@ class Purchase(models.Model):
         return self.account_name
         
     def complete_purchase_and_save(self):
-        pass
+        import subprocess
+        subprocess.run(["cleos", "--url", "http://api.eosnewyork.io", "system", "newaccount", settings.ACCOUNT_CREATOR, self.account_name, self.public_key, self.public_key, "--stake-net", str(settings.NEWACCOUNT_NET_STAKE) + " EOS", "--stake-cpu", str(settings.NEWACCOUNT_CPU_STAKE) + " EOS", "--buy-ram-kbytes", str(settings.NEWACCOUNT_RAM_KB), "--transfer", "-p", settings.ACCOUNT_CREATOR], check=True)
+        self.account_created = True
+        self.save()
+        
+    def as_json(self):
+        return {
+            'account_name': self.account_name,
+            'public_key': self.public_key,
+            'coinbase_code': self.coinbase_code,
+            'payment_received': self.payment_received,
+            'account_created': self.account_created,
+        }
         
 class CoinbaseEvent(models.Model):
     uuid = models.UUIDField(primary_key=True)
@@ -56,3 +68,8 @@ class PriceData(models.Model):
     def ram_kb_usd():
         p = PriceData.objects.get(id=1)
         return p.ram_kb_eos * p.eos_usd
+        
+    @staticmethod
+    def price_eos_usd():
+        p = PriceData.objects.get(id=1)
+        return p.eos_usd

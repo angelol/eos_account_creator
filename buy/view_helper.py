@@ -42,7 +42,7 @@ def is_eos_account_available(account_name):
         return True
         
 def get_account_price_usd():
-    return PriceData.ram_kb_usd() * settings.NEWACCOUNT_RAM_KB * 10
+    return (PriceData.ram_kb_usd() * settings.NEWACCOUNT_RAM_KB + (settings.NEWACCOUNT_NET_STAKE + settings.NEWACCOUNT_CPU_STAKE) * PriceData.price_eos_usd())*3
     
     
     

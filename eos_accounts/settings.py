@@ -124,6 +124,8 @@ STATIC_URL = '/static/'
 ML = 512
 EOS_API_NODES = ['https://publicapi-mainnet.eosauthority.com', 'https://api.eosnewyork.io', 'https://node2.liquideos.com:443']
 NEWACCOUNT_RAM_KB = 4
+NEWACCOUNT_NET_STAKE = 0.1
+NEWACCOUNT_CPU_STAKE = 0.1
 
 
 try:

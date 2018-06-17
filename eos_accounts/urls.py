@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.views.generic.base import TemplateView
-from buy.views import choose, submit_account_name, keys, submit_public_key, purchase, buy_action, webhook, success
+from buy.views import choose, submit_account_name, keys, submit_public_key, purchase, buy_action, webhook, success, check_progress
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name='buy/index.html'), name="home"),
@@ -30,5 +30,6 @@ urlpatterns = [
     path('account_not_available/<account_name>/', TemplateView.as_view(template_name='buy/account_not_available.html'), name="account_not_available"),
     
     path('success/', success, name='success'),
+    path('check_progress/', check_progress, name='check_progress'),
     
 ]

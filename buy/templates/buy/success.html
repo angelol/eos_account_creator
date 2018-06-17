@@ -4,8 +4,33 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<script>
 			$(function() {
+				check_progress();
 				
 			});
+			function check_progress() {
+				$.ajax({
+					url: "/check_progress/",
+					success: function(data) {
+						console.log(data);
+						if(data.purchase.account_created) {
+							console.log("account was created");
+							$(".account_created").show();
+							$(".payment_received").hide();
+							$(".please_wait").hide();
+						} else if(data.purchase.payment_received) {
+							$(".account_created").hide();
+							$(".payment_received").show();
+							$(".please_wait").hide();
+							setTimeout(check_progress, 5000);
+						} else {
+							$(".account_created").hide();
+							$(".payment_received").hide();
+							$(".please_wait").show();
+							setTimeout(check_progress, 5000);
+						}
+					}
+				});
+			}
 		</script>
 	</head>
 	<body>
@@ -125,9 +150,12 @@
 			}
 			</style></div>
 		</div>
-		<div class="payment_confirmed" style="display:none;">
+		<div class="payment_received" style="display:none;">
+			Your payment was received. Please stand by while we try to create your EOS account.
+		</div>
+		<div class="account_created" style="display:none;">
 			Thank you, it worked!<br />
-			Your EOS Account with the name: {{p.account_name}} was successfully created.
+			Your EOS Account with the name: {{purchase.account_name}} was successfully created.
 		</div>
 	</body>
 </html>
