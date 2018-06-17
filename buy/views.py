@@ -5,7 +5,8 @@ from django.http import HttpResponse
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from .view_helper import *
-from buy.models import CoinbaseEvent
+from .models import CoinbaseEvent, PriceData
+from .coinbase import *
     
 # Create your views here.
 def choose(request):
@@ -42,15 +43,26 @@ def submit_public_key(request):
 @require_public_key
 def purchase(request):
     # purchase, created = Purchase.objects.get_or_create(account_name=request.account_name, defaults=dict( public_key=request.public_key))
+    
     return render(request, "buy/purchase.html", {
         'account_name': request.account_name,
         'public_key': request.public_key,
+        'price_usd': get_account_price_usd(),
     })
     
 @require_account_name
 @require_public_key
 def buy_action(request):
-    pass
+    j = create_charge(request.account_name, request.public_key, get_account_price_usd())
+    hosted_url = j['data']['hosted_url']
+    p = Purchase.objects.create(
+        account_name=request.account_name, 
+        public_key=request.public_key, 
+        coinbase_charge=json.dumps(j),
+        coinbase_code=j['code'],
+    )
+    request.session['coinbase_code'] = j['code']
+    return redirect(hosted_url)
     
 @csrf_exempt
 def webhook(request):
@@ -67,5 +79,43 @@ def webhook(request):
             data=json.dumps(event['data']),
         )
     )
-    return HttpResponse("thanks")
     
+    if event['type'] == 'charge:confirmed':
+        metadata = event['data']['metadata']
+        public_key = metadata['public_key']
+        account_name = metadata['account_name']
+        code = event['data']['code']
+        p = Purchase.objects.get(
+            account_name=account_name,
+            public_key=public_key,
+            coinbase_code=code,
+        )
+        p.payment_received = True
+        p.save()
+        p.complete_purchase_and_save()
+        
+    
+    return HttpResponse("thanks")
+
+@require_account_name
+@require_public_key
+def success(request):
+    # p = Purchase.objects.get(
+    #     account_name=request.account_name, 
+    #     public_key=request.public_key,
+    #     # coinbase_code=request.session['coinbase_code'],
+    # )
+    return render(request, "buy/success.html", {
+        # 'purchase': p,
+    })
+
+@require_account_name
+@require_public_key
+def check_progress(request):
+    p = Purchase.objects.get(
+        account_name=request.account_name, 
+        public_key=request.public_key,
+        coinbase_code=request.session['coinbase_code'],
+    )
+    
+

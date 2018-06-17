@@ -28,7 +28,7 @@ SECRET_KEY = ''
 DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '7deadf03.ngrok.io']
-
+CANONICAL_BASE_URL = 'https://7deadf03.ngrok.io/'
 
 # Application definition
 
@@ -123,6 +123,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 ML = 512
 EOS_API_NODES = ['https://publicapi-mainnet.eosauthority.com', 'https://api.eosnewyork.io', 'https://node2.liquideos.com:443']
+NEWACCOUNT_RAM_KB = 4
 
 
 try:

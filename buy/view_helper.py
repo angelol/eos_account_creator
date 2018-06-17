@@ -1,7 +1,7 @@
 from django.conf import settings
 from functools import wraps
 from django.shortcuts import redirect
-from buy.models import Purchase
+from buy.models import Purchase, PriceData
 import hmac
 import hashlib
 import eosapi
@@ -41,6 +41,8 @@ def is_eos_account_available(account_name):
     except eosapi.exceptions.HttpAPIError:
         return True
         
+def get_account_price_usd():
+    return PriceData.ram_kb_usd() * settings.NEWACCOUNT_RAM_KB * 10
     
     
     

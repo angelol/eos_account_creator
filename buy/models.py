@@ -7,9 +7,16 @@ class Purchase(models.Model):
     account_name = models.CharField(max_length=12, primary_key=True)
     public_key = models.CharField(max_length=53)
     created_at = models.DateTimeField(auto_now_add=True)
+    payment_received = models.BooleanField(default=False)
+    account_created = models.BooleanField(default=False)
+    coinbase_charge = models.TextField()
+    coinbase_code = models.CharField(max_length=settings.ML)
     
     def __str__(self):
         return self.account_name
+        
+    def complete_purchase_and_save(self):
+        pass
         
 class CoinbaseEvent(models.Model):
     uuid = models.UUIDField(primary_key=True)

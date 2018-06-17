@@ -1,5 +1,15 @@
-{{account_name}}<br />
-{{public_key}}<br />
+<!DOCTYPE html>
+<html>
+    <head>
+	</head>
+	<body>
+		The EOS account name you have chosen is: {{account_name}}<br />
+Your public key is: {{public_key}}<br />
+The current price for the account creation service is: USD {{price_usd|floatformat:2}}<br />
+We accept Bitcoin, Bitcoin Cash, Ethereum and Litecoin. When clicking the button below, you will be redirected to our coinbase page for payment.
 <form action="/buy_action/" method="POST">
-	<button type="submit">Create EOS Account</button>
+	{% csrf_token %}
+	<button type="submit">Create EOS Account for USD {{price_usd|floatformat:2}}</button>
 </form>
+</body>
+</html>

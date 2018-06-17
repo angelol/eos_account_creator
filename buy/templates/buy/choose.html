@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,12 +16,31 @@
 				return choices(alphabet, 12);
 			}
 			
+			function is_valid_account_name(account_name) {
+				let re = new RegExp("^([a-z1-5]){12}$");
+				return re.test(account_name);
+			}
+			function set_valid(valid) {
+				let img_valid = $("img.valid");
+				let img_invalid = $("img.invalid");
+				if(valid) {
+					img_valid.show();
+					img_invalid.hide();
+				} else {
+					img_valid.hide();
+					img_invalid.show();
+				}
+			}
+			
 			$(function() {
 				$("#gen_random").click(function(event) { 
 					event.preventDefault();
 					$('input[name=account_name]').val(get_random_eos_name());
 				 });
-				
+				$('input[name=account_name]').keyup(function(event) {					
+					let account_name = $(this).val();
+					set_valid(is_valid_account_name(account_name));
+				});
 			});
 		</script>
 	</head>
@@ -31,7 +51,7 @@
 		</div>
 		<form action="/submit_account_name/" method="POST">
 			{% csrf_token %}
-			<label>Account Name: </label><input type="text" name="account_name"></input><button id="gen_random">I'm feeling lucky</button><br/>
+			<label>Account Name: </label><input type="text" name="account_name"></input><img style="display:none;" src="{% static "buy/icon-yes.svg" %}" alt="My image" class="valid"/><img style="display:none;" src="{% static "buy/icon-no.svg" %}" alt="My image" class="invalid"/><button id="gen_random">I'm feeling lucky</button><br/>
 			<button type="submit">Continue</button>
 		</form>
 	</body>
