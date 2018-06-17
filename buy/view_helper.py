@@ -5,10 +5,16 @@ from buy.models import Purchase, PriceData
 import hmac
 import hashlib
 import eosapi
+import uuid
+
+def set_uuid(request):
+    if not request.session.get('uuid'):
+        request.session['uuid'] = str(uuid.uuid4())
 
 def require_account_name(func):
     @wraps(func)
     def inner(request, *args, **kwargs):
+        set_uuid(request)
         request.account_name = request.session.get('account_name')
         if request.account_name:
             return func(request, *args, **kwargs)
@@ -18,6 +24,7 @@ def require_account_name(func):
 def require_public_key(func):
     @wraps(func)
     def inner(request, *args, **kwargs):
+        set_uuid(request)
         request.public_key = request.session.get('public_key')
         if request.public_key:
             return func(request, *args, **kwargs)

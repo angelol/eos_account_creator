@@ -1,7 +1,8 @@
+{% extends "buy/base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-    <head>
+
+		{% block head %}
+		 	{{block.super}}
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<script>
 			function get_random_eos_name() {
@@ -43,8 +44,8 @@
 				});
 			});
 		</script>
-	</head>
-	<body>
+		{% endblock %}
+		{% block body %}
 		<h1>Please choose your EOS Account Name</h1>
 		<div>
 			EOS Account names must be exactly 12 characters long and consist of lower case characters and digits up until 5.
@@ -54,5 +55,4 @@
 			<label>Account Name: </label><input type="text" name="account_name"></input><img style="display:none;" src="{% static "buy/icon-yes.svg" %}" alt="My image" class="valid"/><img style="display:none;" src="{% static "buy/icon-no.svg" %}" alt="My image" class="invalid"/><button id="gen_random">I'm feeling lucky</button><br/>
 			<button type="submit">Continue</button>
 		</form>
-	</body>
-</html>
+		{% endblock %}

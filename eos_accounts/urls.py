@@ -16,10 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.views.generic.base import TemplateView
-from buy.views import choose, submit_account_name, keys, submit_public_key, purchase, buy_action, webhook, success, check_progress
+from buy.views import choose, submit_account_name, keys, submit_public_key, purchase, buy_action, webhook, success, check_progress, index
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='buy/index.html'), name="home"),
+    path('', index, name="index"),
     path('choose/', choose, name='choose'),
     path('submit_account_name/', submit_account_name, name='submit_account_name'),
     path('keys/', keys, name='keys'),

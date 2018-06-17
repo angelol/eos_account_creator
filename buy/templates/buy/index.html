@@ -1,8 +1,23 @@
-<!DOCTYPE html>
-<html>
-    <head>
-	</head>
-	<body>
+{% extends "buy/base.html" %}
+{% block body %}
 	<a href="/choose/">Create EOS Account</a>
-	</body>
+	
+	<div class="table-responsive">
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>Created at</th><th>Account Name</th><th>Payment Received?</th><th>Account Created?</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for p in purchases %}
+				<tr>
+					<td>{{p.created_at}}</td><td>{{p.account_name}}</td><td>{{p.payment_received}}</td><td>{{p.account_created}}</td>
+				</tr>
+			{% endfor %}
+			
+		</tbody>
+	</table>
+	</div>
+{% endblock %}
 </html>

@@ -11,6 +11,7 @@ class Purchase(models.Model):
     account_created = models.BooleanField(default=False)
     coinbase_charge = models.TextField()
     coinbase_code = models.CharField(max_length=settings.ML)
+    user_uuid = models.UUIDField(null=True)
     
     def __str__(self):
         return self.account_name

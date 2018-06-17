@@ -1,7 +1,6 @@
-<!DOCTYPE html>
-<html>
-    <head>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+{% extends "buy/base.html" %}
+	{% block head %}
+		{{block.super}}
 		<script src="https://cdn.jsdelivr.net/npm/eosjs-ecc@4.0.1/dist/eosjs-ecc.js"></script>
         <script>
 			function genkey() {
@@ -34,8 +33,8 @@
 			
 			
 		</script>
-	</head>
-	<body>
+	{% endblock %}
+	{% block body %}
 		<div>
 			Your chosen EOS Account Name is: <span id="chosen_name">{{account_name}}</span> <a href="/choose/">Change</a>
 		</div>
@@ -57,5 +56,4 @@
 
 			<button type="submit">Continue</button>
 		</form>
-	</body>
-</html>
+	{% endblock %}
