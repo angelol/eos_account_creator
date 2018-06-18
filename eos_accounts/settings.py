@@ -121,6 +121,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/django/static/'
 ML = 512
 EOS_API_NODES = ['https://publicapi-mainnet.eosauthority.com', 'https://api.eosnewyork.io', 'https://node2.liquideos.com:443']
 NEWACCOUNT_RAM_KB = 4
