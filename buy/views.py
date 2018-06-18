@@ -8,7 +8,7 @@ from .view_helper import *
 from .models import CoinbaseEvent, PriceData
 from .coinbase import *
 from django.http import JsonResponse
-    
+from django.utils import timezone
     
 def index(request):
     user_uuid = request.session.get('uuid')
@@ -106,6 +106,7 @@ def webhook(request):
         )
         if not p.payment_received:
             p.payment_received = True
+            p.payment_received_at = timezone.now()
             p.save()
         if not p.account_created:
             p.complete_purchase_and_save()

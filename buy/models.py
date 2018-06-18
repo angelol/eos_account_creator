@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 import eosapi
+import time
 
 # Create your models here.
 class Purchase(models.Model):
@@ -8,6 +9,7 @@ class Purchase(models.Model):
     public_key = models.CharField(max_length=53)
     created_at = models.DateTimeField(auto_now_add=True)
     payment_received = models.BooleanField(default=False)
+    payment_received_at = models.DateTimeField(null=True)
     account_created = models.BooleanField(default=False)
     coinbase_charge = models.TextField()
     coinbase_code = models.CharField(max_length=settings.ML)
@@ -19,8 +21,10 @@ class Purchase(models.Model):
     def complete_purchase_and_save(self):
         import subprocess
         subprocess.run(["/usr/bin/env", "node", "buy/gen_account.js", self.account_name, self.public_key], check=True)
-        self.account_created = True
-        self.save()
+        time.sleep(1)
+        if did_registration_work(self.account_name, self.public_key):
+            self.account_created = True
+            self.save()
         
     def as_json(self):
         return {

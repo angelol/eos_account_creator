@@ -36,6 +36,14 @@ def is_eos_account_available(account_name):
         return False
     except eosapi.exceptions.HttpAPIError:
         return True
+
+def did_registration_work(account_name, public_key):
+    c = eosapi.Client(nodes=settings.EOS_API_NODES)
+    try:
+        x = c.get_account(account_name)
+        return public_key == x['permissions'][0]['required_auth']['keys'][0]['key']
+    except eosapi.exceptions.HttpAPIError:
+        return False
         
 def get_account_price_usd():
     return (PriceData.ram_kb_usd() * settings.NEWACCOUNT_RAM_KB + (settings.NEWACCOUNT_NET_STAKE + settings.NEWACCOUNT_CPU_STAKE) * PriceData.price_eos_usd())*3
