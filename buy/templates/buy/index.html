@@ -27,29 +27,7 @@
 	</script>
 	
 	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script>
-	
-	$(function() {
-		$('a.delete').click(function(event) {
-			event.preventDefault();
-			let account_name = $(this).data('id');
-			console.log(account_name);
-			$.ajax({
-				url: '/delete/',
-				method: 'POST',
-				data: {
-					'account_name': account_name,
-					'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
-				},
-				success: function(data) {
-					window.location.reload();
-				}
-			});
-		});
-		
-	});
-	</script>
+
 {% endblock %}
 {% block body %}
 	
@@ -67,13 +45,13 @@
 	<table class="table table-bordered">
 		<thead>
 			<tr>
-				<th>Created at</th><th>Account Name</th><th>Payment Received?</th><th>Account Created?</th><th>&nbsp;</th>
+				<th>Created at</th><th>Account Name</th><th>Payment Received?</th><th>Account Created?</th>
 			</tr>
 		</thead>
 		<tbody>
 			{% for p in purchases %}
 				<tr>
-					<td>{{p.created_at}}</td><td>{{p.account_name}}</td><td>{{p.payment_received}}</td><td>{{p.account_created}}</td><td><a href="#" class="delete btn btn-danger" data-id="{{p.account_name}}">delete</a></td>
+					<td>{{p.created_at}}</td><td>{{p.account_name}}</td><td>{{p.payment_received}}</td><td>{{p.account_created}}</td>
 				</tr>
 			{% endfor %}
 		</tbody>
@@ -87,9 +65,9 @@
 		<h4>How much does it cost?</h4>
 		<p>The cost of one EOS account is currently USD {{price_usd|floatformat:2}}. Included in the price are 0.2 staked EOS that will be transferred to your control and 4 KB of RAM.</p>
 		<h4>Which payment methods do you accept?</h4>
-		<p>Currently, only cryptocurrency payment is accepted. We accept Bitcoin, Bitcoin Cash, Ethereum and Litecoin. Fiat payment via credit card will be integrated if there is enough demand.</p>
+		<p>Currently, only cryptocurrency payment is accepted. We accept Bitcoin, Bitcoin Cash, Ethereum and Litecoin. Fiat payment via credit card will be integrated if there is enough demand. Please understand that we can currently only offer this service to customers outside of the EU (european union).</p>
 		<h4>Is this website secure?</h4>
-		<p>I built this website because it's a useful service for the EOS community. And of course, I make a small amount of profit with every purchase. If you have questions, please get in touch through our <a href="https://t.me/eos_account_creator">telegram group</a>.</p>
+		<p>I built this website because it's a useful service for the EOS community. If you have questions, please get in touch through our <a href="https://t.me/eos_account_creator">telegram group</a>.</p>
 	</div>
 	<footer>
 		Imprint:<br />
