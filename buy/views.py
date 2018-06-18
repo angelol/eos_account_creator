@@ -104,9 +104,11 @@ def webhook(request):
             public_key=public_key,
             coinbase_code=code,
         )
-        p.payment_received = True
-        p.save()
-        p.complete_purchase_and_save()
+        if not p.payment_received:
+            p.payment_received = True
+            p.save()
+        if not p.account_created:
+            p.complete_purchase_and_save()
         
     
     return HttpResponse("thanks")
