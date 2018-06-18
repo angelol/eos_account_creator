@@ -99,17 +99,20 @@ def webhook(request):
         public_key = metadata['public_key']
         account_name = metadata['account_name']
         code = event['data']['code']
-        p = Purchase.objects.get(
-            account_name=account_name,
-            public_key=public_key,
-            coinbase_code=code,
-        )
-        if not p.payment_received:
-            p.payment_received = True
-            p.payment_received_at = timezone.now()
-            p.save()
-        if not p.account_created:
-            p.complete_purchase_and_save()
+        try:
+            p = Purchase.objects.get(
+                account_name=account_name,
+                public_key=public_key,
+                coinbase_code=code,
+            )
+            if not p.payment_received:
+                p.payment_received = True
+                p.payment_received_at = timezone.now()
+                p.save()
+            if not p.account_created:
+                p.complete_purchase_and_save()
+        except Purchase.DoesNotExist:
+            pass
         
     
     return HttpResponse("thanks")
