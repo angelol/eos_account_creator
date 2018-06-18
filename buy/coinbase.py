@@ -1,6 +1,8 @@
 from django.conf import settings
 import requests
 from urllib.parse import urljoin
+import hmac
+import hashlib
 
 def create_charge(account_name, public_key, price_usd):
     url = 'https://api.commerce.coinbase.com/charges'

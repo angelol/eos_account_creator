@@ -2,8 +2,6 @@ from django.conf import settings
 from functools import wraps
 from django.shortcuts import redirect
 from buy.models import Purchase, PriceData
-import hmac
-import hashlib
 import eosapi
 import uuid
 
