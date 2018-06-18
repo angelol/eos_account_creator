@@ -26,6 +26,12 @@ SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+if os.path.exists(safe_join(BASE_DIR, 'eos_accounts/live.py')):
+    # if this file exists, we're on the live server
+    DEBUG = False
+    LIVE = True
+    STAGING = False
+
 
 ALLOWED_HOSTS = ['localhost', 'eos-account-creator.com']
 CANONICAL_BASE_URL = 'https://eos-account-creator.com/'
