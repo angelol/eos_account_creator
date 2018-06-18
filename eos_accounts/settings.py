@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 from django.utils._os import safe_join
+import raven
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'raven.contrib.django.raven_compat',
     'buy',
 ]
 
@@ -123,7 +125,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
@@ -134,7 +135,6 @@ EOS_API_NODES = ['https://publicapi-mainnet.eosauthority.com', 'https://api.eosn
 NEWACCOUNT_RAM_KB = 4
 NEWACCOUNT_NET_STAKE = 0.1
 NEWACCOUNT_CPU_STAKE = 0.1
-
 
 try:
     from eos_accounts.local_settings import *
