@@ -29,6 +29,8 @@ def choose(request):
 def submit_account_name(request):
     account_name = request.POST['account_name']
     # test if valid eos account name
+    if not is_valid_account_name(account_name):
+        return redirect('account_name_invalid', account_name=account_name)
     
     # check if eos account name is still free
     if not is_eos_account_available(account_name):

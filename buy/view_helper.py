@@ -4,6 +4,7 @@ from django.shortcuts import redirect
 from buy.models import Purchase, PriceData
 import eosapi
 import uuid
+import re
 
 def set_uuid(request):
     if not request.session.get('uuid'):
@@ -28,6 +29,9 @@ def require_public_key(func):
             return func(request, *args, **kwargs)
         return redirect("/keys/")        
     return inner
+    
+def is_valid_account_name(account_name):
+    return re.match("^([a-z1-5]){12}$", account_name)
     
 def is_eos_account_available(account_name):
     c = eosapi.Client(nodes=settings.EOS_API_NODES)

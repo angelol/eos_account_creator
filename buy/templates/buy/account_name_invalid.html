@@ -1,0 +1,9 @@
+{% extends "buy/base.html" %}
+{% load static %}
+
+		{% block head %}
+		 	{{block.super}}
+		{% endblock %}
+	{% block body %}
+	Sorry, the account {{account_name}} is not a valid account name. EOS account names must be exactly 12 characters long and consist only of lower case letters and number from 1 to 5. <a href="/choose/">Please choose a different account name</a>.
+	{% endblock %}

@@ -28,6 +28,8 @@ urlpatterns = [
     path('buy_action/', buy_action, name='buy_action'),
     path('webhook/', webhook, name='webhook'),
     path('account_not_available/<account_name>/', TemplateView.as_view(template_name='buy/account_not_available.html'), name="account_not_available"),
+    path('account_name_invalid/<account_name>/', TemplateView.as_view(template_name='buy/account_name_invalid.html'), name="account_name_invalid"),
+    
     
     path('success/', success, name='success'),
     path('check_progress/', check_progress, name='check_progress'),
