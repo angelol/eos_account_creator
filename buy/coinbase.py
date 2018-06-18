@@ -12,7 +12,7 @@ def create_charge(account_name, public_key, price_usd):
     }    
     payload = {
         "name": "EOS Account",
-        "description": "EOS Account creation service",
+        "description": "Your personal EOS account: %s" % account_name,
         "local_price": {
             "amount": "%.2f" % price_usd,
             "currency": "USD"
