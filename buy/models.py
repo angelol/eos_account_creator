@@ -22,10 +22,18 @@ class Purchase(models.Model):
         import subprocess
         subprocess.run(["/usr/bin/env", "node", "buy/gen_account.js", self.account_name, self.public_key], check=True)
         time.sleep(1)
-        if did_registration_work(self.account_name, self.public_key):
+        if self.did_registration_work():
             self.account_created = True
             self.save()
-        
+
+    def did_registration_work(self):
+        c = eosapi.Client(nodes=settings.EOS_API_NODES)
+        try:
+            x = c.get_account(self.account_name)
+            return self.public_key == x['permissions'][0]['required_auth']['keys'][0]['key']
+        except eosapi.exceptions.HttpAPIError:
+            return False
+                    
     def as_json(self):
         return {
             'account_name': self.account_name,
