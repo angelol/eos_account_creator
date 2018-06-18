@@ -29,6 +29,9 @@
 							$(".please_wait").show();
 							setTimeout(check_progress, 5000);
 						}
+					},
+					error: function() {
+						setTimeout(check_progress, 5000);
 					}
 				});
 			}
