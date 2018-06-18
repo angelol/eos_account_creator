@@ -1,6 +1,6 @@
-<!DOCTYPE html>
-<html>
-    <head>
+{% extends "buy/base.html" %}
+	{% block head %}
+		{{block.super}}
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<script>
 			$(function() {
@@ -36,8 +36,8 @@
 				});
 			}
 		</script>
-	</head>
-	<body>
+	{% endblock %}
+	{% block body %}
 		<div class="please_wait">
 			Please wait while we await confirmation of your payment…
 			<div class="lds-css ng-scope">
@@ -161,5 +161,8 @@
 			Thank you, it worked!<br />
 			Your EOS Account with the name: {{purchase.account_name}} was successfully created.
 		</div>
-	</body>
-</html>
+		
+		<div>
+			If you have any questions, please join our <a href="https://t.me/eos_account_creator">telegram group</a>.
+		</div>
+	{% endblock %}
