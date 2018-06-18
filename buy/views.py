@@ -13,7 +13,7 @@ from django.utils import timezone
 def index(request):
     user_uuid = request.session.get('uuid')
     if user_uuid:
-        purchases = Purchase.objects.filter(user_uuid=user_uuid)
+        purchases = Purchase.objects.filter(user_uuid=user_uuid).order_by('-created_at')
     else:
         purchases = []
     return render(request, "buy/index.html", {
