@@ -23,8 +23,9 @@
 			
 				
 				$('input[name=public_key]').keyup(function() {
-					set_valid($(this).parent(), is_valid_public_key($(this).val()));
+					validate_form();
 				});
+				validate_form();
 			});
 			
 			function is_valid_public_key(key) {
@@ -38,7 +39,12 @@
 					form.find('button[type=submit]').prop("disabled", true);
 				}
 			}
-			
+			function validate_form() {
+				let form = $('form.provided');
+				let input = form.find('input[name=public_key]');
+				let valid = is_valid_public_key(input.val());
+				set_valid(form, valid);
+			}
 			
 			
 			
