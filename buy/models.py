@@ -58,7 +58,7 @@ class CoinbaseEvent(models.Model):
     data = models.TextField()
     
     def process(self):
-        if event['type'] == 'charge:confirmed':
+        if self.event_type == 'charge:confirmed':
             data = json.loads(self.data)
             metadata = data['metadata']
             public_key = metadata['public_key']
