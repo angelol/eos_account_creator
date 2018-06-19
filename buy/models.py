@@ -14,9 +14,14 @@ class Purchase(models.Model):
     coinbase_charge = models.TextField()
     coinbase_code = models.CharField(max_length=settings.ML)
     user_uuid = models.UUIDField(null=True)
+    price_cents = models.IntegerField(null=True)
+    currency = models.CharField(max_length=settings.ML)
     
     def __str__(self):
         return self.account_name
+        
+    def price_usd(self):
+        return self.price_cents/100.0
         
     def complete_purchase_and_save(self):
         import subprocess
@@ -86,3 +91,13 @@ class PriceData(models.Model):
     def price_eos_usd():
         p = PriceData.objects.get(id=1)
         return p.eos_usd
+        
+class StripeCharge(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    price_cents = models.IntegerField()
+    currency = models.CharField(max_length=settings.ML)
+    response = models.TextField()
+    user_uuid = models.UUIDField(null=True)
+    purchase = models.ForeignKey(Purchase, on_delete=models.SET_NULL, null=True)
+    
+    

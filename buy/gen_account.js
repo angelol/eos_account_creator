@@ -4,7 +4,7 @@ let fs = require('fs');
 let httpEndpoint = 'https://publicapi-mainnet.eosauthority.com';
 let chainId = 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906';
 
-creator = 'accountcreat';
+let creator = 'accountcreat';
 
 
 let newaccount = process.argv[2];

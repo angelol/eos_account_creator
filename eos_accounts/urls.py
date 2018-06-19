@@ -34,6 +34,7 @@ urlpatterns = [
     path('success/', success, name='success'),
     path('check_progress/', check_progress, name='check_progress'),
     path('privacy_policy/', TemplateView.as_view(template_name='buy/privacy_policy.html')),
-    path('delete/', delete, name='delete'),
+    path('stripe_charge/', stripe_charge, name='stripe_charge'),
+    path('card_declined/<stripe_charge>/', card_declined, name='card_declined')
     
 ]

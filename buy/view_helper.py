@@ -29,7 +29,21 @@ def require_public_key(func):
             return func(request, *args, **kwargs)
         return redirect("/keys/")        
     return inner
-    
+
+def require_purchase(func):
+    @wraps(func)
+    def inner(request, *args, **kwargs):
+        try:
+            request.purchase = Purchase.objects.get(
+                account_name = request.account_name,
+                user_uuid = request.session['uuid'],
+            )
+            return func(request, *args, **kwargs)
+        except Purchase.DoesNotExist:
+            return redirect("/keys/")        
+    return inner
+
+
 def is_valid_account_name(account_name):
     return re.match("^([a-z1-5]){12}$", account_name)
     
@@ -42,7 +56,8 @@ def is_eos_account_available(account_name):
         return True
         
 def get_account_price_usd():
-    return (PriceData.ram_kb_usd() * settings.NEWACCOUNT_RAM_KB + (settings.NEWACCOUNT_NET_STAKE + settings.NEWACCOUNT_CPU_STAKE) * PriceData.price_eos_usd())*3
-    
-    
+    return (PriceData.ram_kb_usd() * settings.NEWACCOUNT_RAM_KB + (settings.NEWACCOUNT_NET_STAKE + settings.NEWACCOUNT_CPU_STAKE) * PriceData.price_eos_usd())*3 
+
+def get_account_price_usd_cents():
+    return round(get_account_price_usd() * 100)
     
