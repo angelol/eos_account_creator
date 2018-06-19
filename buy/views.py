@@ -77,7 +77,7 @@ def purchase(request):
 @require_public_key
 @require_purchase
 def buy_action(request):
-    j = create_charge(request.account_name, request.public_key, request.purchase.price_cents)
+    j = create_charge(request.account_name, request.public_key, request.purchase.price_usd())
     hosted_url = j['data']['hosted_url']
     request.session['coinbase_code'] = j['data']['code']
     return redirect(hosted_url)
