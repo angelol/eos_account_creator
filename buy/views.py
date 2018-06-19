@@ -81,6 +81,7 @@ def buy_action(request):
     hosted_url = j['data']['hosted_url']
     request.session['coinbase_code'] = j['data']['code']
     request.purchase.coinbase_code = j['data']['code']
+    request.purchase.coinbase = timezone.now()
     request.purchase.save()
     return redirect(hosted_url)
     
@@ -122,7 +123,15 @@ def check_progress(request):
         'purchase': request.purchase.as_json(),
     })
 
-
+@require_POST
+@require_account_name
+@require_public_key
+@require_purchase
+def stripe(request):
+    request.purchase.stripe = timezone.now()
+    request.purchase.save()
+    return HttpResponse("ok")
+    
 @require_POST
 @require_account_name
 @require_public_key

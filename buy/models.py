@@ -18,6 +18,8 @@ class Purchase(models.Model):
     user_uuid = models.UUIDField(null=True)
     price_cents = models.IntegerField(null=True)
     currency = models.CharField(max_length=settings.ML)
+    stripe = models.DateTimeField(null=True)
+    coinbase = models.DateTimeField(null=True)
     
     def __str__(self):
         return self.account_name

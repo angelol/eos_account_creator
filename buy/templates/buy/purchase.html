@@ -70,6 +70,13 @@
 			}
 			
 			function pay_creditcard(event) {
+				$.ajax({
+					url: '/stripe/',
+					method: 'POST',
+					data: {
+						'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+					}
+				});
 				handler.open({
 					name: "EOS Account Creator",
 					description: "Your EOS Account "+ $("input[name=account_name]").val(),
