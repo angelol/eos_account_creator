@@ -88,7 +88,7 @@ def webhook(request):
     
     j = json.loads(request.body.decode('utf-8'))
     event = j['event']
-    CoinbaseEvent.objects.update_or_create(
+    c, created = CoinbaseEvent.objects.update_or_create(
         uuid=event['id'],
         defaults=dict(
             event_type=event['type'],
@@ -98,25 +98,7 @@ def webhook(request):
         )
     )
     
-    if event['type'] == 'charge:confirmed':
-        metadata = event['data']['metadata']
-        public_key = metadata['public_key']
-        account_name = metadata['account_name']
-        code = event['data']['code']
-        try:
-            p = Purchase.objects.get(
-                account_name=account_name,
-                public_key=public_key,
-                coinbase_code=code,
-            )
-            if not p.payment_received:
-                p.payment_received = True
-                p.payment_received_at = timezone.now()
-                p.save()
-            if not p.account_created:
-                p.complete_purchase_and_save()
-        except Purchase.DoesNotExist:
-            pass
+    c.process()
         
     
     return HttpResponse("thanks")

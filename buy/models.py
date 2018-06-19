@@ -2,6 +2,7 @@ from django.conf import settings
 from django.db import models
 import eosapi
 import time
+import json
 
 # Create your models here.
 class Purchase(models.Model):
@@ -55,6 +56,28 @@ class CoinbaseEvent(models.Model):
     locally_created_at = models.DateTimeField(auto_now_add=True)
     api_version = models.CharField(max_length=settings.ML)
     data = models.TextField()
+    
+    def process(self):
+        if event['type'] == 'charge:confirmed':
+            data = json.loads(self.data)
+            metadata = data['metadata']
+            public_key = metadata['public_key']
+            account_name = metadata['account_name']
+            code = data['code']
+            try:
+                p = Purchase.objects.get(
+                    account_name=account_name,
+                    public_key=public_key,
+                    coinbase_code=code,
+                )
+                if not p.payment_received:
+                    p.payment_received = True
+                    p.payment_received_at = timezone.now()
+                    p.save()
+                if not p.account_created:
+                    p.complete_purchase_and_save()
+            except Purchase.DoesNotExist:
+                pass
     
 class PriceData(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
