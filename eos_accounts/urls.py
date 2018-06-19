@@ -19,6 +19,7 @@ from django.views.generic.base import TemplateView
 from buy.views import *
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
     path('', index, name="index"),
     path('choose/', choose, name='choose'),
     path('submit_account_name/', submit_account_name, name='submit_account_name'),
