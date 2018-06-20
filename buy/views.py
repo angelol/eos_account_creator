@@ -52,7 +52,6 @@ def keys(request):
 def submit_public_key(request):
     public_key = request.POST['public_key']
     request.session['public_key'] = public_key
-    print("public_key: " + public_key)
     p, created = Purchase.objects.update_or_create(
         account_name=request.account_name, 
         defaults=dict(
