@@ -70,18 +70,27 @@ def submit_public_key(request):
 def purchase(request):
     return render(request, "buy/purchase.html", {
         'purchase': request.purchase,
+        'uuid': request.session['uuid'],
     })
-    
-@require_account_name
-@require_public_key
-@require_purchase
+
+
+@require_POST
 def buy_action(request):
-    j = create_charge(request.purchase.account_name, request.purchase.public_key, request.purchase.price_usd())
+    
+    purchase, created = Purchase.objects.update_or_create(
+        account_name=request.POST['account_name'], 
+        defaults=dict(
+            public_key=request.POST['public_key'], 
+            user_uuid=request.POST['uuid'],
+        )
+    )
+    
+    j = create_charge(purchase.account_name, purchase.public_key, purchase.price_usd())
     hosted_url = j['data']['hosted_url']
     request.session['coinbase_code'] = j['data']['code']
-    request.purchase.coinbase_code = j['data']['code']
-    request.purchase.coinbase = timezone.now()
-    request.purchase.save()
+    purchase.coinbase_code = j['data']['code']
+    purchase.coinbase = timezone.now()
+    purchase.save()
     return redirect(hosted_url)
     
 @csrf_exempt
@@ -132,11 +141,15 @@ def stripe(request):
     return HttpResponse("ok")
     
 @require_POST
-@require_account_name
-@require_public_key
-@require_purchase
 def stripe_charge(request):
     import stripe
+    request.purchase, created = Purchase.objects.update_or_create(
+        account_name=request.POST['account_name'], 
+        defaults=dict(
+            public_key=request.POST['public_key'], 
+            user_uuid=request.POST['uuid'],
+        )
+    )
     token = request.POST['token']
     stripe.api_key = settings.STRIPE_API_KEY
     charge = stripe.Charge.create(

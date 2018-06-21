@@ -26,7 +26,10 @@
 						method: 'POST',
 						data: {
 							'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
-							'token': token.id
+							'token': token.id,
+							'account_name': $("input[name=account_name]").val(),
+							'public_key': $("input[name=public_key]").val(),
+							'uuid': $("input[name=uuid]").val(),
 						},
 						success: function(data) {
 							console.log(JSON.stringify(data));
@@ -115,6 +118,9 @@ After successful payment, you will be redirected back here and we will create th
 	<input type="hidden" name="price" value="{{purchase.price_usd|floatformat:2}}" />
 	<input type="hidden" name="price_cents" value="{{purchase.price_cents}}" />
 	<input type="hidden" name="account_name" value="{{purchase.account_name}}" />
+	<input type="hidden" name="public_key" value="{{purchase.public_key}}" />
+	<input type="hidden" name="uuid" value="{{uuid}}" />
+
 	<button class="btn btn-primary" type="submit" disabled="disabled">Please choose a payment method to continue</button>
 </form>
 
