@@ -23,7 +23,7 @@ class PriceDataAdmin(admin.ModelAdmin):
 @admin.register(CoinbaseEvent)
 class CoinbaseEventAdmin(admin.ModelAdmin):
     list_display = ('created_at', 'code', 'event_type', 'code', 'account_name', 'public_key' )
-    
+    ordering = ('-created_at', )
     
     def code(self, instance):
         data = json.loads(instance.data)
