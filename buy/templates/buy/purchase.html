@@ -110,7 +110,7 @@ After successful payment, you will be redirected back here and we will create th
 	<div class="form-group">
 		<p>Please choose your payment option:</p>
 		<input type="radio" name="payment" value="creditcard" id="creditcard" checked="checked" /><label for="creditcard"> Credit Card</label><br />
-		<input type="radio" name="payment" value="crypto" id="crypto" disabled="disabled"/><label for="crypto"> Cryptocurrency (Bitcoin, Bitcoin Cash, Ethereum or Litecoin)<span style="color:red"><br/>Coinbase payments seems to have tech issues right now -> disabled. Please use credit card payment.</span></label>
+		<input type="radio" name="payment" value="crypto" id="crypto" disabled="disabled"/><label for="crypto"> Cryptocurrency (Bitcoin, Bitcoin Cash, Ethereum or Litecoin)<span style="color:red">Coinbase payments seems to have tech issues right now -> disabled. Please use credit card payment.</span></label>
 	</div>
 	<input type="hidden" name="price" value="{{purchase.price_usd|floatformat:2}}" />
 	<input type="hidden" name="price_cents" value="{{purchase.price_cents}}" />
