@@ -1,5 +1,6 @@
 from django.contrib import admin
-from buy.models import Purchase, PriceData
+from buy.models import Purchase, PriceData, CoinbaseEvent
+import json
 
 admin.site.disable_action('delete_selected')
 
@@ -17,3 +18,24 @@ class PriceDataAdmin(admin.ModelAdmin):
     
     def ram_kb_usd(self, instance):
         return PriceData.ram_kb_usd()
+        
+        
+@admin.register(CoinbaseEvent)
+class CoinbaseEventAdmin(admin.ModelAdmin):
+    list_display = ('created_at', 'code', 'event_type', 'code', 'account_name', 'public_key' )
+    
+    
+    def code(self, instance):
+        data = json.loads(instance.data)
+        return data['code']
+        
+    def public_key(self, instance):
+        data = json.loads(instance.data)
+        metadata = data['metadata']
+        return metadata['public_key']
+
+    def account_name(self, instance):
+        data = json.loads(instance.data)
+        metadata = data['metadata']
+        return metadata['account_name']
+        
