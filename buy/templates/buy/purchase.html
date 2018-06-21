@@ -19,7 +19,6 @@
 				  token: function(token) {
 				    // You can access the token ID with `token.id`.
 				    // Get the token ID to your server-side code for use.
-				console.log("GOt token.id: "+ token.id);
 				xToken = token;
 					$.ajax({
 						url: '/stripe_charge/',
@@ -53,10 +52,8 @@
 				let form = $("form");
 				$("button").prop("disabled", false);
 				let value = $(e).val();
-				console.log("value: " + value);
 				
 				let price = $("input[name=price]").val();
-				console.log("Price: " + price);
 				if(value == 'creditcard') {
 					text = 'Create EOS Account and pay USD ' + price + ' with credit card';
 					submit_fun = pay_creditcard;
@@ -113,7 +110,7 @@ After successful payment, you will be redirected back here and we will create th
 	<div class="form-group">
 		<p>Please choose your payment option:</p>
 		<input type="radio" name="payment" value="creditcard" id="creditcard" /><label for="creditcard"> Credit Card</label><br />
-		<input type="radio" name="payment" value="crypto" id="crypto" /><label for="crypto"> Cryptocurrency (Bitcoin, Bitcoin Cash, Ethereum or Litecoin)</label>
+		<input type="radio" name="payment" value="crypto" id="crypto" disabled="disabled"/><label for="crypto"> Cryptocurrency (Bitcoin, Bitcoin Cash, Ethereum or Litecoin)<span style="color:red">Coinbase payments seems to have tech issues right now -> disabled. Please use credit card payment.</span></label>
 	</div>
 	<input type="hidden" name="price" value="{{purchase.price_usd|floatformat:2}}" />
 	<input type="hidden" name="price_cents" value="{{purchase.price_cents}}" />
