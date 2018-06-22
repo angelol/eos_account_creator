@@ -50,12 +50,16 @@ def keys(request):
     
 @require_account_name
 def submit_public_key(request):
-    public_key = request.POST['public_key']
-    request.session['public_key'] = public_key
+    active_key = request.POST['active_key']
+    owner_key = request.POST['owner_key']
+    request.session['active_key'] = active_key
+    request.session['owner_key'] = active_key
+
     p, created = Purchase.objects.update_or_create(
         account_name=request.account_name, 
         defaults=dict(
-            public_key=public_key, 
+            owner_key=owner_key, 
+            active_key=active_key, 
             user_uuid=request.session['uuid'],
             price_cents=get_account_price_usd_cents(),
             currency='usd',
@@ -65,7 +69,7 @@ def submit_public_key(request):
     return redirect("/purchase/")
     
 @require_account_name
-@require_public_key
+@require_public_keys
 @require_purchase
 def purchase(request):
     return render(request, "buy/purchase.html", {
@@ -76,16 +80,16 @@ def purchase(request):
 
 @require_POST
 def buy_action(request):
-    
     purchase, created = Purchase.objects.update_or_create(
         account_name=request.POST['account_name'], 
         defaults=dict(
-            public_key=request.POST['public_key'], 
+            owner_key=request.POST['owner_key'], 
+            active_key=request.POST['active_key'], 
             user_uuid=request.POST['uuid'],
         )
     )
     
-    j = create_charge(purchase.account_name, purchase.public_key, purchase.price_usd())
+    j = create_charge(purchase.account_name, purchase.owner_key, purchase.active_key, purchase.price_usd())
     hosted_url = j['data']['hosted_url']
     request.session['coinbase_code'] = j['data']['code']
     purchase.coinbase_code = j['data']['code']
@@ -115,7 +119,7 @@ def webhook(request):
     return HttpResponse("thanks")
 
 @require_account_name
-@require_public_key
+@require_public_keys
 @require_purchase
 def success(request):
     return render(request, "buy/success.html", {
@@ -124,7 +128,7 @@ def success(request):
 
 @csrf_exempt
 @require_account_name
-@require_public_key
+@require_public_keys
 @require_purchase
 def check_progress(request):
     return JsonResponse({
@@ -133,7 +137,7 @@ def check_progress(request):
 
 @require_POST
 @require_account_name
-@require_public_key
+@require_public_keys
 @require_purchase
 def stripe(request):
     request.purchase.stripe = timezone.now()
@@ -146,7 +150,8 @@ def stripe_charge(request):
     request.purchase, created = Purchase.objects.update_or_create(
         account_name=request.POST['account_name'], 
         defaults=dict(
-            public_key=request.POST['public_key'], 
+            owner_key=request.POST['owner_key'], 
+            active_key=request.POST['active_key'], 
             user_uuid=request.POST['uuid'],
         )
     )
@@ -159,7 +164,8 @@ def stripe_charge(request):
         source=token,
         metadata={
             'account_name': request.purchase.account_name,
-            'public_key': request.purchase.public_key,
+            'owner_key': request.purchase.owner_key,
+            'active_key': request.purchase.active_key,
         },
     )
     sc = StripeCharge.objects.create(

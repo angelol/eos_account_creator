@@ -7,8 +7,9 @@ import json
 
 # Create your models here.
 class Purchase(models.Model):
-    account_name = models.CharField(max_length=12, primary_key=True)
-    public_key = models.CharField(max_length=53)
+    account_name = models.CharField(max_length=12, primary_key=True)    
+    owner_key = models.CharField(max_length=53)
+    active_key = models.CharField(max_length=53)
     created_at = models.DateTimeField(auto_now_add=True)
     payment_received = models.BooleanField(default=False)
     payment_received_at = models.DateTimeField(null=True)
@@ -29,7 +30,7 @@ class Purchase(models.Model):
         
     def complete_purchase_and_save(self):
         import subprocess
-        subprocess.run(["/usr/bin/env", "node", "buy/gen_account.js", self.account_name, self.public_key], check=True)
+        subprocess.run(["/usr/bin/env", "node", "buy/gen_account.js", self.account_name, self.owner_key, self.active_key], check=True)
         time.sleep(1)
         if self.did_registration_work():
             self.account_created = True
@@ -39,14 +40,22 @@ class Purchase(models.Model):
         c = eosapi.Client(nodes=settings.EOS_API_NODES)
         try:
             x = c.get_account(self.account_name)
-            return self.public_key == x['permissions'][0]['required_auth']['keys'][0]['key']
+            for p in x['permissions']:
+                if p['perm_name'] == 'active':
+                    if p['required_auth']['keys'][0]['key'] != self.active_key:
+                        return False
+                if p['perm_name'] == 'owner':
+                    if p['required_auth']['keys'][0]['key'] != self.owner_key:
+                        return False
+            return True
         except eosapi.exceptions.HttpAPIError:
             return False
                     
     def as_json(self):
         return {
             'account_name': self.account_name,
-            'public_key': self.public_key,
+            'owner_key': self.owner_key,
+            'active_key': self.active_key,
             'coinbase_code': self.coinbase_code,
             'payment_received': self.payment_received,
             'account_created': self.account_created,
@@ -64,12 +73,10 @@ class CoinbaseEvent(models.Model):
         if self.event_type == 'charge:confirmed':
             data = json.loads(self.data)
             metadata = data['metadata']
-            public_key = metadata['public_key']
             account_name = metadata['account_name']
             code = data['code']
             p = Purchase.objects.get(
                 account_name=account_name,
-                public_key=public_key,
                 coinbase_code=code,
             )
             if not p.payment_received:

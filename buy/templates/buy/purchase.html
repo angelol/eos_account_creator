@@ -28,7 +28,8 @@
 							'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
 							'token': token.id,
 							'account_name': $("input[name=account_name]").val(),
-							'public_key': $("input[name=public_key]").val(),
+							'owner_key': $("input[name=owner_key]").val(),
+							'active_key': $("input[name=active_key]").val(),
 							'uuid': $("input[name=uuid]").val(),
 						},
 						success: function(data) {
@@ -99,7 +100,9 @@
 	{% block body %}
 	<div class="shadow p-3 mb-5 bg-white rounded">
 		<p>The EOS account name you have chosen is: <b>{{purchase.account_name}}</b><br />
-Your public key is: <b>{{purchase.public_key}}</b><br />
+Your owner key is: <b>{{purchase.owner_key}}</b><br />
+Your active key is: <b>{{purchase.active_key}}</b><br />
+
 The current price for the account creation service is: USD {{purchase.price_usd|floatformat:2}}<br />
 After successful payment, you will be redirected back here and we will create the EOS account for you. In case of problems, your payment will be refunded.</p>
 <form action="/buy_action/" method="POST">
@@ -118,7 +121,8 @@ After successful payment, you will be redirected back here and we will create th
 	<input type="hidden" name="price" value="{{purchase.price_usd|floatformat:2}}" />
 	<input type="hidden" name="price_cents" value="{{purchase.price_cents}}" />
 	<input type="hidden" name="account_name" value="{{purchase.account_name}}" />
-	<input type="hidden" name="public_key" value="{{purchase.public_key}}" />
+	<input type="hidden" name="owner_key" value="{{purchase.owner_key}}" />
+	<input type="hidden" name="active_key" value="{{purchase.active_key}}" />
 	<input type="hidden" name="uuid" value="{{uuid}}" />
 
 	<button class="btn btn-primary" type="submit" disabled="disabled">Please choose a payment method to continue</button>

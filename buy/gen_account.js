@@ -8,7 +8,8 @@ let creator = 'accountcreat';
 
 
 let newaccount = process.argv[2];
-let public_key = process.argv[3];
+let owner_key = process.argv[3];
+let active_key = process.argv[4];
 
 var secret = fs.readFileSync('buy/key.txt', {encoding: 'utf8'});
 let keyProvider = [secret];
@@ -18,8 +19,8 @@ eos.transaction(tr => {
   tr.newaccount({
     creator: creator,
     name: newaccount,
-    owner: public_key,
-    active: public_key
+    owner: owner_key,
+    active: active_key
   })
   tr.buyrambytes({
     payer: creator,
