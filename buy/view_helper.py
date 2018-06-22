@@ -20,12 +20,13 @@ def require_account_name(func):
         return redirect("/choose/")        
     return inner
 
-def require_public_key(func):
+def require_public_keys(func):
     @wraps(func)
     def inner(request, *args, **kwargs):
         set_uuid(request)
-        request.public_key = request.session.get('public_key')
-        if request.public_key:
+        request.owner_key = request.session.get('owner_key')
+        request.active_key = request.session.get('active_key')
+        if request.owner_key and request.active_key:
             return func(request, *args, **kwargs)
         return redirect("/keys/")        
     return inner

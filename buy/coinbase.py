@@ -4,7 +4,7 @@ from urllib.parse import urljoin
 import hmac
 import hashlib
 
-def create_charge(account_name, public_key, price_usd):
+def create_charge(account_name, owner_key, active_key, price_usd):
     url = 'https://api.commerce.coinbase.com/charges'
     headers = {
         'X-CC-Api-Key' : settings.COINBASE_API_KEY,
@@ -20,7 +20,8 @@ def create_charge(account_name, public_key, price_usd):
         "pricing_type": "fixed_price",
         "metadata": {
             "account_name": account_name,
-            "public_key": public_key,
+            "owner_key": owner_key,
+            "active_key": active_key
         },
         "redirect_url": urljoin(settings.CANONICAL_BASE_URL, '/success/')
     }
