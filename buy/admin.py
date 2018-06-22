@@ -30,17 +30,25 @@ class CoinbaseEventAdmin(admin.ModelAdmin):
         return data['code']
         
     def owner_key(self, instance):
-        data = json.loads(instance.data)
-        metadata = data['metadata']
-        return metadata['owner_key']
+        try:
+            data = json.loads(instance.data)
+            metadata = data['metadata']
+            return metadata['owner_key']
+        except Exception:
+            return ''
 
     def active_key(self, instance):
-        data = json.loads(instance.data)
-        metadata = data['metadata']
-        return metadata['active_key']
+        try:
+            data = json.loads(instance.data)
+            metadata = data['metadata']
+            return metadata['active_key']
+        except Exception:
+            return ''
 
     def account_name(self, instance):
-        data = json.loads(instance.data)
-        metadata = data['metadata']
-        return metadata['account_name']
-        
+        try:
+            data = json.loads(instance.data)
+            metadata = data['metadata']
+            return metadata['account_name']
+        except Exception:
+            return ""
