@@ -4,12 +4,19 @@ import json
 
 admin.site.disable_action('delete_selected')
 
+def process(modeladmin, request, queryset):
+    for x in queryset:
+        x.complete_purchase_and_save()
+
+process.short_description = 'Process'
+
 @admin.register(Purchase)
 class PurchaseAdmin(admin.ModelAdmin):
     list_display = ('created_at', 'account_name', 'payment_received', 'account_created')
     ordering = ('-created_at', )
     fields = ('account_name', 'public_key', 'payment_received', 'account_created', 'coinbase_code', 'price_usd', 'currency', 'stripe', 'coinbase')
     readonly_fields = fields
+    actions = [process]
     
 @admin.register(PriceData)
 class PriceDataAdmin(admin.ModelAdmin):
