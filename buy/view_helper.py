@@ -5,6 +5,8 @@ from buy.models import Purchase, PriceData
 import eosapi
 import uuid
 import re
+import json
+import base64
 
 def set_uuid(request):
     if not request.session.get('uuid'):
@@ -14,7 +16,25 @@ def require_account_name(func):
     @wraps(func)
     def inner(request, *args, **kwargs):
         set_uuid(request)
-        request.account_name = request.session.get('account_name')
+        d = request.GET.get('d')
+        if d:
+            j = json.loads(base64.b64decode(d))
+            request.purchase, created = Purchase.objects.update_or_create(
+                account_name=j['n'],
+                defaults=dict(
+                    owner_key=j['o'],
+                    active_key=j['a'],
+                    user_uuid=request.session['uuid'],
+                    price_cents=get_account_price_usd_cents(),
+                    currency='usd',
+                )
+            )
+            request.session['account_name']= j['n']
+            request.account_name = j['n']
+            request.session['owner_key'] = j['o']
+            request.session['active_key'] = j['a']
+        else:
+            request.account_name = request.session.get('account_name')
         if request.account_name:
             return func(request, *args, **kwargs)
         return redirect("/choose/")        
