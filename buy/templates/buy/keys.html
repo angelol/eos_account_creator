@@ -14,7 +14,7 @@
 			});
 			
 			function is_valid_public_key(key) {
-				return eosjs_ecc.isValidPublic(key);
+				return eosjs_ecc.isValidPublic(key.trim());
 			}
 			
 			function set_valid(form, valid) {

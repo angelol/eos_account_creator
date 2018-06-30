@@ -52,6 +52,8 @@ def keys(request):
 def submit_public_key(request):
     active_key = request.POST['active_key']
     owner_key = request.POST['owner_key']
+    active_key = request.POST['active_key'].strip()
+    owner_key = request.POST['owner_key'].strip()
     request.session['active_key'] = active_key
     request.session['owner_key'] = active_key
 
