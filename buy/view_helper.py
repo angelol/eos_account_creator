@@ -37,7 +37,7 @@ def require_account_name(func):
             request.account_name = request.session.get('account_name')
         if request.account_name:
             return func(request, *args, **kwargs)
-        return redirect("/choose/")        
+        return redirect("/choose/")
     return inner
 
 def require_public_keys(func):
@@ -48,7 +48,7 @@ def require_public_keys(func):
         request.active_key = request.session.get('active_key')
         if request.owner_key and request.active_key:
             return func(request, *args, **kwargs)
-        return redirect("/keys/")        
+        return redirect("/keys/")
     return inner
 
 def require_purchase(func):
@@ -61,13 +61,13 @@ def require_purchase(func):
             )
             return func(request, *args, **kwargs)
         except Purchase.DoesNotExist:
-            return redirect("/keys/")        
+            return redirect("/keys/")
     return inner
 
 
 def is_valid_account_name(account_name):
     return re.match("^([a-z1-5]){12}$", account_name)
-    
+
 def is_eos_account_available(account_name):
     c = eosapi.Client(nodes=settings.EOS_API_NODES)
     try:
@@ -75,10 +75,9 @@ def is_eos_account_available(account_name):
         return False
     except eosapi.exceptions.HttpAPIError:
         return True
-        
+
 def get_account_price_usd():
-    return (PriceData.ram_kb_usd() * settings.NEWACCOUNT_RAM_KB + (settings.NEWACCOUNT_NET_STAKE + settings.NEWACCOUNT_CPU_STAKE) * PriceData.price_eos_usd())*2 
+    return (PriceData.ram_kb_usd() * settings.NEWACCOUNT_RAM_KB + (settings.NEWACCOUNT_NET_STAKE + settings.NEWACCOUNT_CPU_STAKE) * PriceData.price_eos_usd())*0.2 + 3
 
 def get_account_price_usd_cents():
     return round(get_account_price_usd() * 100)
-    
