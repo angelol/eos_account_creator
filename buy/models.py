@@ -4,6 +4,8 @@ from django.db import models
 import eosapi
 import time
 import json
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 
 # Create your models here.
 class Purchase(models.Model):
@@ -18,6 +20,9 @@ class Purchase(models.Model):
     coinbase_code = models.CharField(max_length=settings.ML)
     user_uuid = models.UUIDField(null=True)
     price_cents = models.IntegerField(null=True)
+
+    # cost of goods sold
+    cogs_cents = models.IntegerField(null=True)
     currency = models.CharField(max_length=settings.ML)
     stripe = models.DateTimeField(null=True)
     coinbase = models.DateTimeField(null=True)
@@ -27,7 +32,18 @@ class Purchase(models.Model):
         
     def price_usd(self):
         return self.price_cents/100.0
-        
+
+    @staticmethod
+    def get_prices_usd():
+        cogs = PriceData.ram_kb_usd() * settings.NEWACCOUNT_RAM_KB + (settings.NEWACCOUNT_NET_STAKE + settings.NEWACCOUNT_CPU_STAKE) * PriceData.price_eos_usd()
+        price = cogs * 1.2 + 3
+        return cogs, price
+
+    def update_price(self):
+        print("update_price called")
+        self.cogs_cents, self.price_cents = [round(x*100) for x in Purchase.get_prices_usd()]
+
+
     def complete_purchase_and_save(self):
         import subprocess
         subprocess.run(["/usr/bin/env", "node", "buy/gen_account.js", self.account_name, self.owner_key, self.active_key], check=True)
@@ -121,7 +137,15 @@ class PriceData(models.Model):
     def price_eos_usd():
         p = PriceData.objects.get(id=1)
         return p.eos_usd
-        
+
+@receiver(pre_save, sender=Purchase)
+def purchase_saved(sender, instance, **kwargs):
+    if not instance.cogs_cents or not instance.price_cents:
+        print ("Updating price from signal")
+        instance.update_price()
+
+
+
 class StripeCharge(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     price_cents = models.IntegerField()

@@ -25,10 +25,12 @@ def require_account_name(func):
                     owner_key=j['o'],
                     active_key=j['a'],
                     user_uuid=request.session['uuid'],
-                    price_cents=get_account_price_usd_cents(),
                     currency='usd',
                 )
             )
+            if not created:
+                request.purchase.update_price()
+                request.purchase.save()
             request.session['account_name']= j['n']
             request.account_name = j['n']
             request.session['owner_key'] = j['o']
@@ -78,6 +80,3 @@ def is_eos_account_available(account_name):
 
 def get_account_price_usd():
     return (PriceData.ram_kb_usd() * settings.NEWACCOUNT_RAM_KB + (settings.NEWACCOUNT_NET_STAKE + settings.NEWACCOUNT_CPU_STAKE) * PriceData.price_eos_usd())*1.2 + 3
-
-def get_account_price_usd_cents():
-    return round(get_account_price_usd() * 100)
