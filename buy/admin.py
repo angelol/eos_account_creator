@@ -17,25 +17,29 @@ class PurchaseAdmin(admin.ModelAdmin):
     fields = ('account_name', 'owner_key', 'active_key', 'payment_received', 'account_created', 'coinbase_code', 'price_usd', 'currency', 'stripe', 'coinbase')
     readonly_fields = fields
     actions = [process]
-    
+    search_fields = ('account_name', 'owner_key', 'active_key')
+    list_filter = ('payment_received', 'account_created', 'created_at')
+
 @admin.register(PriceData)
 class PriceDataAdmin(admin.ModelAdmin):
     list_display = ('updated_at', 'eos_usd', 'ram_kb_eos', 'ram_kb_usd')
     readonly_fields = list_display
-    
+
     def ram_kb_usd(self, instance):
         return PriceData.ram_kb_usd()
-        
-        
+
+
 @admin.register(CoinbaseEvent)
 class CoinbaseEventAdmin(admin.ModelAdmin):
-    list_display = ('created_at', 'code', 'event_type', 'code', 'account_name', 'owner_key', 'active_key' )
+    list_display = ('created_at', 'code', 'event_type', 'account_name', 'owner_key', 'active_key' )
     ordering = ('-created_at', )
-    
+    search_fields = ('code', 'account_name', 'owner_key', 'active_key')
+    list_filter = ('created_at', )
+
     def code(self, instance):
         data = json.loads(instance.data)
         return data['code']
-        
+
     def owner_key(self, instance):
         try:
             data = json.loads(instance.data)
