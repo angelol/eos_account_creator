@@ -6,6 +6,7 @@ import time
 import json
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
+from decimal import Decimal
 
 # Create your models here.
 class Purchase(models.Model):
@@ -23,6 +24,7 @@ class Purchase(models.Model):
 
     # cost of goods sold
     cogs_cents = models.IntegerField(null=True)
+    profit = models.DecimalField(max_digits=8, decimal_places=2)
     currency = models.CharField(max_length=settings.ML)
     stripe = models.DateTimeField(null=True)
     coinbase = models.DateTimeField(null=True)
@@ -42,6 +44,9 @@ class Purchase(models.Model):
     def update_price(self):
         print("update_price called")
         self.cogs_cents, self.price_cents = [round(x*100) for x in Purchase.get_prices_usd()]
+        cogs = Decimal(str(self.cogs_cents)) / 100
+        price = Decimal(str(self.price_cents)) / 100
+        self.profit = price - cogs
 
 
     def complete_purchase_and_save(self):
@@ -140,7 +145,7 @@ class PriceData(models.Model):
 
 @receiver(pre_save, sender=Purchase)
 def purchase_saved(sender, instance, **kwargs):
-    if not instance.cogs_cents or not instance.price_cents:
+    if not instance.cogs_cents or not instance.price_cents or not instance.profit:
         print ("Updating price from signal")
         instance.update_price()
 
