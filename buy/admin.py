@@ -1,6 +1,7 @@
 from django.contrib import admin
 from buy.models import Purchase, PriceData, CoinbaseEvent
 import json
+from decimal import Decimal
 
 admin.site.disable_action('delete_selected')
 
@@ -12,13 +13,19 @@ process.short_description = 'Process'
 
 @admin.register(Purchase)
 class PurchaseAdmin(admin.ModelAdmin):
-    list_display = ('created_at', 'account_name', 'payment_received', 'account_created')
+    list_display = ('created_at', 'account_name', 'payment_received', 'account_created', 'price', 'profit')
     ordering = ('-created_at', )
     fields = ('account_name', 'owner_key', 'active_key', 'payment_received', 'account_created', 'coinbase_code', 'price_usd', 'currency', 'stripe', 'coinbase')
     readonly_fields = fields
     actions = [process]
     search_fields = ('account_name', 'owner_key', 'active_key')
     list_filter = ('payment_received', 'account_created', 'created_at')
+    
+    def price(self, instance):
+        if instance.price_cents:
+            return Decimal(str(instance.price_cents))/100
+        else:
+            return ""
 
 @admin.register(PriceData)
 class PriceDataAdmin(admin.ModelAdmin):
