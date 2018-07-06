@@ -18,7 +18,7 @@ def index(request):
         purchases = []
     return render(request, "buy/index.html", {
         'purchases': purchases,
-        'price_usd': Purchase.get_prices_usd(),
+        'price_usd': Purchase.get_prices_usd()[1],
     })
     
 # Create your views here.
