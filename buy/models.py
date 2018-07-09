@@ -142,6 +142,12 @@ class PriceData(models.Model):
     def price_eos_usd():
         p = PriceData.objects.get(id=1)
         return p.eos_usd
+        
+    @staticmethod
+    def minimum_amount_sac():
+        p = PriceData.objects.get(id=1)
+        return p.ram_kb_eos * settings.NEWACCOUNT_RAM_KB * 1.05 + settings.NEWACCOUNT_NET_STAKE + settings.NEWACCOUNT_CPU_STAKE + settings.SMART_ACCOUNT_CREATOR_FEE + 0.01
+        
 
 @receiver(pre_save, sender=Purchase)
 def purchase_saved(sender, instance, **kwargs):

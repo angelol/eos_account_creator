@@ -64,6 +64,9 @@
 				} else if (value == 'crypto') {
 					text = 'Create EOS Account and pay USD ' + price + ' with cryptocurrency';
 					submit_fun = pay_crypto;
+				} else if (value == 'eos') {
+					text = 'Show instructions';
+					submit_fun = pay_crypto;
 				}
 				$("button").text(text);
 				
@@ -116,7 +119,8 @@ After successful payment, you will be redirected back here and we will create th
 	<div class="form-group">
 		<p>Please choose your payment option:</p>
 		<input type="radio" name="payment" value="creditcard" id="creditcard" /><label for="creditcard"> Credit Card</label><br />
-		<input type="radio" name="payment" value="crypto" id="crypto" /><label for="crypto"> Cryptocurrency (Bitcoin, Bitcoin Cash, Ethereum or Litecoin)</label>
+		<input type="radio" name="payment" value="crypto" id="crypto" /><label for="crypto"> Cryptocurrency (Bitcoin, Bitcoin Cash, Ethereum or Litecoin)</label><br />
+		<input type="radio" name="payment" value="eos" id="eos" /><label for="eos"> EOS (Use this if you have EOS on an exchange)</label>
 	</div>
 	<input type="hidden" name="price" value="{{purchase.price_usd|floatformat:2}}" />
 	<input type="hidden" name="price_cents" value="{{purchase.price_cents}}" />

@@ -38,5 +38,6 @@ urlpatterns = [
     path('stripe_charge/', stripe_charge, name='stripe_charge'),
     path('card_declined/<stripe_charge>/', card_declined, name='card_declined'),
     path('stripe/', stripe, name='stripe'),
+    path('eos/', eos, name='eos'),
     
 ]

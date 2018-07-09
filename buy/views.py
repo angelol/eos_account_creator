@@ -91,15 +91,17 @@ def buy_action(request):
             user_uuid=request.POST['uuid'],
         )
     )
-    
-    j = create_charge(purchase.account_name, purchase.owner_key, purchase.active_key, purchase.price_usd())
-    hosted_url = j['data']['hosted_url']
-    request.session['coinbase_code'] = j['data']['code']
-    purchase.coinbase_code = j['data']['code']
-    purchase.coinbase = timezone.now()
-    purchase.save()
-    return redirect(hosted_url)
-    
+    if request.POST['payment'] == 'crypto':
+        j = create_charge(purchase.account_name, purchase.owner_key, purchase.active_key, purchase.price_usd())
+        hosted_url = j['data']['hosted_url']
+        request.session['coinbase_code'] = j['data']['code']
+        purchase.coinbase_code = j['data']['code']
+        purchase.coinbase = timezone.now()
+        purchase.save()
+        return redirect(hosted_url)
+    elif request.POST['payment'] == 'eos':
+        return redirect('/eos/')
+        
 @csrf_exempt
 def webhook(request):
     check_coinbase_signature(request)
@@ -201,3 +203,14 @@ def card_declined(request, stripe_charge):
     return render(request, "buy/card_declined.html", {
         'seller_message': seller_message,
     })
+    
+@require_account_name
+@require_public_keys
+@require_purchase
+def eos(request):
+    return render(request, "buy/eos.html", {
+        'purchase': request.purchase,
+        'minimum': PriceData.minimum_amount_sac(),
+    })
+    
+    
