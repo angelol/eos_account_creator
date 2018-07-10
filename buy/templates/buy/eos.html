@@ -2,17 +2,26 @@
 {% load static %}
 	{% block head %}
 		{{block.super}}
-    <style>
-			.memo {
-        font-size:0.6rem;
-			}
-		</style>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
     <script>
-      window.onload = function() {
+      $(function() {
           new ClipboardJS('.copy');
-      }
+          $("#select1").change(function() {
+            console.log($(this).val());
+            let e = $(this);
+            e.find('option.default').hide();
+            $('.instructions').show();
+            if(e.val() == "binance") {
+              $(".binance").show();
+              $(".other").hide();
+            } else {
+              $(".binance").hide();
+              $(".other").show();
+            }
+          });
+      });
+      
       
     </script>
 		
@@ -25,26 +34,51 @@
         You can use it to create an account when you have EOS on an exchange.
     </p>
     <h2>Instructions</h2>
-		<p>
-      Make an EOS token transfer with the following data:
-    </p>
-    Recipient: <span class="recipient">accountcreat</span>
-    <button class="copy" data-clipboard-target=".recipient">
-      <img src="https://cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/svg/clippy.svg" alt="Copy to clipboard">
-  </button>
-  <br />
-    Memo: <span class="memo">{{purchase.account_name}}:{{purchase.owner_key}}:{{purchase.active_key}}</span>
-      <button class="copy" data-clipboard-target=".memo">
+    <form>
+      
+      <div class="form-group">
+        <label for="select1">Which exchange are you withdrawing from?</label>
+        <select class="form-control" id="select1">
+          <option class="default">--Please Choose--</option>
+          <option value="binance">Binance</option>
+          <option value="other">Other Exchange</option>
+        </select>
+      </div>
+    </form>
+    <div class="instructions" style="display:none;">
+      <p class="binance">
+        Binance does not allow long memos, so it's not possible to set a different active key. We are using the owner key for both permissions.
+      </p>
+  		<p>
+        Make an EOS token transfer with the following data:
+      </p>
+      Recipient: <span class="recipient">accountcreat</span>
+      <button class="copy" data-clipboard-target=".recipient">
         <img src="https://cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/svg/clippy.svg" alt="Copy to clipboard">
     </button>
     <br />
-    Amount: Any amount, but has to be bigger than {{minimum|floatformat:4}} EOS
-    <p>
-      If you transfer less than the required minimum amount or any other error occurs, the transferred funds will be automatically refunded by the smart contract.
-    </p>
-    <p>
-      If you transfer more than required, the remaining balance will be forwarded to your newly created account.
-    </p>
+      <div class="binance">
+        Memo: <span class="memo-binance">{{purchase.account_name}}-{{purchase.owner_key}}</span>
+        <button class="copy" data-clipboard-target=".memo-binance">
+          <img src="https://cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/svg/clippy.svg" alt="Copy to clipboard">
+      </button>
+      </div>
+      <div class="other">
+        Memo: <span class="memo-other">{{purchase.account_name}}-{{purchase.owner_key}}-{{purchase.active_key}}</span>
+        <button class="copy" data-clipboard-target=".memo-other">
+          <img src="https://cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/svg/clippy.svg" alt="Copy to clipboard">
+      </button>
+      </div>
+        
+      <br />
+      Amount: Any amount, but has to be bigger than {{minimum|floatformat:4}} EOS
+      <p>
+        If you transfer less than the required minimum amount or any other error occurs, the transferred funds will be automatically refunded by the smart contract.
+      </p>
+      <p>
+        If you transfer more than required, the remaining balance will be forwarded to your newly created account.
+      </p>
+    </div>
 	</div>
   
   <div class="shadow p-3 mb-5 bg-white rounded">
