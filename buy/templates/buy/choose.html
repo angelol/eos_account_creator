@@ -63,7 +63,7 @@
 		<form action="/submit_account_name/" method="POST">
 			{% csrf_token %}
 			<div class="form-group">
-			<label>Account Name: </label><input type="text" name="account_name"></input><img style="display:none;" src="{% static "buy/icon-yes.svg" %}" alt="My image" class="valid"/><img style="display:none;" src="{% static "buy/icon-no.svg" %}" alt="My image" class="invalid"/><button class="btn btn-primary btn-sm" id="gen_random">I'm feeling lucky</button><br/>
+			<label>Account Name: </label><input type="text" name="account_name"></input><img style="display:none;" src="{% static "buy/icon-yes.svg" %}" alt="My image" class="valid"/><img style="display:none;" src="{% static "buy/icon-no.svg" %}" alt="My image" class="invalid"/><button class="btn btn-primary btn-sm" id="gen_random" type="button">I'm feeling lucky</button><br/>
 			</div>
 			<div class="form-group">
 				<button class="btn btn-primary" type="submit" id="submit_button" disabled="disabled">Continue</button>
