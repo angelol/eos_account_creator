@@ -17,6 +17,30 @@
 			<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+      
+      <script>
+        $(function() {
+          var faq_visible = false;
+          
+          function toggle() {
+            console.log("ohai toggle");
+            if(faq_visible) {
+              $(".faq").hide();
+              $(".blackbox").hide();
+              faq_visible = false;
+            } else {
+              $(".faq").show();
+              $(".blackbox").show();
+              faq_visible = true;
+              
+            }
+          }
+          
+          $("button.close,.blackbox,.FAQ_button").click(toggle);
+          // $('.FAQ_button').click(toggle);
+        });
+        
+      </script>
 		{% endblock %}
 	</head>
 	<body>
@@ -33,6 +57,9 @@
 
     
     <div class="faq" style="display:none;">
+      <button type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
   		<h2>FAQ</h2>
   		<h4>Why do I need this service?</h4>
   		<p>The way EOS works is that new accounts can only be created by someone with an existing account. If you have a friend who has an EOS account, you can ask him to create one for you. If you don't, this website can be your friend for a small fee.</p>
@@ -48,6 +75,7 @@
   		</p>
   		
   	</div>
+    <div class="blackbox" style="display: none;"></div>
     <footer>
   		
   		<div class="footer-buttons">
