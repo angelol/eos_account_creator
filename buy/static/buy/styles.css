@@ -1,0 +1,168 @@
+
+body {
+  font-family: "Work Sans", sans-serif;
+  background-color: #f5f5f5;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+  text-align: left;
+  color: #111111;
+}
+
+
+a {
+  color: #3ecf8e;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  height: 50px;
+  width:100%;
+}
+.container {
+  padding:20px 20px 100px 20px;
+}
+
+.header {
+  height: 60px;
+  background-color: #ffffff;
+  border: solid 1px #dddddd;
+  text-align: center;
+}
+
+.Combined-Shape-Copy {
+  width: 31.9px;
+  height: 32px;
+  object-fit: contain;
+  margin-top:14px;
+}
+
+.FAQ_button {
+  width: 66px;
+  height: 32px;
+  border-radius: 4px;
+  background-color: #ffffff;
+  border: solid 1px #3ecf8e;
+  top: 14px;
+  right: 14px;
+  position: absolute;
+}
+
+.FAQ {
+  width: 34px;
+  height: 19px;
+  font-size: 14px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.36;
+  letter-spacing: 2px;
+  text-align: center;
+  color: #3ecf8e;
+  position: absolute;
+  top: 6px;
+  left:16px;
+}
+
+.EOS {
+  width: 408px;
+  height: 57px;
+  object-fit: contain;
+  opacity: 0.2;
+  font-size: 48px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #111111;
+}
+.Account-creator {
+  width: 408px;
+  height: 57px;
+  object-fit: contain;
+  font-size: 48px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #111111;
+}
+
+.This-website-allows {
+  width: 408px;
+  height: 78px;
+  font-size: 18px;
+}
+
+
+.Mask {
+  width: 457px;
+  height: 421px;
+  border-radius: 4px;
+  background-color: #ffffff;
+  border: solid 1px #dddddd;
+  padding: 16px 16px 16px 16px;
+}
+
+.Why-this-service {
+  width: 425px;
+  height: 28px;
+  font-size: 24px;
+  font-weight: bold;
+  /* margin: 16px 0 0 16px; */
+}
+
+.Mask p {
+  font-size: 14px;
+  margin-top: 12px;
+}
+
+.Group-2 {
+  width: 105px;
+  height: 121px;
+  object-fit: contain;
+}
+.group2container {
+  width: 100%;
+  text-align:center;
+}
+
+.GetStartedButton {
+  margin-top: 16px;
+  display:block;
+  width: 425px;
+  height: 40px;
+  border-radius: 4px;
+  background-color: #3ecf8e;
+  padding-top: 10px;
+  cursor: pointer;
+  text-decoration: none !important;
+}
+
+
+.Get-started {
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1.36;
+  letter-spacing: 2px;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+
+.footer-buttons {
+  width:100px;
+  height:50px;
+  position:absolute;
+  right: 0;
+  top:0;
+  
+}
+
