@@ -72,40 +72,41 @@
 		</script>
 	{% endblock %}
 	{% block body %}
-		<div class="shadow p-3 mb-5 bg-white rounded">
-		<div>
-			Your chosen EOS Account Name is: <span id="chosen_name"><b>{{account_name}}</b></span> <a href="/choose/">Change</a>
+	<div class="row">
+		<div class="col-md">
+			<div class="Account-creator">Provide public keys</div>
+			<div class="This-website-allows">Your chosen EOS Account Name is: <span class="chosen_account_name">{{account_name}}</span></div>
 		</div>
-		
-		
-		<h5>Please provide the public keys for your new account:</h5>
-		
-		
-		
-		<form action="/submit_public_key/" method="POST">
-			{% csrf_token %}
-		  <div class="form-group">
-		    <label for="owner_key" class="col-sm-4 col-form-label">Owner Public Key:</label>
-			<input type="text" class="form-control" id="owner_key" name="owner_key" size="53">
-		  </div>
+		<div class="col-md">
+			<div class="Mask Keys">
+				<div class="Why-this-service">Provide public keys</div>
+				<p>Please provide the public keys for your new account. Active Public Key can be the same as Owner Public Key but not recommended for security.</p>
+				
+				<form action="/submit_public_key/" method="POST">
+					{% csrf_token %}
+				  <div class="form-group">
+				    <label for="owner_key" class="col-form-label">Owner Public Key:</label>
+					<input type="text" class="form-control" id="owner_key" name="owner_key" size="53">
+				  </div>
 
-			<div class="form-group">
-				<label for="active_key" class="col-sm-4 col-form-label">Active Public Key:</label>
-			    <input type="text" class="form-control" id="active_key" name="active_key" size="53" aria-describedby="activeKeyHelp">
-				<small id="activeKeyHelp" class="form-text text-muted">Can be the same as owner key (but not recommended for security)</small>
+					<div class="form-group">
+						<label for="active_key" class=" col-form-label">Active Public Key:</label>
+					    <input type="text" class="form-control" id="active_key" name="active_key" size="53" aria-describedby="activeKeyHelp">
 
+					
+				  </div>
 			
-		  </div>
-	
-			<button class="btn btn-primary" type="submit" disabled="disabled">Continue</button>
-		</form>
-		
-		
+					<button class="btn btn-primary" type="submit" disabled="disabled">Continue</button>
+				</form>
+
+			 
+			 
+			</div> 
 		</div>
 		
-			<div class="shadow p-3 mb-5 bg-white rounded">
-				<h3>Help</h3><p/>
-				{% include 'buy/help.inc' %}
-			</div>
-		
+	</div>
+	
+	{% include 'buy/breadcrumbs.inc' %}
+	
+
 	{% endblock %}

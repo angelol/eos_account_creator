@@ -28,10 +28,14 @@
 					img_valid.show();
 					img_invalid.hide();
 					$("#submit_button").prop("disabled", false);
+					$("#submit_button span").text("Continue");
+					$("#submit_button").css("cursor", "pointer");
 				} else {
 					img_valid.hide();
 					img_invalid.show();
 					$("#submit_button").prop("disabled", true);
+					$("#submit_button").css("cursor", "default");
+					$("#submit_button span").text("Please enter a valid name");
 					
 				}
 			}
@@ -56,17 +60,38 @@
 		</script>
 		{% endblock %}
 		{% block body %}
-		<h1>Please choose your EOS Account Name</h1>
-		<div>
-			EOS Account names must be exactly 12 characters long and consist of lower case characters and digits up until 5.
+		
+		<div class="row">
+			<div class="col-md">
+				<div class="EOS">EOS</div>
+				<div class="Account-creator">Account creator</div>
+				<div class="This-website-allows">This website allows you to create an EOS account if you don't have one yet. <a href="#">Check our FAQ</a> for more info.</div>
+			</div>
+			<div class="col-md">
+				<div class="Mask Choose">
+					<div class="Why-this-service">Choose account name</div>
+					<p>EOS Account names must be exactly 12 characters long and consist of lower case characters and digits up until 5.</p>
+					
+					<form class="account_name" action="/submit_account_name/" method="POST">
+						{% csrf_token %}
+					  <div class="form-group">
+					    <label for="account_name_input">Account name</label>
+					    <input type="text" class="form-control" id="account_name_input" placeholder="Account name" name="account_name"></input><img style="display:none;" src="{% static 'buy/icon-yes.svg' %}" alt="My image" class="valid"/><img style="display:none;" src="{% static 'buy/icon-no.svg' %}" alt="My image" class="invalid"/>
+							<button class="btn btn-primary btn-sm" id="gen_random" type="button">I'm feeling lucky</button><br/>
+							
+
+					  </div>
+					  <button id="submit_button" disabled="disabled" type="submit" class="GetStartedButton"><span class="Get-started">Continue</span></button>
+					</form>
+
+				 
+				 
+				</div> 
+			</div>
+			
 		</div>
-		<form action="/submit_account_name/" method="POST">
-			{% csrf_token %}
-			<div class="form-group">
-			<label>Account Name: </label><input type="text" name="account_name"></input><img style="display:none;" src="{% static "buy/icon-yes.svg" %}" alt="My image" class="valid"/><img style="display:none;" src="{% static "buy/icon-no.svg" %}" alt="My image" class="invalid"/><button class="btn btn-primary btn-sm" id="gen_random" type="button">I'm feeling lucky</button><br/>
-			</div>
-			<div class="form-group">
-				<button class="btn btn-primary" type="submit" id="submit_button" disabled="disabled">Continue</button>
-			</div>
-		</form>
+		
+		{% include 'buy/breadcrumbs.inc' %}
+			
+		
 		{% endblock %}

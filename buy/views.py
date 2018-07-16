@@ -23,7 +23,9 @@ def index(request):
     
 # Create your views here.
 def choose(request):
-    return render(request, "buy/choose.html")
+    return render(request, "buy/choose.html", {
+        'breadcrumbs_account_name': True,
+    })
     
 @require_POST
 def submit_account_name(request):
@@ -46,6 +48,7 @@ def submit_account_name(request):
 def keys(request):
     return render(request, "buy/keys.html", {
         'account_name': request.account_name,
+        'breadcrumbs_public_keys': True,
     })
     
 @require_account_name
