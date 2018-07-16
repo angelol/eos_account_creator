@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -7,23 +8,53 @@
 		<title>{% block title %}{% endblock %}</title>
 
 		{% block head %}
-
+    
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans|Work+Sans:b" rel="stylesheet">
+    
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-		<style>
-			body {
-				padding:20px 20px 100px 20px;
-			}
-		</style>
+    
+    <link rel="stylesheet" href="{% static 'buy/styles.css' %}">
 			<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 		{% endblock %}
 	</head>
 	<body>
+    <div class="header">
+
+      <img src="{% static 'buy/img/combined-shape-copy.svg' %}" class="Combined-Shape-Copy">
+      <div class="FAQ_button"><span class="FAQ">FAQ</span></div>
+      
+    </div>
 		<div class="container">
 			{% block body %}
 			{% endblock %}
 		</div>
 
+    
+    <div class="faq" style="display:none;">
+  		<h2>FAQ</h2>
+  		<h4>Why do I need this service?</h4>
+  		<p>The way EOS works is that new accounts can only be created by someone with an existing account. If you have a friend who has an EOS account, you can ask him to create one for you. If you don't, this website can be your friend for a small fee.</p>
+  		<h4>How much does it cost?</h4>
+  		<p>The cost of one EOS account is currently USD {{price_usd|floatformat:2}}. Included in the price are 0.2 staked EOS that will be transferred to your control and 4 KB of RAM.</p>
+  		<h4>Which payment methods do you accept?</h4>
+  		<p>You can pay with credit card and the cryptocurrencies EOS, Bitcoin, Bitcoin Cash, Ethereum and Litecoin.</p>
+  		<h4>Is this website safe to use?</h4>
+  		<p>I built this website because it's a useful service for the EOS community. You generate the keys safely offline and only use your public keys on the website. Public keys are safe to share. The source code is on <a href="https://github.com/angelol/eos_account_creator" target="_new">GitHub</a> and can be audited. The activity of this website can be checked on the EOS blockchain. This tool uses the EOS account <b>accountcreat</b> to generate new accounts, the <a href="https://eostracker.io/accounts/accountcreat" target="_new">activity can be checked</a> in any block explorer. If you have further questions, please get in touch through our <a href="https://t.me/eos_account_creator" target="_new">telegram group</a>.</p>
+  		{% include 'buy/help.inc' %}
+  		<h4>Is this tool open source?</h4>
+  		<p><a href="https://github.com/angelol/eos_account_creator" target="_new">Yes!</a>
+  		</p>
+  		
+  	</div>
+    <footer>
+  		
+  		<div class="footer-buttons">
+  			<!-- <a href="https://github.com/angelol/eos_account_creator" target="_new">Source Code on GitHub</a>
+  			<a href="https://t.me/eos_account_creator" target="_new">Telegram group</a> -->
+  			<a href="#" target="_new"><img src="{% static 'buy/img/twitter.svg' %}" class="Twitter"></a>
+  		</div>
+  	</footer>
 	</body>
 </html>
