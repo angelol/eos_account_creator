@@ -146,7 +146,7 @@ class PriceData(models.Model):
     @staticmethod
     def minimum_amount_sac():
         p = PriceData.objects.get(id=1)
-        return p.ram_kb_eos * settings.NEWACCOUNT_RAM_KB * 1.05 + settings.NEWACCOUNT_NET_STAKE + settings.NEWACCOUNT_CPU_STAKE + settings.SMART_ACCOUNT_CREATOR_FEE + 0.01
+        return p.ram_kb_eos * (settings.NEWACCOUNT_RAM_KB + 0.256) * 1.05 + settings.NEWACCOUNT_NET_STAKE + settings.NEWACCOUNT_CPU_STAKE + settings.SMART_ACCOUNT_CREATOR_FEE + 0.1
         
 
 @receiver(pre_save, sender=Purchase)
