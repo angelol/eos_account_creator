@@ -9,6 +9,7 @@ body {
   letter-spacing: normal;
   text-align: left;
   color: #111111;
+  font-size: 14px;
 }
 
 
@@ -255,4 +256,20 @@ input#owner_key, input#active_key {
 }
 .close_btn {
   width: 15.2px;
+}
+
+.price_display {
+  text-align: center;
+  
+}
+.price_display .price {
+  font-size: 24px;
+  font-weight: bold;
+}
+.price_subtitle {
+  font-size:12px;
+}
+
+.Purchase {
+  height: 390px;
 }

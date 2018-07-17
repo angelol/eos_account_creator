@@ -81,6 +81,7 @@ def purchase(request):
     return render(request, "buy/purchase.html", {
         'purchase': request.purchase,
         'uuid': request.session['uuid'],
+        'breadcrumbs_payment': True,
     })
 
 
