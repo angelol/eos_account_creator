@@ -18,13 +18,25 @@ a {
 }
 
 footer {
-  position: absolute;
-  bottom: 0;
-  height: 50px;
+  margin-top:50px;
   width:100%;
 }
 .container {
   padding:20px 20px 100px 20px;
+}
+
+.btn-primary {
+  background-color: #3ecf8e;
+  border-color: #3ecf8e;
+}
+.btn-primary:disabled {
+  opacity: 0.6;
+  background-color: #3ecf8e;
+  border-color: #3ecf8e;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+  background-color: #2eb87a !important;
+  border-color: #2eb87a !important;
 }
 
 .header {
@@ -50,10 +62,11 @@ footer {
   top: 14px;
   right: 14px;
   position: absolute;
+  cursor:pointer;
 }
 
 .FAQ {
-  width: 34px;
+  /* width: 34px; */
   height: 19px;
   font-size: 14px;
   font-weight: bold;
@@ -69,7 +82,7 @@ footer {
 }
 
 .EOS {
-  width: 408px;
+  /* width: 408px; */
   height: 57px;
   object-fit: contain;
   opacity: 0.2;
@@ -101,8 +114,8 @@ footer {
 
 
 .Mask {
-  width: 457px;
-  height: 421px;
+  /* max-width: 457px; */
+  /* height: 421px; */
   border-radius: 4px;
   background-color: #ffffff;
   border: solid 1px #dddddd;
@@ -110,11 +123,8 @@ footer {
 }
 
 .Why-this-service {
-  width: 425px;
-  height: 28px;
   font-size: 24px;
   font-weight: bold;
-  /* margin: 16px 0 0 16px; */
 }
 
 .Mask p {
@@ -122,81 +132,43 @@ footer {
   margin-top: 12px;
 }
 
-.Group-2 {
-  width: 105px;
-  height: 121px;
-  object-fit: contain;
-}
 .group2container {
-  width: 100%;
   text-align:center;
 }
 
-.GetStartedButton {
-  margin-top: 16px;
-  display:block;
-  width: 425px;
-  height: 40px;
-  border-radius: 4px;
-  background-color: #3ecf8e;
-  padding-top: 10px;
-  cursor: pointer;
-  text-decoration: none !important;
+.get_started_button {
+  margin-top:20px;
+  width:100%
 }
-
 
 .Get-started {
   font-size: 14px;
   font-weight: bold;
-  line-height: 1.36;
-  letter-spacing: 2px;
   color: #ffffff;
   text-transform: uppercase;
 }
 
 
 .footer-buttons {
-  width:100px;
-  height:50px;
-  position:absolute;
-  right: 0;
-  top:0;
-  
+  text-align: right;
 }
 
-.Choose {
-  height: 256px;
-}
 
 form.account_name {
-  position: absolute;
-  top: 120px; 
-  left: 32px;
+
 }
 img.valid, img.invalid {
   position:absolute;
-  top:42px;
-  right:5px;
-}
-button#gen_random {
-  position: absolute;
-  top: -5px;
-  right: 5px;
-  background-color:white;
-  color: #3ecf8e;
-  border: none;
+  top:12px;
+  right:20px;
 }
 
-button#submit_button {
-  margin-top:-24px;
-  padding-top:0px;
+.stretch {
+  width:100%;
 }
 
 .breadcrumbs {
-  position:absolute;
-  bottom:10px;
-  left:10px;
-  
+  margin-top:50px;
 }
 .breadcrumbs li {
   opacity: 0.2;
@@ -210,9 +182,6 @@ span.chosen_account_name {
 input#owner_key, input#active_key {
   font-size: 9pt;
 }
-.Keys {
-  height: 365px;
-}
 
 
 .faq {
@@ -220,7 +189,7 @@ input#owner_key, input#active_key {
   top:0;
   right: 0;
   width: 50%;
-  min-width:500px;
+  min-width:300px;
   background-color:#f9f9f9;
   padding: 16px 16px 16px 16px;
   z-index:2;
@@ -270,6 +239,4 @@ input#owner_key, input#active_key {
   font-size:12px;
 }
 
-.Purchase {
-  height: 390px;
-}
+

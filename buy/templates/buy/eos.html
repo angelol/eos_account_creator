@@ -3,27 +3,7 @@
 	{% block head %}
 		{{block.super}}
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
-    <script>
-      $(function() {
-          new ClipboardJS('.copy');
-          $("#select1").change(function() {
-            console.log($(this).val());
-            let e = $(this);
-            e.find('option.default').hide();
-            $('.instructions').show();
-            if(e.val() == "binance") {
-              $(".binance").show();
-              $(".other").hide();
-            } else {
-              $(".binance").hide();
-              $(".other").show();
-            }
-          });
-      });
-      
-      
-    </script>
+    
 		
 	{% endblock %}
 	{% block body %}
@@ -117,3 +97,27 @@
 	
 	
 	{% endblock %}
+	
+{% block bodyscript %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+<script>
+	$(function() {
+			new ClipboardJS('.copy');
+			$("#select1").change(function() {
+				console.log($(this).val());
+				let e = $(this);
+				e.find('option.default').hide();
+				$('.instructions').show();
+				if(e.val() == "binance") {
+					$(".binance").show();
+					$(".other").hide();
+				} else {
+					$(".binance").hide();
+					$(".other").show();
+				}
+			});
+	});
+	
+	
+</script>
+{% endblock %}
