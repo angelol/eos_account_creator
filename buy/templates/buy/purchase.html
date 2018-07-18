@@ -165,9 +165,10 @@
 			
 			
 		}
-		update_form();
+		update_form($("select[name=payment]"));
 
 		function pay_creditcard(event) {
+			event.preventDefault();
 			$.ajax({
 				url: '/stripe/',
 				method: 'POST',
@@ -182,7 +183,7 @@
 				currency: 'usd',
 				zipCode: true,
 			});
-			event.preventDefault();
+			
 			
 		}
 		

@@ -3,61 +3,7 @@
 
 		{% block head %}
 		 	{{block.super}}
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-		<script>
-			function get_random_eos_name() {
-				function choices(population, k) {
-					var out = [];
-					for(var i=0; i < k; i++) {
-						out.push(population[Math.floor(population.length * Math.random())]);
-					}
-					return out.join("");
-				}
-				let alphabet = 'abcdefghijklmnopqrstuvwxyz12345';
-				return choices(alphabet, 12);
-			}
-			
-			function is_valid_account_name(account_name) {
-				let re = new RegExp("^([a-z1-5]){12}$");
-				return re.test(account_name);
-			}
-			function set_valid(valid) {
-				let img_valid = $("img.valid");
-				let img_invalid = $("img.invalid");
-				if(valid) {
-					img_valid.show();
-					img_invalid.hide();
-					$("#submit_button").prop("disabled", false);
-					$("#submit_button span").text("Continue");
-					$("#submit_button").css("cursor", "pointer");
-				} else {
-					img_valid.hide();
-					img_invalid.show();
-					$("#submit_button").prop("disabled", true);
-					$("#submit_button").css("cursor", "default");
-					$("#submit_button span").text("Please enter a valid name");
-					
-				}
-			}
-			
-			function validate_form() {
-				let account_name = $('input[name=account_name]').val();
-				set_valid(is_valid_account_name(account_name));
-			}
- 			
-			$(function() {
-				$("#gen_random").click(function(event) { 
-					event.preventDefault();
-					$('input[name=account_name]').val(get_random_eos_name());
-					validate_form();
-				 });
-				$('input[name=account_name]').keyup(function(event) {					
-					validate_form();
-				});
-				validate_form();
-				$('input[name=account_name]').focus();
-			});
-		</script>
+		
 		{% endblock %}
 		{% block body %}
 		<div class="row">
@@ -112,3 +58,59 @@ account name</div>
 		</div>
 		
 		{% endblock %}
+{% block bodyscript %}
+<script>
+	function get_random_eos_name() {
+		function choices(population, k) {
+			var out = [];
+			for(var i=0; i < k; i++) {
+				out.push(population[Math.floor(population.length * Math.random())]);
+			}
+			return out.join("");
+		}
+		let alphabet = 'abcdefghijklmnopqrstuvwxyz12345';
+		return choices(alphabet, 12);
+	}
+	
+	function is_valid_account_name(account_name) {
+		let re = new RegExp("^([a-z1-5]){12}$");
+		return re.test(account_name);
+	}
+	function set_valid(valid) {
+		let img_valid = $("img.valid");
+		let img_invalid = $("img.invalid");
+		if(valid) {
+			img_valid.show();
+			img_invalid.hide();
+			$("#submit_button").prop("disabled", false);
+			$("#submit_button span").text("Continue");
+			$("#submit_button").css("cursor", "pointer");
+		} else {
+			img_valid.hide();
+			img_invalid.show();
+			$("#submit_button").prop("disabled", true);
+			$("#submit_button").css("cursor", "default");
+			$("#submit_button span").text("Please enter a valid name");
+			
+		}
+	}
+	
+	function validate_form() {
+		let account_name = $('input[name=account_name]').val();
+		set_valid(is_valid_account_name(account_name));
+	}
+	
+	$(function() {
+		$("#gen_random").click(function(event) { 
+			event.preventDefault();
+			$('input[name=account_name]').val(get_random_eos_name());
+			validate_form();
+		 });
+		$('input[name=account_name]').keyup(function(event) {					
+			validate_form();
+		});
+		validate_form();
+		$('input[name=account_name]').focus();
+	});
+</script>
+{% endblock %}
