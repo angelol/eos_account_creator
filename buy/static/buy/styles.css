@@ -190,6 +190,9 @@ img.valid, img.invalid {
   font-size: 12pt;
   font-weight: bold;
 }
+.breadcrumbs a {
+    color:black;
+}
 ul.breadcrumbs {
     list-style: none;
 }
