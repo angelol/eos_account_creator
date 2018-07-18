@@ -18,13 +18,20 @@ a {
 }
 
 footer {
+<<<<<<< HEAD
   margin-top:50px;
+=======
+  position: absolute;
+  bottom: 0;
+  height: 50px;
+>>>>>>> 19e65ddeb46ceba7b9dd5f49c8d63d8c7aa9c2e1
   width:100%;
 }
 .container {
   padding:20px 20px 100px 20px;
 }
 
+<<<<<<< HEAD
 .btn-primary {
   background-color: #3ecf8e;
   border-color: #3ecf8e;
@@ -39,6 +46,8 @@ footer {
   border-color: #2eb87a !important;
 }
 
+=======
+>>>>>>> 19e65ddeb46ceba7b9dd5f49c8d63d8c7aa9c2e1
 .header {
   height: 60px;
   background-color: #ffffff;
@@ -62,11 +71,18 @@ footer {
   top: 14px;
   right: 14px;
   position: absolute;
+<<<<<<< HEAD
   cursor:pointer;
 }
 
 .FAQ {
   /* width: 34px; */
+=======
+}
+
+.FAQ {
+  width: 34px;
+>>>>>>> 19e65ddeb46ceba7b9dd5f49c8d63d8c7aa9c2e1
   height: 19px;
   font-size: 14px;
   font-weight: bold;
@@ -82,7 +98,11 @@ footer {
 }
 
 .EOS {
+<<<<<<< HEAD
   /* width: 408px; */
+=======
+  width: 408px;
+>>>>>>> 19e65ddeb46ceba7b9dd5f49c8d63d8c7aa9c2e1
   height: 57px;
   object-fit: contain;
   opacity: 0.2;
@@ -114,8 +134,13 @@ footer {
 
 
 .Mask {
+<<<<<<< HEAD
   /* max-width: 457px; */
   /* height: 421px; */
+=======
+  width: 457px;
+  height: 421px;
+>>>>>>> 19e65ddeb46ceba7b9dd5f49c8d63d8c7aa9c2e1
   border-radius: 4px;
   background-color: #ffffff;
   border: solid 1px #dddddd;
@@ -123,8 +148,16 @@ footer {
 }
 
 .Why-this-service {
+<<<<<<< HEAD
   font-size: 24px;
   font-weight: bold;
+=======
+  width: 425px;
+  height: 28px;
+  font-size: 24px;
+  font-weight: bold;
+  /* margin: 16px 0 0 16px; */
+>>>>>>> 19e65ddeb46ceba7b9dd5f49c8d63d8c7aa9c2e1
 }
 
 .Mask p {
@@ -132,6 +165,7 @@ footer {
   margin-top: 12px;
 }
 
+<<<<<<< HEAD
 .group2container {
   text-align:center;
 }
@@ -144,12 +178,43 @@ footer {
 .Get-started {
   font-size: 14px;
   font-weight: bold;
+=======
+.Group-2 {
+  width: 105px;
+  height: 121px;
+  object-fit: contain;
+}
+.group2container {
+  width: 100%;
+  text-align:center;
+}
+
+.GetStartedButton {
+  margin-top: 16px;
+  display:block;
+  width: 425px;
+  height: 40px;
+  border-radius: 4px;
+  background-color: #3ecf8e;
+  padding-top: 10px;
+  cursor: pointer;
+  text-decoration: none !important;
+}
+
+
+.Get-started {
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1.36;
+  letter-spacing: 2px;
+>>>>>>> 19e65ddeb46ceba7b9dd5f49c8d63d8c7aa9c2e1
   color: #ffffff;
   text-transform: uppercase;
 }
 
 
 .footer-buttons {
+<<<<<<< HEAD
   text-align: right;
 }
 
@@ -169,6 +234,49 @@ img.valid, img.invalid {
 
 .breadcrumbs {
   margin-top:50px;
+=======
+  width:100px;
+  height:50px;
+  position:absolute;
+  right: 0;
+  top:0;
+  
+}
+
+.Choose {
+  height: 256px;
+}
+
+form.account_name {
+  position: absolute;
+  top: 120px; 
+  left: 32px;
+}
+img.valid, img.invalid {
+  position:absolute;
+  top:42px;
+  right:5px;
+}
+button#gen_random {
+  position: absolute;
+  top: -5px;
+  right: 5px;
+  background-color:white;
+  color: #3ecf8e;
+  border: none;
+}
+
+button#submit_button {
+  margin-top:-24px;
+  padding-top:0px;
+}
+
+.breadcrumbs {
+  position:absolute;
+  bottom:10px;
+  left:10px;
+  
+>>>>>>> 19e65ddeb46ceba7b9dd5f49c8d63d8c7aa9c2e1
 }
 .breadcrumbs li {
   opacity: 0.2;
@@ -182,6 +290,12 @@ span.chosen_account_name {
 input#owner_key, input#active_key {
   font-size: 9pt;
 }
+<<<<<<< HEAD
+=======
+.Keys {
+  height: 365px;
+}
+>>>>>>> 19e65ddeb46ceba7b9dd5f49c8d63d8c7aa9c2e1
 
 
 .faq {
@@ -189,7 +303,11 @@ input#owner_key, input#active_key {
   top:0;
   right: 0;
   width: 50%;
+<<<<<<< HEAD
   min-width:300px;
+=======
+  min-width:500px;
+>>>>>>> 19e65ddeb46ceba7b9dd5f49c8d63d8c7aa9c2e1
   background-color:#f9f9f9;
   padding: 16px 16px 16px 16px;
   z-index:2;
@@ -239,4 +357,10 @@ input#owner_key, input#active_key {
   font-size:12px;
 }
 
+<<<<<<< HEAD
 
+=======
+.Purchase {
+  height: 390px;
+}
+>>>>>>> 19e65ddeb46ceba7b9dd5f49c8d63d8c7aa9c2e1
