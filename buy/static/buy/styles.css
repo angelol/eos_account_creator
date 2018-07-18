@@ -353,3 +353,7 @@ input#owner_key, input#active_key {
 .money_wings {
     margin-top:-10px;
 }
+
+.availability_warning {
+    color:red;
+}
