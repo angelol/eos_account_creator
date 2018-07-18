@@ -7,26 +7,7 @@
 	{{ block.super }}
 	
 	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
-	<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
-	<script>
-	window.addEventListener("load", function(){
-	window.cookieconsent.initialise({
-	  "palette": {
-	    "popup": {
-	      "background": "#eaf7f7",
-	      "text": "#5c7291"
-	    },
-	    "button": {
-	      "background": "#007bff",
-	      "text": "#ffffff"
-	    }
-	  },
-	  "content": {
-	    "message": "This website uses cookies because it absolutely needs them.",
-	    "href": "/privacy_policy/"
-	  }
-	})});
-	</script>
+	
 	
 
 {% endblock %}
@@ -58,4 +39,26 @@
 	</div>
 
 </div>
+{% endblock %}
+{% block bodyscript %}
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+<script>
+window.addEventListener("load", function(){
+window.cookieconsent.initialise({
+  "palette": {
+	"popup": {
+	  "background": "#cfcfcf",
+	  "text": "#5c7291"
+	},
+	"button": {
+	  "background": "#3ecf8e",
+	  "text": "#ffffff"
+	}
+  },
+  "content": {
+	"message": "This website uses cookies because it absolutely needs them.",
+	"href": "/privacy_policy/"
+  }
+})});
+</script>
 {% endblock %}

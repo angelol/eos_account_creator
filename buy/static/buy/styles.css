@@ -21,6 +21,13 @@ footer {
   margin-top:50px;
   width:100%;
 }
+.cc-window {
+    font-family: "Work Sans", sans-serif;
+}
+.cc-btn {
+    border-radius: 4px;
+    
+}
 .container {
   padding:20px 20px 100px 20px;
 }
