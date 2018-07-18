@@ -151,12 +151,16 @@ footer {
 
 .footer-buttons {
   text-align: right;
+  opacity: 0.4;
 }
 
 .footer-buttons img {
     width:24px;
     margin-left:20px;
     margin-top:-1px;
+}
+.footer-buttons a {
+    color:black;
 }
 
 
