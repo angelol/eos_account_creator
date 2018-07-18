@@ -1,5 +1,5 @@
 {% load static %}
-{% load cachebuster %}
+{% load tags %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -53,7 +53,7 @@
     <h4>Why do I need this service?</h4>
     <p>The way EOS works is that new accounts can only be created by someone with an existing account. If you have a friend who has an EOS account, you can ask him to create one for you. If you don't, this website can be your friend for a small fee.</p>
     <h4>How much does it cost?</h4>
-    <p>The cost of one EOS account is currently USD {{price_usd|floatformat:2}}. Included in the price are 0.2 staked EOS that will be transferred to your control and 4 KB of RAM.</p>
+    <p>The cost of one EOS account is currently USD {% price %}. Included in the price are 0.2 staked EOS that will be transferred to your control and 4 KB of RAM.</p>
     <h4>Which payment methods do you accept?</h4>
     <p>You can pay with credit card and the cryptocurrencies EOS, Bitcoin, Bitcoin Cash, Ethereum and Litecoin.</p>
     <h4>Is this website safe to use?</h4>
