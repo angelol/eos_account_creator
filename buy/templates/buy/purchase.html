@@ -8,6 +8,7 @@
 	{% block body %}
 	<div class="row">
 		<div class="col-md">
+			<div class="EOS">03</div>
 			<div class="Account-creator">Payment</div>
 			<div class="This-website-allows">Your chosen EOS Account Name is: <span class="chosen_account_name">{{purchase.account_name}}</span></div>
 			<form>
@@ -31,7 +32,7 @@
 				<div class="Why-this-service">One last step</div>
 				<p>After successful payment you will be redirected back here and we will create the EOS account for you. If you have any questions, please visit our  <a href="https://t.me/eos_account_creator" target="_new">Telegram group</a>.</p>
 				<div class="price_display">
-					<img src="{% static 'buy/img/money_wings.svg' %}"> <span class="price">USD {{purchase.price_usd|floatformat:2}}</span><br />
+					<img class="money_wings" src="{% static 'buy/img/money_wings.svg' %}"> <span class="price">USD {{purchase.price_usd|floatformat:2}}</span><br />
 					<span class="price_subtitle">Current price for account creation</span>
 				</div>
 

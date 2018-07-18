@@ -49,6 +49,7 @@ def keys(request):
     return render(request, "buy/keys.html", {
         'account_name': request.account_name,
         'breadcrumbs_public_keys': True,
+        'breadcrumbs_choose_finished': True,
     })
     
 @require_account_name
@@ -82,6 +83,8 @@ def purchase(request):
         'purchase': request.purchase,
         'uuid': request.session['uuid'],
         'breadcrumbs_payment': True,
+        'breadcrumbs_choose_finished': True,
+        'breadcrumbs_keys_finished': True,
     })
 
 
@@ -133,6 +136,9 @@ def webhook(request):
 def success(request):
     return render(request, "buy/success.html", {
         'purchase': request.purchase,
+        'breadcrumbs_choose_finished': True,
+        'breadcrumbs_keys_finished': True,
+        'breadcrumbs_purchase_finished': True,
     })
 
 @csrf_exempt
