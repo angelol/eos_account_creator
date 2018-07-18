@@ -153,6 +153,12 @@ footer {
   text-align: right;
 }
 
+.footer-buttons img {
+    width:24px;
+    margin-left:20px;
+    margin-top:-1px;
+}
+
 
 form.account_name {
 

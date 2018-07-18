@@ -39,5 +39,5 @@ urlpatterns = [
     path('card_declined/<stripe_charge>/', card_declined, name='card_declined'),
     path('stripe/', stripe, name='stripe'),
     path('eos/', eos, name='eos'),
-    
+    path('imprint/', TemplateView.as_view(template_name='buy/imprint.html'), name='imprint'),
 ]
