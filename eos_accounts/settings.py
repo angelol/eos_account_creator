@@ -53,6 +53,7 @@ if not DEBUG:
     INSTALLED_APPS.append('raven.contrib.django.raven_compat')
 
 MIDDLEWARE = [
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -60,8 +61,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'eos_accounts.middleware.MyMiddleware',
+    # 'eos_accounts.middleware.MyMiddleware',
+     'django.middleware.cache.FetchFromCacheMiddleware',
 ]
+if DEBUG:
+    MIDDLEWARE += [
+    'eos_accounts.middleware.TimeRequestsMiddleware',
+    # 'eos_accounts.middleware.ConsoleExceptionMiddleware',
+]
+
+CACHE_MIDDLEWARE_SECONDS = 0
 
 ROOT_URLCONF = 'eos_accounts.urls'
 
@@ -83,6 +92,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'eos_accounts.wsgi.application'
 
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
@@ -133,7 +149,7 @@ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesSto
 STATIC_URL = '/static/'
 STATIC_ROOT = '/django/static/'
 ML = 512
-EOS_API_NODES = ['https://publicapi-mainnet.eosauthority.com']
+EOS_API_NODES = ['https://node1.eosvibes.io']
 NEWACCOUNT_RAM_KB = 4
 NEWACCOUNT_NET_STAKE = 0.1
 NEWACCOUNT_CPU_STAKE = 0.1

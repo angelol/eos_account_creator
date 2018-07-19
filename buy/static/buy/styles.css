@@ -253,6 +253,13 @@ input#owner_key, input#active_key {
   border-bottom: solid 1px #dddddd;
   padding-bottom: 24px;
 }
+
+.help h4 {
+    margin-top:18px;
+    font-size: 18px;
+    /* font-weight: bold; */
+}
+
 .blackbox {
   position:fixed;
   top:0;

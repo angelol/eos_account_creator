@@ -36,7 +36,7 @@
 					<span class="price_subtitle">Current price for account creation</span>
 				</div>
 
-			 <form action="/buy_action/" method="POST">
+			 <form class="main" action="/buy_action/" method="POST">
 				 {% csrf_token %}
 				 <div class="form-group">
 			    <label for="exampleFormControlSelect1">Choose payment option</label>
@@ -105,10 +105,10 @@
 					data: {
 						'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
 						'token': token.id,
-						'account_name': $("input[name=account_name]").val(),
-						'owner_key': $("input[name=owner_key]").val(),
-						'active_key': $("input[name=active_key]").val(),
-						'uuid': $("input[name=uuid]").val(),
+						'account_name': $(".main input[name=account_name]").val(),
+						'owner_key': $(".main input[name=owner_key]").val(),
+						'active_key': $(".main input[name=active_key]").val(),
+						'uuid': $(".main input[name=uuid]").val(),
 					},
 					success: function(data) {
 						console.log(JSON.stringify(data));

@@ -19,7 +19,6 @@ account name</div>
 					<p>EOS Account names must be exactly 12 characters long and consist of lower case characters and digits up until 5.</p>
 					
 					<form class="account_name" action="/submit_account_name/" method="POST">
-						{% csrf_token %}
 					  <div class="form-group">
 							<div class="row">
 								<div class="col">
@@ -39,7 +38,7 @@ account name</div>
 								</div>
 								
 							</div>
-							<div class="form-group availability_warning">
+							<div style="display:none;" class="form-group availability_warning">
 								<div>
 									The account name is already taken, please choose another one
 								</div>
@@ -71,7 +70,7 @@ account name</div>
 
 <script>
 	let eos = EosApi({
-		httpEndpoint: 'https://publicapi-mainnet.eosauthority.com'
+		httpEndpoint: 'https://node1.eosvibes.io'
 	});
 	
 	
@@ -83,12 +82,12 @@ account name</div>
 		}
 		
 		eos.getAccount(account_name).then((x) => {
-			console.log("Account already exists");
+			// console.log("Account already exists");
 			$(".availability_warning").show();
 			set_valid(false);
 			
 		}).catch((err) => {
-  			console.log("Account is free");
+  			// console.log("Account is free");
 			$(".availability_warning").hide();
 		});;
 	}
