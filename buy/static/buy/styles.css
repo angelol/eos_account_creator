@@ -369,5 +369,6 @@ input#owner_key, input#active_key {
 }
 .eosvibes_logotext{
   margin-top:-25px;
-  margin-right:-100px;
+  padding-left:100px;
+  width:100%;
 }
