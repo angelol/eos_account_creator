@@ -2,110 +2,125 @@
 {% load static %}
 	{% block head %}
 		{{block.super}}
-		<script src="https://cdn.jsdelivr.net/npm/eosjs-ecc@4.0.1/dist/eosjs-ecc.js"></script>
-        <script>
-			$(function() {
-				$('input').keyup(function() {
-					validate_form();
-					validate_inputs();
-				});
-				validate_form();
-				validate_inputs();
-			});
-			
-			function is_valid_public_key(key) {
-				return eosjs_ecc.isValidPublic(key.trim());
-			}
-			
-			function set_valid(form, valid) {
-				if(valid) {					
-					form.find('button[type=submit]').prop("disabled", false);
-					form.find('button[type=submit]').text('Continue');
-				} else {
-					form.find('button[type=submit]').prop("disabled", true);
-					form.find('button[type=submit]').text('Please enter valid public keys to continue');
-				}
-			}
-			function validate_form() {
-				let form = $('form');
-				let owner = form.find('input[name=owner_key]');
-				let active = form.find('input[name=active_key]');
-				let valid_1 = is_valid_public_key(owner.val());
-				let valid_2 = is_valid_public_key(active.val());
-
-				set_valid(form, valid_1 && valid_2);
-			}
-			
-			function validate_inputs() {
-				let form = $('form');
-				let owner = form.find('input[name=owner_key]');
-				let active = form.find('input[name=active_key]');
-				let valid_owner= is_valid_public_key(owner.val());
-				let img_owner_valid = form.find('img.valid_owner');
-				let img_owner_invalid = form.find('img.invalid_owner');
-				let img_active_valid = form.find('img.valid_active');
-				let img_active_invalid = form.find('img.invalid_active');
-
-				if(valid_owner) {
-					img_owner_valid.show();
-					img_owner_invalid.hide();
-				} else {
-					img_owner_valid.hide();
-					img_owner_invalid.show();
-					
-				}
-				
-				
-				let valid_active = is_valid_public_key(active.val());
-				if(valid_active) {
-					img_active_valid.show();
-					img_active_invalid.hide();
-				} else {
-					img_active_valid.hide();
-					img_active_invalid.show();
-
-				}
-			}
-			
-			
-			
-		</script>
+		
+        
 	{% endblock %}
 	{% block body %}
-		<div class="shadow p-3 mb-5 bg-white rounded">
-		<div>
-			Your chosen EOS Account Name is: <span id="chosen_name"><b>{{account_name}}</b></span> <a href="/choose/">Change</a>
-		</div>
-		
-		
-		<h5>Please provide the public keys for your new account:</h5>
-		
-		
-		
-		<form action="/submit_public_key/" method="POST">
-			{% csrf_token %}
-		  <div class="form-group">
-		    <label for="owner_key" class="col-sm-4 col-form-label">Owner Public Key:</label>
-			<input type="text" class="form-control" id="owner_key" name="owner_key" size="53">
-		  </div>
-
-			<div class="form-group">
-				<label for="active_key" class="col-sm-4 col-form-label">Active Public Key:</label>
-			    <input type="text" class="form-control" id="active_key" name="active_key" size="53" aria-describedby="activeKeyHelp">
-				<small id="activeKeyHelp" class="form-text text-muted">Can be the same as owner key (but not recommended for security)</small>
-
-			
-		  </div>
-	
-			<button class="btn btn-primary" type="submit" disabled="disabled">Continue</button>
-		</form>
-		
-		
-		</div>
-		
-			<div class="shadow p-3 mb-5 bg-white rounded">
-				<h3>Help</h3><p/>
-				{% include 'buy/help.inc' %}
+	<div class="row">
+		<div class="col">
+			<div class="EOS">02</div>
+			<div class="Account-creator">Provide public keys</div>
+			<div class="This-website-allows">Your chosen EOS Account Name is: <span class="chosen_account_name">{{account_name}}</span></div>
+			<div class="help">
+				{% include 'buy/keys_help.inc' %}
 			</div>
+		</div>
+		<div class="col">
+			<div class="Mask">
+				<div class="Why-this-service">Provide public keys</div>
+				<p>Please provide the public keys for your new account. Active Public Key can be the same as Owner Public Key but not recommended for security.</p>
+				
+				<form action="/submit_public_key/" method="POST">
+					{% csrf_token %}
+				  <div class="form-group">
+				    <label for="owner_key" class="col-form-label">Owner Public Key:</label>
+					<input type="text" class="form-control" id="owner_key" name="owner_key" >
+				  </div>
+
+					<div class="form-group">
+						<label for="active_key" class=" col-form-label">Active Public Key:</label>
+					    <input type="text" class="form-control" id="active_key" name="active_key"  aria-describedby="activeKeyHelp">
+
+					
+				  </div>
+			
+					<button class="btn btn-primary stretch" id="submit_button" type="submit" disabled="disabled">Continue</button>
+				</form>
+
+			 
+			 
+			</div> 
+		</div>
 		
+	</div>
+	
+	{% include 'buy/breadcrumbs.inc' %}
+	
+	
 	{% endblock %}
+	
+	
+	{% block bodyscript %}
+	<script src="https://cdn.jsdelivr.net/npm/eosjs-ecc@4.0.1/dist/eosjs-ecc.js"></script>
+	<script>
+	
+$(function() {
+	$('input').on("keyup", validate);
+	$('input').on("change", validate);
+	$('input').on("paste", validate);
+	
+	function validate() {
+		validate_form();
+		validate_inputs();
+	}
+	validate();
+});
+
+function is_valid_public_key(key) {
+	return eosjs_ecc.isValidPublic(key.trim());
+}
+
+function set_valid(form, valid) {
+	if(valid) {					
+		form.find('button[type=submit]').prop("disabled", false);
+		form.find('button[type=submit]').text('Continue');
+	} else {
+		form.find('button[type=submit]').prop("disabled", true);
+		form.find('button[type=submit]').text('Please enter valid public keys');
+	}
+}
+function validate_form() {
+	let form = $('form');
+	let owner = form.find('input[name=owner_key]');
+	let active = form.find('input[name=active_key]');
+	let valid_1 = is_valid_public_key(owner.val());
+	let valid_2 = is_valid_public_key(active.val());
+
+	set_valid(form, valid_1 && valid_2);
+}
+
+function validate_inputs() {
+	let form = $('form');
+	let owner = form.find('input[name=owner_key]');
+	let active = form.find('input[name=active_key]');
+	let valid_owner= is_valid_public_key(owner.val());
+	let img_owner_valid = form.find('img.valid_owner');
+	let img_owner_invalid = form.find('img.invalid_owner');
+	let img_active_valid = form.find('img.valid_active');
+	let img_active_invalid = form.find('img.invalid_active');
+
+	if(valid_owner) {
+		img_owner_valid.show();
+		img_owner_invalid.hide();
+	} else {
+		img_owner_valid.hide();
+		img_owner_invalid.show();
+		
+	}
+	
+	
+	let valid_active = is_valid_public_key(active.val());
+	if(valid_active) {
+		img_active_valid.show();
+		img_active_invalid.hide();
+	} else {
+		img_active_valid.hide();
+		img_active_invalid.show();
+
+	}
+}
+
+
+
+</script>
+{% endblock %}

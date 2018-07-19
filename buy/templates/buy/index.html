@@ -1,88 +1,61 @@
 {% extends "buy/base.html" %}
+{% load static %}
+
 {% block title %}EOS Account Generation Service{% endblock %}
 
 {% block head %}
 	{{ block.super }}
-	
-	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
-	<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
-	<script>
-	window.addEventListener("load", function(){
-	window.cookieconsent.initialise({
-	  "palette": {
-	    "popup": {
-	      "background": "#eaf7f7",
-	      "text": "#5c7291"
-	    },
-	    "button": {
-	      "background": "#007bff",
-	      "text": "#ffffff"
-	    }
-	  },
-	  "content": {
-	    "message": "This website uses cookies because it absolutely needs them.",
-	    "href": "/privacy_policy/"
-	  }
-	})});
-	</script>
-	
-
 {% endblock %}
 {% block body %}
 	
-	<div class="jumbotron">
-	<h1 class="display-4"><a href="https://eos-account-creator.com">EOS Account Creator</a></h1>
-	  <p class="lead">EOS Account Generation Service for everyone</p>
-	  <hr class="my-4">
-	  <p>This website allows you to create an EOS account if you don't have one yet. The way EOS works is that new accounts can only be created by someone with an existing account. Creating an account also requires to stake a certain amount of EOS and to buy some RAM. If you create an EOS account on this website, it comes with 0.2 EOS staked for CPU and Network bandwidth as well as 4KB of RAM.</p>
-		<a href="/choose/" class="btn btn-primary btn-lg">Create EOS Account</a><br />
-		
+<div class="row">
+	<div class="col-sm">
+		<div class="EOS">EOS</div>
+		<div class="Account-creator">Account creator</div>
+		<div class="This-website-allows">This website allows you to create an EOS account if you don't have one yet. <a class="faq_link" href="#">Check our FAQ</a> for more info.</div>
 	</div>
-	{% if purchases %}
-	<h5>My previous transactions</h5>
-	<div class="table-responsive">
-	<table class="table table-bordered">
-		<thead>
-			<tr>
-				<th>Created at</th><th>Account Name</th><th>Payment Received?</th><th>Account Created?</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for p in purchases %}
-				<tr>
-					<td>{{p.created_at}}</td><td>{{p.account_name}}</td><td>{{p.payment_received}}</td><td>{{p.account_created}}</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+	<div class="col-sm">
+		<div class="Mask">
+			<div class="Why-this-service">Why this service?</div>
+			<p>The way EOS works is that new accounts can only be created by someone with an existing account. Creating an account also requires to stake a certain amount of EOS and to buy some RAM.</p>
+			<p> If you create an EOS account on this website, it comes with 0.2 EOS staked for CPU and Network bandwidth as well as 4KB of RAM.</p>
+			
+			<div class="group2container">
+			<img src="{% static 'buy/img/group-2.png' %}"
+     srcset="{% static 'buy/img/group-2@2x.png' %} 2x,
+             {% static 'buy/img/group-2@3x.png' %} 3x"
+     class="Group-2">
+		 
+		 <a href="/choose/" class="btn btn-primary get_started_button"><span class="Get-started">Get started</span></a>
+		 </div>
+		 
+		 
+		</div>
 	</div>
-	{% endif %}
-	<div class="faq">
-		<h2>FAQ</h2>
-		<h4>Why do I need this service?</h4>
-		<p>The way EOS works is that new accounts can only be created by someone with an existing account. If you have a friend who has an EOS account, you can ask him to create one for you. If you don't, this website can be your friend for a small fee.</p>
-		<h4>How much does it cost?</h4>
-		<p>The cost of one EOS account is currently USD {{price_usd|floatformat:2}}. Included in the price are 0.2 staked EOS that will be transferred to your control and 4 KB of RAM.</p>
-		<h4>Which payment methods do you accept?</h4>
-		<p>You can pay with credit card and the cryptocurrencies EOS, Bitcoin, Bitcoin Cash, Ethereum and Litecoin.</p>
-		<h4>Is this website safe to use?</h4>
-		<p>I built this website because it's a useful service for the EOS community. You generate the keys safely offline and only use your public keys on the website. Public keys are safe to share. The source code is on <a href="https://github.com/angelol/eos_account_creator" target="_new">GitHub</a> and can be audited. The activity of this website can be checked on the EOS blockchain. This tool uses the EOS account <b>accountcreat</b> to generate new accounts, the <a href="https://eostracker.io/accounts/accountcreat" target="_new">activity can be checked</a> in any block explorer. If you have further questions, please get in touch through our <a href="https://t.me/eos_account_creator" target="_new">telegram group</a>.</p>
-		{% include 'buy/help.inc' %}
-		<h4>Is this tool open source?</h4>
-		<p><a href="https://github.com/angelol/eos_account_creator" target="_new">Yes!</a>
-		</p>
-		
-	</div>
-	<footer>
-		Imprint:<br />
-		Angelo Laub<br />
-		Brünnlbadgasse 10<br />
-		1090 Wien, Austria<br />
-		hello@eos-account-creator.com<br/>
-		<a href="/privacy_policy/">Privacy Policy</a><br/>
-		<a href="https://github.com/angelol/eos_account_creator" target="_new">Source Code on GitHub</a><br />
-		<a href="https://t.me/eos_account_creator" target="_new">Telegram group</a>
-	</footer>
-	
-	{% csrf_token %}
+
+</div>
+{% endblock %}
+{% block bodyscript %}
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+<script>
+window.addEventListener("load", function(){
+window.cookieconsent.initialise({
+  "palette": {
+	"popup": {
+	  "background": "#cfcfcf",
+	  "text": "#5c7291"
+	},
+	"button": {
+	  "background": "#3ecf8e",
+	  "text": "#ffffff"
+	}
+  },
+  "content": {
+	"message": "This website uses cookies because it absolutely needs them.",
+	"href": "/privacy_policy/"
+  }
+})});
+</script>
 {% endblock %}

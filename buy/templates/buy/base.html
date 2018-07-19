@@ -1,3 +1,5 @@
+{% load static %}
+{% load tags %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -7,23 +9,93 @@
 		<title>{% block title %}{% endblock %}</title>
 
 		{% block head %}
-
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-		<style>
-			body {
-				padding:20px 20px 100px 20px;
-			}
-		</style>
-			<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans|Work+Sans:b" rel="stylesheet">
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha256-zVUlvIh3NEZRYa9X/qpNY8P1aBy0d4FrI7bhfZSZVwc=" crossorigin="anonymous" />
+        
+    
+    <link rel="stylesheet" href="{% static 'buy/styles.css' %}{% cachebuster %}">
+			
+      
+      
 		{% endblock %}
 	</head>
 	<body>
-		<div class="container">
-			{% block body %}
-			{% endblock %}
-		</div>
+    <div class="header">
 
+      <a href="/"><img src="{% static 'buy/img/combined-shape-copy.svg' %}" class="Combined-Shape-Copy"></a>
+      <div class="FAQ_button"><span class="FAQ">FAQ</span></div>
+      
+    </div>
+		<div class="container">
+      <div class="row">
+  			{% block body %}
+  			{% endblock %}
+  		</div>
+    <div class="row">
+      <footer>
+    		<div class="footer-buttons">
+                <a href="{% url 'imprint' %}">Imprint</a>
+    			<a href="https://github.com/angelol/eos_account_creator" target="_new"><img src="{% static 'buy/img/GitHub-Mark-120px-plus.png' %}"></a>
+    			<a href="https://t.me/eos_account_creator" target="_new"><img src="{% static 'buy/img/telegram.svg' %}"></a>
+    		</div>
+    	</footer>
+    </div>
+  </div>
+  
+  
+  <div class="faq" style="display:none;">
+    <button type="button" class="close" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <h2>FAQ</h2>
+    <h4>Why do I need this service?</h4>
+    <p>The way EOS works is that new accounts can only be created by someone with an existing account. If you have a friend who has an EOS account, you can ask him to create one for you. If you don't, this website can be your friend for a small fee.</p>
+    <h4>How much does it cost?</h4>
+    <p>The cost of one EOS account is currently USD {% price %}. Included in the price are 0.2 staked EOS that will be transferred to your control and 4 KB of RAM.</p>
+    <h4>Which payment methods do you accept?</h4>
+    <p>You can pay with credit card and the cryptocurrencies EOS, Bitcoin, Bitcoin Cash, Ethereum and Litecoin.</p>
+    <h4>Is this website safe to use?</h4>
+    <p>Yes. You generate the keys safely offline and only use your public keys on the website. Public keys are safe to share. The source code is on <a href="https://github.com/angelol/eos_account_creator" target="_new">GitHub</a> and can be audited. The activity of this website can be checked on the EOS blockchain. This tool uses the EOS account <b>accountcreat</b> to generate new accounts, the <a href="https://eostracker.io/accounts/accountcreat" target="_new">activity can be checked</a> in any block explorer. If you have further questions, please get in touch through our <a href="https://t.me/eos_account_creator" target="_new">telegram group</a>.</p>
+    {% include 'buy/help.inc' %}
+    <h4>Is this tool open source?</h4>
+    <p><a href="https://github.com/angelol/eos_account_creator" target="_new">Yes!</a>
+    </p>
+    
+  </div>
+  <div class="blackbox" style="display: none;"></div>
+  
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha256-IeI0loa35pfuDxqZbGhQUiZmD2Cywv1/bdqiypGW46o=" crossorigin="anonymous"></script>
+  
+  <script>
+    $(function() {
+      var faq_visible = false;
+      
+      function toggle(ev) {
+        ev.preventDefault();
+        console.log("ohai toggle");
+        if(faq_visible) {
+          $(".faq").hide();
+          $(".blackbox").hide();
+          faq_visible = false;
+        } else {
+          $(".faq").show();
+          $(".blackbox").show();
+          faq_visible = true;
+          
+        }
+      }
+      
+      $("button.close,.blackbox,.FAQ_button,.faq_link").click(toggle);
+      // $('.FAQ_button').click(toggle);
+    });
+    
+  </script>
+  
+  {% block bodyscript %}
+  {% endblock %}
 	</body>
 </html>

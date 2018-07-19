@@ -1,168 +1,101 @@
 {% extends "buy/base.html" %}
+{% load static %}
 	{% block head %}
 		{{block.super}}
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-		<script>
-			$(function() {
-				check_progress();
-				
-			});
-			function check_progress() {
-				$.ajax({
-					url: "/check_progress/",
-					method: "POST",
-					success: function(data) {
-						// console.log(data);
-						if(data.purchase.account_created) {
-							// console.log("account was created");
-							$(".account_created").show();
-							$(".payment_received").hide();
-							$(".please_wait").hide();
-						} else if(data.purchase.payment_received) {
-							$(".account_created").hide();
-							$(".payment_received").show();
-							$(".please_wait").hide();
-							setTimeout(check_progress, 5000);
-						} else {
-							$(".account_created").hide();
-							$(".payment_received").hide();
-							$(".please_wait").show();
-							setTimeout(check_progress, 5000);
-						}
-					},
-					error: function() {
-						setTimeout(check_progress, 5000);
-					}
-				});
-			}
-		</script>
+		
 	{% endblock %}
 	{% block body %}
 		<div class="please_wait">
 			Please wait while we await confirmation of your payment…
-			<div class="lds-css ng-scope">
-			<div class="lds-spinner" style="100%;height:100%"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-			<style type="text/css">@keyframes lds-spinner {
-			  0% {
-			    opacity: 1;
-			  }
-			  100% {
-			    opacity: 0;
-			  }
-			}
-			@-webkit-keyframes lds-spinner {
-			  0% {
-			    opacity: 1;
-			  }
-			  100% {
-			    opacity: 0;
-			  }
-			}
-			.lds-spinner {
-			  position: relative;
-			}
-			.lds-spinner div {
-			  left: 94px;
-			  top: 48px;
-			  position: absolute;
-			  -webkit-animation: lds-spinner linear 1s infinite;
-			  animation: lds-spinner linear 1s infinite;
-			  background: #e90c59;
-			  width: 12px;
-			  height: 24px;
-			  border-radius: 40%;
-			  -webkit-transform-origin: 6px 52px;
-			  transform-origin: 6px 52px;
-			}
-			.lds-spinner div:nth-child(1) {
-			  -webkit-transform: rotate(0deg);
-			  transform: rotate(0deg);
-			  -webkit-animation-delay: -0.916666666666667s;
-			  animation-delay: -0.916666666666667s;
-			}
-			.lds-spinner div:nth-child(2) {
-			  -webkit-transform: rotate(30deg);
-			  transform: rotate(30deg);
-			  -webkit-animation-delay: -0.833333333333333s;
-			  animation-delay: -0.833333333333333s;
-			}
-			.lds-spinner div:nth-child(3) {
-			  -webkit-transform: rotate(60deg);
-			  transform: rotate(60deg);
-			  -webkit-animation-delay: -0.75s;
-			  animation-delay: -0.75s;
-			}
-			.lds-spinner div:nth-child(4) {
-			  -webkit-transform: rotate(90deg);
-			  transform: rotate(90deg);
-			  -webkit-animation-delay: -0.666666666666667s;
-			  animation-delay: -0.666666666666667s;
-			}
-			.lds-spinner div:nth-child(5) {
-			  -webkit-transform: rotate(120deg);
-			  transform: rotate(120deg);
-			  -webkit-animation-delay: -0.583333333333333s;
-			  animation-delay: -0.583333333333333s;
-			}
-			.lds-spinner div:nth-child(6) {
-			  -webkit-transform: rotate(150deg);
-			  transform: rotate(150deg);
-			  -webkit-animation-delay: -0.5s;
-			  animation-delay: -0.5s;
-			}
-			.lds-spinner div:nth-child(7) {
-			  -webkit-transform: rotate(180deg);
-			  transform: rotate(180deg);
-			  -webkit-animation-delay: -0.416666666666667s;
-			  animation-delay: -0.416666666666667s;
-			}
-			.lds-spinner div:nth-child(8) {
-			  -webkit-transform: rotate(210deg);
-			  transform: rotate(210deg);
-			  -webkit-animation-delay: -0.333333333333333s;
-			  animation-delay: -0.333333333333333s;
-			}
-			.lds-spinner div:nth-child(9) {
-			  -webkit-transform: rotate(240deg);
-			  transform: rotate(240deg);
-			  -webkit-animation-delay: -0.25s;
-			  animation-delay: -0.25s;
-			}
-			.lds-spinner div:nth-child(10) {
-			  -webkit-transform: rotate(270deg);
-			  transform: rotate(270deg);
-			  -webkit-animation-delay: -0.166666666666667s;
-			  animation-delay: -0.166666666666667s;
-			}
-			.lds-spinner div:nth-child(11) {
-			  -webkit-transform: rotate(300deg);
-			  transform: rotate(300deg);
-			  -webkit-animation-delay: -0.083333333333333s;
-			  animation-delay: -0.083333333333333s;
-			}
-			.lds-spinner div:nth-child(12) {
-			  -webkit-transform: rotate(330deg);
-			  transform: rotate(330deg);
-			  -webkit-animation-delay: 0s;
-			  animation-delay: 0s;
-			}
-			.lds-spinner {
-			  width: 48px !important;
-			  height: 48px !important;
-			  -webkit-transform: translate(-24px, -24px) scale(0.24) translate(24px, 24px);
-			  transform: translate(-24px, -24px) scale(0.24) translate(24px, 24px);
-			}
-			</style></div>
+			<div class="loader">Loading...</div>
 		</div>
 		<div class="payment_received" style="display:none;">
 			Your payment was received. Please stand by while we try to create your EOS account.
+			<div class="loader">Loading...</div>
 		</div>
 		<div class="account_created" style="display:none;">
-			Thank you, it worked!<br />
-			Your EOS Account with the name: {{purchase.account_name}} was successfully created.
+			<div class="row">
+				<div class="col-sm">
+					<div class="EOS">EOS</div>
+					<div class="Account-creator">Account created</div>
+					<div class="This-website-allows">Your chosen EOS Account Name is: <span class="chosen_account_name">{{purchase.account_name}}</span></div>
+					<form>
+						<div class="form-group">
+							<label for="owner_key" class="col-form-label">Owner Public Key:</label>
+						<input type="text" class="form-control" id="owner_key" name="owner_key" size="53" readonly="readonly" placeholder="{{purchase.owner_key}}">
+						</div>
+
+						<div class="form-group">
+							<label for="active_key" class=" col-form-label">Active Public Key:</label>
+								<input type="text" class="form-control" id="active_key" name="active_key" size="53" readonly="readonly" placeholder="{{purchase.active_key}}">
+
+						
+						</div>
+				
+					</form>
+				</div>
+				<div class="col-sm">
+					<div class="Mask">
+						<div class="Why-this-service">Thank you</div>
+						<p>Your EOS Account <b>{{purchase.account_name}}</b> was created successfully.</p> 
+						<p>
+							What's next?<br/>
+							You can check out your new account in the <a href="http://explorer.eosvibes.io/search/{{purchase.account_name}}" target="_new">EOS Block Explorer</a>
+						</p>
+						<p>If you have any questions, please visit our  <a href="https://t.me/eos_account_creator" target="_new">Telegram group.</a></p>
+						
+						<div class="group2container">
+						<img src="{% static 'buy/img/group-2.png' %}"
+			     srcset="{% static 'buy/img/group-2@2x.png' %} 2x,
+			             {% static 'buy/img/group-2@3x.png' %} 3x"
+			     class="Group-2">
+					 
+					 <a href="/choose/" class="btn btn-primary get_started_button"><span class="Get-started">Get started</span></a>
+					 </div>
+					 
+					 
+					</div>
+				</div>
+
+			</div>
 		</div>
 		
-		<div>
-			If you have any questions, please join our <a href="https://t.me/eos_account_creator" target="_new">telegram group</a>.
-		</div>
+		
 	{% endblock %}
+	
+{% block bodyscript %}
+<script>
+	$(function() {
+		check_progress();
+		
+	});
+	function check_progress() {
+		$.ajax({
+			url: "/check_progress/",
+			method: "POST",
+			success: function(data) {
+				// console.log(data);
+				if(data.purchase.account_created) {
+					// console.log("account was created");
+					$(".account_created").show();
+					$(".payment_received").hide();
+					$(".please_wait").hide();
+				} else if(data.purchase.payment_received) {
+					$(".account_created").hide();
+					$(".payment_received").show();
+					$(".please_wait").hide();
+					setTimeout(check_progress, 5000);
+				} else {
+					$(".account_created").hide();
+					$(".payment_received").hide();
+					$(".please_wait").show();
+					setTimeout(check_progress, 5000);
+				}
+			},
+			error: function() {
+				setTimeout(check_progress, 5000);
+			}
+		});
+	}
+</script>
+{% endblock %}

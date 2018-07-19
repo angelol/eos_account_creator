@@ -1,7 +1,7 @@
 let Eos = require('eosjs');
 let fs = require('fs');
 
-let httpEndpoint = 'https://publicapi-mainnet.eosauthority.com';
+let httpEndpoint = 'https://node1.eosvibes.io';
 let chainId = 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906';
 
 let creator = 'accountcreat';

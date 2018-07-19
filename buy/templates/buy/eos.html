@@ -3,31 +3,11 @@
 	{% block head %}
 		{{block.super}}
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
-    <script>
-      $(function() {
-          new ClipboardJS('.copy');
-          $("#select1").change(function() {
-            console.log($(this).val());
-            let e = $(this);
-            e.find('option.default').hide();
-            $('.instructions').show();
-            if(e.val() == "binance") {
-              $(".binance").show();
-              $(".other").hide();
-            } else {
-              $(".binance").hide();
-              $(".other").show();
-            }
-          });
-      });
-      
-      
-    </script>
+    
 		
 	{% endblock %}
 	{% block body %}
-	<div class="shadow p-3 mb-5 bg-white rounded">
+	<div class="Mask">
     <h1>EOS Smart Contract Account Creator</h1>
     <p>
         <a href="https://eos-account-creator.com/">EOS Account Creator</a> is proud to present the world's first <a href="https://github.com/angelol/smart_account_creator">open source</a> smart contract account creator.
@@ -80,8 +60,8 @@
       </p>
     </div>
 	</div>
-  
-  <div class="shadow p-3 mb-5 bg-white rounded">
+  <p></p>
+  <div class="Mask">
     <h3>Help</h3><p/>
     <h5>How do I withdraw from an Exchange?</h5>
     <p>
@@ -117,3 +97,27 @@
 	
 	
 	{% endblock %}
+	
+{% block bodyscript %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+<script>
+	$(function() {
+			new ClipboardJS('.copy');
+			$("#select1").change(function() {
+				console.log($(this).val());
+				let e = $(this);
+				e.find('option.default').hide();
+				$('.instructions').show();
+				if(e.val() == "binance") {
+					$(".binance").show();
+					$(".other").hide();
+				} else {
+					$(".binance").hide();
+					$(".other").show();
+				}
+			});
+	});
+	
+	
+</script>
+{% endblock %}

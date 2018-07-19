@@ -1,141 +1,195 @@
 {% extends "buy/base.html" %}
+{% load static %}
+
 	{% block head %}
 		{{block.super}}
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-		<script>
-			var handler;
-			
-			var xToken;
-			$(function() {
-				$("input[type=radio]").change(function() {
-					
-					update_form($(this));
-				});
-				
-				handler = StripeCheckout.configure({
-				  key: 'pk_live_evJqDAq6j8nspwva5E5y8rlw',
-				  image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
-				  locale: 'auto',
-				  token: function(token) {
-				    // You can access the token ID with `token.id`.
-				    // Get the token ID to your server-side code for use.
-				console.log("GOt token.id: "+ token.id);
-				xToken = token;
-					$.ajax({
-						url: '/stripe_charge/',
-						method: 'POST',
-						data: {
-							'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
-							'token': token.id,
-							'account_name': $("input[name=account_name]").val(),
-							'owner_key': $("input[name=owner_key]").val(),
-							'active_key': $("input[name=active_key]").val(),
-							'uuid': $("input[name=uuid]").val(),
-						},
-						success: function(data) {
-							console.log(JSON.stringify(data));
-							if(data=='ok') {
-								window.location.href = '/success/';
-							}
-						}
-					})
-				  }
-				});
-				// Close Checkout on page navigation:
-				window.addEventListener('popstate', function() {
-				  handler.close();
-				});
-				
-			});
-			
-			function update_form(e) {
-				var text;
-				var submit_fun;
-				let form = $("form");
-				$("button").prop("disabled", false);
-				let value = $(e).val();
-				console.log("value: " + value);
-				
-				let price = $("input[name=price]").val();
-				console.log("Price: " + price);
-				if(value == 'creditcard') {
-					text = 'Create EOS Account and pay USD ' + price + ' with credit card';
-					submit_fun = pay_creditcard;
-				} else if (value == 'crypto') {
-					text = 'Create EOS Account and pay USD ' + price + ' with cryptocurrency';
-					submit_fun = pay_crypto;
-				} else if (value == 'eos') {
-					text = 'Show instructions';
-					submit_fun = pay_crypto;
-				}
-				$("button").text(text);
-				
-				form.off( "submit" );
-				form.submit(submit_fun);
-				
-				
-			}
-			
-			function pay_creditcard(event) {
-				$.ajax({
-					url: '/stripe/',
-					method: 'POST',
-					data: {
-						'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
-					}
-				});
-				handler.open({
-					name: "EOS Account Creator",
-					description: "Your EOS Account "+ $("input[name=account_name]").val(),
-					amount: $("input[name=price_cents]").val(),
-					currency: 'usd',
-					zipCode: true,
-				});
-				event.preventDefault();
-				
-			}
-			
-			function pay_crypto(event) {
-				// do nothing, just let the form submit
-			}
-		</script>
+		
 	{% endblock %}
 	{% block body %}
-	<div class="shadow p-3 mb-5 bg-white rounded">
-		<p>The EOS account name you have chosen is: <b>{{purchase.account_name}}</b><br />
-Your owner key is: <b>{{purchase.owner_key}}</b><br />
-Your active key is: <b>{{purchase.active_key}}</b><br />
+	<div class="row">
+		<div class="col-md">
+			<div class="EOS">03</div>
+			<div class="Account-creator">Payment</div>
+			<div class="This-website-allows">Your chosen EOS Account Name is: <span class="chosen_account_name">{{purchase.account_name}}</span></div>
+			<form>
+				{% csrf_token %}
+				<div class="form-group">
+					<label for="owner_key" class="col-form-label">Owner Public Key:</label>
+				<input type="text" class="form-control" id="owner_key" name="owner_key" size="53" readonly="readonly" placeholder="{{purchase.owner_key}}">
+				</div>
 
-The current price for the account creation service is: USD {{purchase.price_usd|floatformat:2}}<br />
-After successful payment, you will be redirected back here and we will create the EOS account for you. In case of problems, your payment will be refunded.</p>
-<form action="/buy_action/" method="POST">
-	{% csrf_token %}
-	<div class="form-group">
-	<input required="required" type="checkbox" id="privacy_policy"></input><label for="privacy_policy">I have read an accept the <a href="/privacy_policy/" target="_new">privacy policy</a><label><br />
-	</div>
-	<div class="form-group">
-	<input required="required" type="checkbox" id="constitution"></input><label for="constitution">I have read an accept the <a href="https://github.com/EOS-Mainnet/governance/blob/master/eosio.system/eosio.system-clause-constitution-rc.md" target="_new">EOS Constitution</a><label><br />
-	</div>
-	<div class="form-group">
-		<p>Please choose your payment option:</p>
-		<input type="radio" name="payment" value="creditcard" id="creditcard" /><label for="creditcard"> Credit Card</label><br />
-		<input type="radio" name="payment" value="crypto" id="crypto" /><label for="crypto"> Cryptocurrency (Bitcoin, Bitcoin Cash, Ethereum or Litecoin)</label><br />
-		<input type="radio" name="payment" value="eos" id="eos" /><label for="eos"> EOS (Use this if you have EOS on an exchange)</label>
-	</div>
-	<input type="hidden" name="price" value="{{purchase.price_usd|floatformat:2}}" />
-	<input type="hidden" name="price_cents" value="{{purchase.price_cents}}" />
-	<input type="hidden" name="account_name" value="{{purchase.account_name}}" />
-	<input type="hidden" name="owner_key" value="{{purchase.owner_key}}" />
-	<input type="hidden" name="active_key" value="{{purchase.active_key}}" />
-	<input type="hidden" name="uuid" value="{{uuid}}" />
+				<div class="form-group">
+					<label for="active_key" class=" col-form-label">Active Public Key:</label>
+						<input type="text" class="form-control" id="active_key" name="active_key" size="53" readonly="readonly" placeholder="{{purchase.active_key}}">
 
-	<button class="btn btn-primary" type="submit" disabled="disabled">Please choose a payment method to continue</button>
-</form>
+				
+				</div>
+		
+			</form>
+		</div>
+		<div class="col-md">
+			<div class="Mask">
+				<div class="Why-this-service">One last step</div>
+				<p>After successful payment you will be redirected back here and we will create the EOS account for you. If you have any questions, please visit our  <a href="https://t.me/eos_account_creator" target="_new">Telegram group</a>.</p>
+				<div class="price_display">
+					<img class="money_wings" src="{% static 'buy/img/money_wings.svg' %}"> <span class="price">USD {{purchase.price_usd|floatformat:2}}</span><br />
+					<span class="price_subtitle">Current price for account creation</span>
+				</div>
 
-
+			 <form class="main" action="/buy_action/" method="POST">
+				 {% csrf_token %}
+				 <div class="form-group">
+			    <label for="exampleFormControlSelect1">Choose payment option</label>
+			    <select name="payment" class="form-control" id="exampleFormControlSelect1">
+						<option>---Please choose---</option>
+			      <option value="creditcard">Credit Card</option>
+			      <option value="crypto">Cryptocurrency (Bitcoin, Bitcoin Cash, Ethereum or Litecoin)</option>
+			      <option value="eos">EOS (Use this if you have EOS on an exchange)</option>
+			    </select>
+			  </div>
+				<div class="form-group">
+					<div class="row">
+						<div class="col-sm-10">
+							<label for="constitution">I have read an accept the <a href="/privacy_policy/" target="_new">privacy policy</a> and the <a href="https://github.com/EOS-Mainnet/governance/blob/master/eosio.system/eosio.system-clause-constitution-rc.md" target="_new">EOS Constitution</a></label>
+						</div>
+						<div class="col-sm-1">
+							<input required="required" type="checkbox" id="constitution"></input>
+						</div>
+					</div>
+			</div>
+				<input type="hidden" name="price" value="{{purchase.price_usd|floatformat:2}}" />
+				<input type="hidden" name="price_cents" value="{{purchase.price_cents}}" />
+				<input type="hidden" name="account_name" value="{{purchase.account_name}}" />
+				<input type="hidden" name="owner_key" value="{{purchase.owner_key}}" />
+				<input type="hidden" name="active_key" value="{{purchase.active_key}}" />
+				<input type="hidden" name="uuid" value="{{uuid}}" />
+				<center>
+					<button class="btn btn-primary stretch" type="submit" disabled="disabled"></button>
+				</center>
+			</form>
+			 
+			</div> 
+		</div>
+		
 	</div>
-	Need help? If you have any questions, please visit our <a href="https://t.me/eos_account_creator" target="_new">telegram group</a>.
 	
+	{% include 'buy/breadcrumbs.inc' %}
+	
+	
+	{% endblock %}
+	
+	{% block bodyscript %}
 	<script src="https://checkout.stripe.com/checkout.js"></script>
-	
+
+	<script>
+		var handler;
+		
+		var xToken;
+		$(function() {
+			$("select[name=payment]").change(function() {
+				
+				update_form($(this));
+			});
+			
+			handler = StripeCheckout.configure({
+				key: 'pk_live_evJqDAq6j8nspwva5E5y8rlw',
+				image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+				locale: 'auto',
+				token: function(token) {
+					// You can access the token ID with `token.id`.
+					// Get the token ID to your server-side code for use.
+			xToken = token;
+				$.ajax({
+					url: '/stripe_charge/',
+					method: 'POST',
+					data: {
+						'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+						'token': token.id,
+						'account_name': $(".main input[name=account_name]").val(),
+						'owner_key': $(".main input[name=owner_key]").val(),
+						'active_key': $(".main input[name=active_key]").val(),
+						'uuid': $(".main input[name=uuid]").val(),
+					},
+					success: function(data) {
+						console.log(JSON.stringify(data));
+						if(data=='ok') {
+							window.location.href = '/success/';
+						}
+					}
+				})
+				}
+			});
+			// Close Checkout on page navigation:
+			window.addEventListener('popstate', function() {
+				handler.close();
+			});
+			
+		});
+		function mobile() {
+			return window.matchMedia("only screen and (max-width: 500px)").matches;
+			
+		}
+		function update_form(e) {
+			var text;
+			var submit_fun;
+			let form = $("form");
+			let button = $("button[type=submit]");
+			
+			let value = $(e).val();
+			
+			let price = $("input[name=price]").val();
+			if(value == 'creditcard') {
+				text = 'Pay USD ' + price + ' with credit card';
+				submit_fun = pay_creditcard;
+				button.prop("disabled", false);
+			} else if (value == 'crypto') {
+				text = 'Pay USD ' + price + ' with cryptocurrency';
+				submit_fun = pay_crypto;
+				button.prop("disabled", false);
+			} else if (value == 'eos') {
+				text = 'Show instructions';
+				submit_fun = pay_crypto;
+				button.prop("disabled", false);
+			} else {
+				if(mobile()) {
+					text = 'Please choose a payment method';
+				} else {
+					text = 'Please choose a payment method to continue';
+				}
+				submit_fun = function(e) { e.preventDefault();};
+				button.prop("disabled", true);
+			}
+			button.text(text);
+			
+			form.off( "submit" );
+			form.submit(submit_fun);
+			
+			
+		}
+		update_form($("select[name=payment]"));
+
+		function pay_creditcard(event) {
+			event.preventDefault();
+			$.ajax({
+				url: '/stripe/',
+				method: 'POST',
+				data: {
+					'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+				}
+			});
+			handler.open({
+				name: "EOS Account Creator",
+				description: "Your EOS Account "+ $("input[name=account_name]").val(),
+				amount: $("input[name=price_cents]").val(),
+				currency: 'usd',
+				zipCode: true,
+			});
+			
+			
+		}
+		
+		function pay_crypto(event) {
+			// do nothing, just let the form submit
+		}
+	</script>
 	{% endblock %}

@@ -9,22 +9,20 @@ from .models import CoinbaseEvent, PriceData, StripeCharge
 from .coinbase import *
 from django.http import JsonResponse
 from django.utils import timezone
-    
+from django.views.decorators.cache import cache_page
+
+@cache_page(60)
 def index(request):
-    user_uuid = request.session.get('uuid')
-    if user_uuid:
-        purchases = Purchase.objects.filter(user_uuid=user_uuid).order_by('-created_at')
-    else:
-        purchases = []
-    return render(request, "buy/index.html", {
-        'purchases': purchases,
-        'price_usd': Purchase.get_prices_usd()[1],
-    })
+    return render(request, "buy/index.html")
     
-# Create your views here.
+@cache_page(60)
 def choose(request):
-    return render(request, "buy/choose.html")
-    
+    return render(request, "buy/choose.html", {
+        'breadcrumbs_account_name': True,
+    })
+
+# csrf disabled so we can cache the choose view (this view is not security-relevant)
+@csrf_exempt
 @require_POST
 def submit_account_name(request):
     account_name = request.POST['account_name']
@@ -46,6 +44,8 @@ def submit_account_name(request):
 def keys(request):
     return render(request, "buy/keys.html", {
         'account_name': request.account_name,
+        'breadcrumbs_public_keys': True,
+        'breadcrumbs_choose_finished': True,
     })
     
 @require_account_name
@@ -78,6 +78,9 @@ def purchase(request):
     return render(request, "buy/purchase.html", {
         'purchase': request.purchase,
         'uuid': request.session['uuid'],
+        'breadcrumbs_payment': True,
+        'breadcrumbs_choose_finished': True,
+        'breadcrumbs_keys_finished': True,
     })
 
 
@@ -129,6 +132,9 @@ def webhook(request):
 def success(request):
     return render(request, "buy/success.html", {
         'purchase': request.purchase,
+        'breadcrumbs_choose_finished': True,
+        'breadcrumbs_keys_finished': True,
+        'breadcrumbs_purchase_finished': True,
     })
 
 @csrf_exempt
@@ -164,7 +170,7 @@ def stripe_charge(request):
     stripe.api_key = settings.STRIPE_API_KEY
     charge = stripe.Charge.create(
         amount=request.purchase.price_cents,
-        currency=request.purchase.currency,
+        currency='usd',
         description="Your personal EOS account: %s" % request.purchase.account_name,
         source=token,
         metadata={

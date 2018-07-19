@@ -3,70 +3,148 @@
 
 		{% block head %}
 		 	{{block.super}}
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-		<script>
-			function get_random_eos_name() {
-				function choices(population, k) {
-					var out = [];
-					for(var i=0; i < k; i++) {
-						out.push(population[Math.floor(population.length * Math.random())]);
-					}
-					return out.join("");
-				}
-				let alphabet = 'abcdefghijklmnopqrstuvwxyz12345';
-				return choices(alphabet, 12);
-			}
-			
-			function is_valid_account_name(account_name) {
-				let re = new RegExp("^([a-z1-5]){12}$");
-				return re.test(account_name);
-			}
-			function set_valid(valid) {
-				let img_valid = $("img.valid");
-				let img_invalid = $("img.invalid");
-				if(valid) {
-					img_valid.show();
-					img_invalid.hide();
-					$("#submit_button").prop("disabled", false);
-				} else {
-					img_valid.hide();
-					img_invalid.show();
-					$("#submit_button").prop("disabled", true);
-					
-				}
-			}
-			
-			function validate_form() {
-				let account_name = $('input[name=account_name]').val();
-				set_valid(is_valid_account_name(account_name));
-			}
- 			
-			$(function() {
-				$("#gen_random").click(function(event) { 
-					event.preventDefault();
-					$('input[name=account_name]').val(get_random_eos_name());
-					validate_form();
-				 });
-				$('input[name=account_name]').keyup(function(event) {					
-					validate_form();
-				});
-				validate_form();
-				$('input[name=account_name]').focus();
-			});
-		</script>
+		
 		{% endblock %}
 		{% block body %}
-		<h1>Please choose your EOS Account Name</h1>
-		<div>
-			EOS Account names must be exactly 12 characters long and consist of lower case characters and digits up until 5.
+		<div class="row">
+			<div class="col-md">
+				<div class="EOS">01</div>
+				<div class="Account-creator">Choose 
+account name</div>
+				<div class="This-website-allows">Please choose your EOS Account Name. <a class="faq_link" href="#">Check our FAQ</a> for more info.</div>
+			</div>
+			<div class="col-md">
+				<div class="Mask Choose">
+					<div class="Why-this-service">Choose account name</div>
+					<p>EOS Account names must be exactly 12 characters long and consist of lower case characters and digits up until 5.</p>
+					
+					<form class="account_name" action="/submit_account_name/" method="POST">
+					  <div class="form-group">
+							<div class="row">
+								<div class="col">
+							    <label for="account_name_input">Account name</label>
+								</div>
+								<div class="col text-right">
+									<span id="gen_random">I'm feeling lucky</button><br/>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="row">
+									<div class="col">
+								    <input type="text" class="form-control" id="account_name_input" placeholder="Account name" name="account_name"></input>
+										<img style="display:none;" src="{% static 'buy/icon-yes.svg' %}" alt="My image" class="valid"/><img style="display:none;" src="{% static 'buy/icon-no.svg' %}" alt="My image" class="invalid"/>
+									</div>
+									
+								</div>
+								
+							</div>
+							<div style="display:none;" class="form-group availability_warning">
+								<div>
+									The account name is already taken, please choose another one
+								</div>
+							</div>
+							<div class="row">
+								<div class="col">
+									<button class="btn btn-primary stretch" id="submit_button" disabled="disabled" type="submit"><span class="Get-started">Continue</span></button>
+								</div>
+							</div>
+
+
+					  </div>
+					  
+					</form>
+
+				 
+				 
+				</div> 
+			</div>
+			
 		</div>
-		<form action="/submit_account_name/" method="POST">
-			{% csrf_token %}
-			<div class="form-group">
-			<label>Account Name: </label><input type="text" name="account_name"></input><img style="display:none;" src="{% static "buy/icon-yes.svg" %}" alt="My image" class="valid"/><img style="display:none;" src="{% static "buy/icon-no.svg" %}" alt="My image" class="invalid"/><button class="btn btn-primary btn-sm" id="gen_random" type="button">I'm feeling lucky</button><br/>
-			</div>
-			<div class="form-group">
-				<button class="btn btn-primary" type="submit" id="submit_button" disabled="disabled">Continue</button>
-			</div>
-		</form>
+		<div class="row">
+			{% include 'buy/breadcrumbs.inc' %}
+		</div>
+		
 		{% endblock %}
+{% block bodyscript %}
+<script src="https://cdn.jsdelivr.net/npm/eosjs-api@6.3.2/lib/eos-api.min.js" integrity="sha256-h7IXnVwGCsZYzHROytbuFL7QGP0V9hucrgOAM+YMKgQ=" crossorigin="anonymous"></script>
+
+<script>
+	let eos = EosApi({
+		httpEndpoint: 'https://node1.eosvibes.io'
+	});
+	
+	
+	function check_availability() {
+		let account_name = $('input[name=account_name]').val();
+		if(!is_valid_account_name(account_name)) {
+			$(".availability_warning").hide();
+			return;
+		}
+		
+		eos.getAccount(account_name).then((x) => {
+			// console.log("Account already exists");
+			$(".availability_warning").show();
+			set_valid(false);
+			
+		}).catch((err) => {
+  			// console.log("Account is free");
+			$(".availability_warning").hide();
+		});;
+	}
+	
+	function get_random_eos_name() {
+		function choices(population, k) {
+			var out = [];
+			for(var i=0; i < k; i++) {
+				out.push(population[Math.floor(population.length * Math.random())]);
+			}
+			return out.join("");
+		}
+		let alphabet = 'abcdefghijklmnopqrstuvwxyz12345';
+		return choices(alphabet, 12);
+	}
+	
+	function is_valid_account_name(account_name) {
+		let re = new RegExp("^([a-z1-5]){12}$");
+		return re.test(account_name);
+	}
+	
+	function set_valid(valid) {
+		let img_valid = $("img.valid");
+		let img_invalid = $("img.invalid");
+		if(valid) {
+			img_valid.show();
+			img_invalid.hide();
+			$("#submit_button").prop("disabled", false);
+			$("#submit_button span").text("Continue");
+			$("#submit_button").css("cursor", "pointer");
+		} else {
+			img_valid.hide();
+			img_invalid.show();
+			$("#submit_button").prop("disabled", true);
+			$("#submit_button").css("cursor", "default");
+			$("#submit_button span").text("Please enter a valid name");
+			
+		}
+	}
+	
+	function validate_form() {
+		let account_name = $('input[name=account_name]').val();
+		set_valid(is_valid_account_name(account_name));
+		check_availability();
+	}
+	
+	$(function() {
+		$("#gen_random").click(function(event) { 
+			event.preventDefault();
+			$('input[name=account_name]').val(get_random_eos_name());
+			validate_form();
+		 });
+		$('input[name=account_name]').keyup(function(event) {					
+			validate_form();
+		});
+		validate_form();
+		$('input[name=account_name]').focus();
+	});
+</script>
+{% endblock %}
