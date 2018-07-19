@@ -67,7 +67,7 @@ footer {
   background-color: #ffffff;
   border: solid 1px #3ecf8e;
   top: 14px;
-  right: 14px;
+  left: 14px;
   position: absolute;
   cursor:pointer;
 }
