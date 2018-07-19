@@ -367,3 +367,7 @@ input#owner_key, input#active_key {
 .availability_warning {
     color:red;
 }
+.eosvibes_logotext{
+  margin-top:-25px;
+  margin-right:-100px;
+}
