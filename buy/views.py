@@ -1,4 +1,5 @@
 import json
+from django.conf import settings
 from dateutil.parser import parse as parse_date
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
@@ -11,11 +12,11 @@ from django.http import JsonResponse
 from django.utils import timezone
 from django.views.decorators.cache import cache_page
 
-@cache_page(60)
+@cache_page(settings.CACHING_DURATION)
 def index(request):
     return render(request, "buy/index.html")
     
-@cache_page(60)
+@cache_page(settings.CACHING_DURATION)
 def choose(request):
     return render(request, "buy/choose.html", {
         'breadcrumbs_account_name': True,

@@ -92,13 +92,22 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'eos_accounts.wsgi.application'
 
-
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '127.0.0.1:11211',
+if DEBUG:
+    CACHING_DURATION = 0
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+            'LOCATION': '127.0.0.1:11211',
+        }
+    }    
+else:
+    CACHING_DURATION = 60
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+            'LOCATION': '127.0.0.1:11211',
+        }
     }
-}
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
