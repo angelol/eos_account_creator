@@ -50,6 +50,7 @@ footer {
   color: #ffffff;
   background-color: #3ecf8e;
   border-color: #3ecf8e;
+  text-transform: uppercase;
 }
 .btn-primary:disabled {
   opacity: 0.6;
@@ -164,6 +165,7 @@ footer {
 }
 
 .Get-started {
+  margin-top:4px;
   font-size: 14px;
   font-weight: bold;
   color: #ffffff;
