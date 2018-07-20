@@ -22,15 +22,26 @@
 		{% endblock %}
 	</head>
 	<body>
-    <div class="header">
+    <div class="container-fluid">
+    <div class="header row align-items-center">
+      <div class="col align-middle" style="text-align:left;  vertical-align: middle;">
         <div class="eosvibes_logotext">Made by <a href="https://eosvibes.io/" target="_new">EOSVibes</a></div>
+      </div>
+      <div class="col" style="text-align:center;">
           <a href="/">
               <img src="{% static 'buy/img/combined-shape-copy.svg' %}" class="Combined-Shape-Copy">
           </a>
-          <div class="FAQ_button"><span class="FAQ">FAQ</span></div>
+      </a>
+    </div>
+
+      <div class="col" style="text-align:right;">
+          <button class="FAQ_button">FAQ</button>
+      </div>
       
     </div>
+    </div>
 		<div class="container">
+      
       <div class="row">
   			{% block body %}
   			{% endblock %}

@@ -50,7 +50,6 @@ footer {
   color: #ffffff;
   background-color: #3ecf8e;
   border-color: #3ecf8e;
-  text-transform: uppercase;
 }
 .btn-primary:disabled {
   opacity: 0.6;
@@ -73,7 +72,6 @@ footer {
   width: 31.9px;
   height: 32px;
   object-fit: contain;
-  margin-top:14px;
 }
 
 .FAQ_button {
@@ -82,26 +80,14 @@ footer {
   border-radius: 4px;
   background-color: #ffffff;
   border: solid 1px #3ecf8e;
-  top: 14px;
-  right: 14px;
-  position: absolute;
   cursor:pointer;
-}
-
-.FAQ {
-  /* width: 34px; */
-  height: 19px;
+  color: #3ecf8e;
   font-size: 14px;
   font-weight: bold;
   font-style: normal;
   font-stretch: normal;
   line-height: 1.36;
   letter-spacing: 2px;
-  text-align: center;
-  color: #3ecf8e;
-  position: absolute;
-  top: 6px;
-  left:16px;
 }
 
 .EOS {
@@ -389,11 +375,7 @@ input#owner_key, input#active_key {
 .availability_warning {
     color:red;
 }
-.eosvibes_logotext{
-    position: absolute;
-    top: 22px;
-    left:24px;
-}
+
 .filler {
   display: flex;
   flex-direction: column;
@@ -401,3 +383,4 @@ input#owner_key, input#active_key {
   background:black;
   height:100%;
 }
+
