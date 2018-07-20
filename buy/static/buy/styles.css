@@ -13,8 +13,12 @@ body {
 }
 
 
-a {
+a, a:hover {
   color: #3ecf8e;
+}
+input:focus {
+  box-shadow: inset 0 0 4px 0 #3ecf8e !important;
+  border: solid 1px #3ecf8e !important;
 }
 
 footer {
@@ -33,6 +37,17 @@ footer {
 }
 
 .btn-primary {
+  height:40px;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1.36;
+  letter-spacing: 2px;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.36;
+  letter-spacing: 2px;
+  text-align: center;
+  color: #ffffff;
   background-color: #3ecf8e;
   border-color: #3ecf8e;
 }
@@ -42,8 +57,8 @@ footer {
   border-color: #3ecf8e;
 }
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
-  background-color: #2eb87a !important;
-  border-color: #2eb87a !important;
+  background-color: #39bc82 !important;
+  border-color: #39bc82 !important;
 }
 
 .header {
@@ -67,7 +82,7 @@ footer {
   background-color: #ffffff;
   border: solid 1px #3ecf8e;
   top: 14px;
-  left: 14px;
+  right: 14px;
   position: absolute;
   cursor:pointer;
 }
@@ -115,14 +130,14 @@ footer {
 }
 
 .This-website-allows {
-
+    margin-top:24px;
+    margin-bottom:40px;
   font-size: 18px;
 }
 
 
 .Mask {
-  /* max-width: 457px; */
-  /* height: 421px; */
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   background-color: #ffffff;
   border: solid 1px #dddddd;
@@ -158,7 +173,12 @@ footer {
 
 .footer-buttons {
   text-align: right;
+}
+.greyout {
   opacity: 0.4;
+}
+.greyout:hover {
+  opacity: 1.0;
 }
 
 .footer-buttons img {
@@ -368,7 +388,14 @@ input#owner_key, input#active_key {
     color:red;
 }
 .eosvibes_logotext{
-  margin-top:-25px;
-  padding-left:100px;
-  width:100%;
+    position: absolute;
+    top: 22px;
+    left:24px;
+}
+.filler {
+  display: flex;
+  flex-direction: column;
+  flex:1;
+  background:black;
+  height:100%;
 }

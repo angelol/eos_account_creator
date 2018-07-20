@@ -23,11 +23,11 @@
 	</head>
 	<body>
     <div class="header">
-
-      <a href="/"><img src="{% static 'buy/img/combined-shape-copy.svg' %}" class="Combined-Shape-Copy">
-        <div class="eosvibes_logotext center">EOSVibes</div>
-      </a>
-      <div class="FAQ_button"><span class="FAQ">FAQ</span></div>
+        <div class="eosvibes_logotext">Made by <a href="https://eosvibes.io/" target="_new">EOSVibes</a></div>
+          <a href="/">
+              <img src="{% static 'buy/img/combined-shape-copy.svg' %}" class="Combined-Shape-Copy">
+          </a>
+          <div class="FAQ_button"><span class="FAQ">FAQ</span></div>
       
     </div>
 		<div class="container">
@@ -35,12 +35,18 @@
   			{% block body %}
   			{% endblock %}
   		</div>
+      
+      <div class="row d-flex align-items-stretch">
+        <div class="column">
+          xxx
+        </div>
+      </div>
     <div class="row">
       <footer>
     		<div class="footer-buttons">
-                <a href="{% url 'imprint' %}">Imprint</a>
-    			<a href="https://github.com/angelol/eos_account_creator" target="_new"><img src="{% static 'buy/img/GitHub-Mark-120px-plus.png' %}"></a>
-    			<a href="https://t.me/eos_account_creator" target="_new"><img src="{% static 'buy/img/telegram.svg' %}"></a>
+                <a href="{% url 'imprint' %}" class="greyout">Imprint</a>
+    			<a href="https://github.com/angelol/eos_account_creator" target="_new" class="greyout"><img src="{% static 'buy/img/GitHub-Mark-120px-plus.png' %}"></a>
+    			<a href="https://t.me/eos_account_creator" target="_new"><img src="{% static 'buy/img/telegram.svg' %}" class="telegram"></a>
     		</div>
     	</footer>
     </div>
@@ -92,7 +98,11 @@
       }
       
       $("button.close,.blackbox,.FAQ_button,.faq_link").click(toggle);
-      // $('.FAQ_button').click(toggle);
+      $("img.telegram").hover(function() {
+        $(this).prop('src', "{% static 'buy/img/telegram-hover.svg' %}");
+      }, function() {
+        $(this).prop('src', "{% static 'buy/img/telegram.svg' %}");
+      });
     });
     
   </script>
