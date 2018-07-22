@@ -37,18 +37,21 @@
     </div>
 
       <div class="col" style="text-align:right;">
-          <button class="FAQ_button header_button">FAQ</button>
           
           <form class="language" action="{% url 'set_language' %}" method="post">{% csrf_token %}
             <button class="header_button language">
               {% if LANGUAGE_CODE == 'zh' %}
-                <input name="language" type="hidden" value="en" />English
+                <input name="language" type="hidden" value="en" />En
               {% elif LANGUAGE_CODE == 'en' %}
                 <input name="language" type="hidden" value="zh" />中文
               {% endif %}
             </button>
           </form>
       </div>
+      <div class="col-auto" style="text-align:right;">
+            <button class="FAQ_button header_button">FAQ</button>
+      </div>
+        
       
 
       

@@ -77,9 +77,8 @@ footer {
 .header_button {
   /* width: 66px; */
   height: 32px;
-  border-radius: 4px;
   background-color: #ffffff;
-  border: solid 1px #3ecf8e;
+  border: none;
   cursor:pointer;
   color: #3ecf8e;
   font-size: 14px;
@@ -88,9 +87,25 @@ footer {
   font-stretch: normal;
   line-height: 1.36;
   letter-spacing: 2px;
+  white-space: nowrap
 }
+
+.FAQ_button {
+  border-radius: 4px;
+  border: solid 1px #3ecf8e;
+  display: inline;
+}
+
 form.language {
   display: inline;
+  white-space: nowrap
+}
+
+
+@media(max-width: 500px) {
+  form.language button {
+    padding:0;
+  }
 }
 
 .EOS {
