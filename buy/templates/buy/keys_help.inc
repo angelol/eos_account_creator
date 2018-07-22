@@ -6,7 +6,7 @@
       <li><a href="https://eoskey.io/" target="_new">EOSKEY</a> (offline key generator, easy to use, but no wallet included)</li>
       <li><a href="https://get-scatter.com/" target="_new">Scatter</a> (Chrome extension, recommended for daily use)</li>
       <li><a href="https://github.com/EOSIO/eos/wiki/Tutorial-Comprehensive-Accounts-and-Wallets" target="_new">Cleos</a>  (Official wallet by Block.one but command line tool, only for advanced users)</li>
-      <li><a href="https://ipfs.io/ipfs/QmW4XxaEg8cWsYisfjnjqLFi1MbHMYjt7nbCh8ZHwgg9c2" target="_new">Simple javascript generator</a> (easiest to use)</li>
+      <li><a href="https://ipfs.io/ipfs/QmW4XxaEg8cWsYisfjnjqLFi1MbHMYjt7nbCh8ZHwgg9c2" target="_blank">Simple javascript generator</a> (easiest to use)</li>
     </ul>
 
     </p>
