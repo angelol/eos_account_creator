@@ -1,4 +1,5 @@
 {% extends "buy/base.html" %}
+{% load i18n %}
 {% load static %}
 	{% block head %}
 		{{block.super}}
@@ -6,27 +7,27 @@
 	{% endblock %}
 	{% block body %}
 		<div class="please_wait">
-			Please wait while we await confirmation of your payment…
-			<div class="loader">Loading...</div>
+			{% trans "Please wait while we await confirmation of your payment…" %}
+			<div class="loader">{% trans "Loading" %}…</div>
 		</div>
 		<div class="payment_received" style="display:none;">
-			Your payment was received. Please stand by while we try to create your EOS account.
-			<div class="loader">Loading...</div>
+			{% trans "Your payment was received. Please stand by while we try to create your EOS account." %}
+			<div class="loader">{% trans "Loading" %}...</div>
 		</div>
 		<div class="account_created" style="display:none;">
 			<div class="row">
 				<div class="col-sm">
 					<div class="EOS">EOS</div>
-					<div class="Account-creator">Account created</div>
-					<div class="This-website-allows">Your chosen EOS Account Name is: <span class="chosen_account_name">{{purchase.account_name}}</span></div>
+					<div class="Account-creator">{% trans "Account created" %}</div>
+					<div class="This-website-allows">{% trans "Your chosen EOS Account Name is:" %} <span class="chosen_account_name">{{purchase.account_name}}</span></div>
 					<form>
 						<div class="form-group">
-							<label for="owner_key" class="col-form-label">Owner Public Key:</label>
+							<label for="owner_key" class="col-form-label">{% trans "Owner Public Key:" %}</label>
 						<input type="text" class="form-control" id="owner_key" name="owner_key" size="53" readonly="readonly" placeholder="{{purchase.owner_key}}">
 						</div>
 
 						<div class="form-group">
-							<label for="active_key" class=" col-form-label">Active Public Key:</label>
+							<label for="active_key" class=" col-form-label">{% trans "Active Public Key:" %}</label>
 								<input type="text" class="form-control" id="active_key" name="active_key" size="53" readonly="readonly" placeholder="{{purchase.active_key}}">
 
 						
@@ -37,15 +38,15 @@
 				<div class="col-sm">
 					<div class="Mask">
 						<div class="Why-this-service">Thank you</div>
-						<p>Your EOS Account <b>{{purchase.account_name}}</b> was created successfully.</p> 
+						<p>{% blocktrans with account_name=purchase.account_name %}Your EOS Account <b>{{account_name}}</b> was created successfully.</p>{% endblocktrans %}
 						<p>
-							What's next?<br/>
-							You can check out your new account in the <a href="http://explorer.eosvibes.io/search/{{purchase.account_name}}" target="_new">EOS Block Explorer</a><br/>
+							{% trans "What's next?" %}<br/>
+							{% blocktrans with account_name=purchase.account_name %} You can check out your new account in the <a href="http://explorer.eosvibes.io/search/{{account_name}}" target="_new">EOS Block Explorer</a>{% endblocktrans %}<br/>
 						</p>
 						<p>
-							Please consider voting for <a href="https://eosvibes.io/" target="_new">eosvibesbloc</a>
+							{% trans "Please consider voting for" %} <a href="https://eosvibes.io/" target="_new">eosvibesbloc</a>
 						</p>
-						<p>If you have any questions, please visit our  <a href="https://t.me/eos_account_creator" target="_new">Telegram group.</a></p>
+						<p>{% trans 'If you have any questions, please visit our  <a href="https://t.me/eos_account_creator" target="_new">Telegram group.</a>' %}</p>
 						
 						<div class="group2container">
 						<img src="{% static 'buy/img/group-2.png' %}"
@@ -53,7 +54,7 @@
 			             {% static 'buy/img/group-2@3x.png' %} 3x"
 			     class="Group-2">
 					 
-					 <a href="/choose/" class="btn btn-primary get_started_button"><span class="Get-started">Get started</span></a>
+					 <a href="/choose/" class="btn btn-primary get_started_button"><span class="Get-started">{% trans "Get started" %}</span></a>
 					 </div>
 					 
 					 

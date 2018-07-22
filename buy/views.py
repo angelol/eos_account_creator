@@ -12,6 +12,11 @@ from django.http import JsonResponse
 from django.utils import timezone
 from django.views.decorators.cache import cache_page
 
+def add_price_context_processor(request):
+    return {
+        'price': '%.2f' % Purchase.get_prices_usd()[1],
+    }
+
 @cache_page(settings.CACHING_DURATION)
 def index(request):
     return render(request, "buy/index.html")

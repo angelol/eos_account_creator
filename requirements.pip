@@ -3,3 +3,4 @@ git+https://github.com/Netherdrake/py-eos-api
 requests
 stripe
 raven
+django-rosetta

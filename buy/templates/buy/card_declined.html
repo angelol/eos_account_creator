@@ -1,10 +1,11 @@
 {% extends "buy/base.html" %}
+{% load i18n %}
 {% load static %}
 
 		{% block head %}
 		 	{{block.super}}
 		{% endblock %}
 	{% block body %}
-	Sorry, your credit card was declined with the following message:
+	{% trans "Sorry, your credit card was declined with the following message:" %}
 	<p>{{seller_message}}</p> 
 	{% endblock %}

@@ -1,4 +1,5 @@
 {% extends "buy/base.html" %}
+{% load i18n %}
 {% load static %}
 
 	{% block head %}
@@ -9,17 +10,17 @@
 	<div class="row">
 		<div class="col-md">
 			<div class="EOS">03</div>
-			<div class="Account-creator">Payment</div>
-			<div class="This-website-allows">Your chosen EOS Account Name is: <span class="chosen_account_name">{{purchase.account_name}}</span></div>
+			<div class="Account-creator">{% trans "Payment" %}</div>
+			<div class="This-website-allows">{% trans "Your chosen EOS Account Name is:" %} <span class="chosen_account_name">{{purchase.account_name}}</span></div>
 			<form>
 				{% csrf_token %}
 				<div class="form-group">
-					<label for="owner_key" class="col-form-label">Owner Public Key:</label>
+					<label for="owner_key" class="col-form-label">{% trans "Owner Public Key:" %}</label>
 				<input type="text" class="form-control" id="owner_key" name="owner_key" size="53" readonly="readonly" placeholder="{{purchase.owner_key}}">
 				</div>
 
 				<div class="form-group">
-					<label for="active_key" class=" col-form-label">Active Public Key:</label>
+					<label for="active_key" class=" col-form-label">{% trans "Active Public Key:" %}</label>
 						<input type="text" class="form-control" id="active_key" name="active_key" size="53" readonly="readonly" placeholder="{{purchase.active_key}}">
 
 				
@@ -27,33 +28,33 @@
 		
 			</form>
 			<div>
-				Please consider voting for <a href="https://eosvibes.io/" target="_new">eosvibesbloc</a>
+				{% trans "Please consider voting for" %} <a href="https://eosvibes.io/" target="_new">eosvibesbloc</a>
 			</div>
 		</div>
 		<div class="col-md">
 			<div class="Mask">
-				<div class="Why-this-service">One last step</div>
-				<p>After successful payment you will be redirected back here and we will create the EOS account for you. If you have any questions, please visit our  <a href="https://t.me/eos_account_creator" target="_new">Telegram group</a>.</p>
+				<div class="Why-this-service">{% trans "One last step" %}</div>
+				<p>{% trans 'After successful payment you will be redirected back here and we will create the EOS account for you. If you have any questions, please visit our  <a href="https://t.me/eos_account_creator" target="_new">Telegram group</a>' %}.</p>
 				<div class="price_display">
-					<img class="money_wings" src="{% static 'buy/img/money_wings.svg' %}"> <span class="price">USD {{purchase.price_usd|floatformat:2}}</span><br />
-					<span class="price_subtitle">Current price for account creation</span>
+					<img class="money_wings" src="{% static 'buy/img/money_wings.svg' %}"> <span class="price">{% blocktrans with price=purchase.price_usd|floatformat:2 %}USD {{price}}{% endblocktrans %}</span><br />
+					<span class="price_subtitle">{% trans "Current price for account creation" %}</span>
 				</div>
 
 			 <form class="main" action="/buy_action/" method="POST">
 				 {% csrf_token %}
 				 <div class="form-group">
-			    <label for="exampleFormControlSelect1">Choose payment option</label>
+			    <label for="exampleFormControlSelect1">{% trans "Choose payment option" %}</label>
 			    <select name="payment" class="form-control" id="exampleFormControlSelect1">
-						<option>---Please choose---</option>
-			      <option value="creditcard">Credit Card</option>
-			      <option value="crypto">Cryptocurrency (Bitcoin, Bitcoin Cash, Ethereum or Litecoin)</option>
-			      <option value="eos">EOS (Use this if you have EOS on an exchange)</option>
+						<option>{% trans "---Please choose---" %}</option>
+			      <option value="creditcard">{% trans "Credit Card" %}</option>
+			      <option value="crypto">{% trans "Cryptocurrency (Bitcoin, Bitcoin Cash, Ethereum or Litecoin)" %}</option>
+			      <option value="eos">{% trans "EOS (Use this if you have EOS on an exchange)" %}</option>
 			    </select>
 			  </div>
 				<div class="form-group">
 					<div class="row">
 						<div class="col-sm-10">
-							<label for="constitution">I have read an accept the <a href="/privacy_policy/" target="_new">privacy policy</a> and the <a href="https://github.com/EOS-Mainnet/governance/blob/master/eosio.system/eosio.system-clause-constitution-rc.md" target="_new">EOS Constitution</a></label>
+							<label for="constitution">{% trans 'I have read an accept the <a href="/privacy_policy/" target="_new">privacy policy</a> and the <a href="https://github.com/EOS-Mainnet/governance/blob/master/eosio.system/eosio.system-clause-constitution-rc.md" target="_new">EOS Constitution</a>' %}</label>
 						</div>
 						<div class="col-sm-1">
 							<input required="required" type="checkbox" id="constitution"></input>
@@ -142,22 +143,22 @@
 			
 			let price = $("input[name=price]").val();
 			if(value == 'creditcard') {
-				text = 'Pay USD ' + price + ' with credit card';
+				text = "{% blocktrans %}Pay USD {{price}} with credit card{% endblocktrans %}";
 				submit_fun = pay_creditcard;
 				button.prop("disabled", false);
 			} else if (value == 'crypto') {
-				text = 'Pay USD ' + price + ' with cryptocurrency';
+				text = "{% blocktrans %}Pay USD {{price}} with cryptocurrency{% endblocktrans %}";
 				submit_fun = pay_crypto;
 				button.prop("disabled", false);
 			} else if (value == 'eos') {
-				text = 'Show instructions';
+				text = '{% trans "Show instructions" %}';
 				submit_fun = pay_crypto;
 				button.prop("disabled", false);
 			} else {
 				if(mobile()) {
-					text = 'Please choose a payment method';
+					text = '{% trans "Please choose a payment method" %}';
 				} else {
-					text = 'Please choose a payment method to continue';
+					text = '{% trans "Please choose a payment method to continue" %}';
 				}
 				submit_fun = function(e) { e.preventDefault();};
 				button.prop("disabled", true);

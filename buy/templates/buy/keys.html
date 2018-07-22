@@ -1,4 +1,5 @@
 {% extends "buy/base.html" %}
+{% load i18n %}
 {% load static %}
 	{% block head %}
 		{{block.super}}
@@ -9,32 +10,32 @@
 	<div class="row">
 		<div class="col">
 			<div class="EOS">02</div>
-			<div class="Account-creator">Provide public keys</div>
-			<div class="This-website-allows">Your chosen EOS Account Name is: <span class="chosen_account_name">{{account_name}}</span></div>
+			<div class="Account-creator">{% trans "Provide public keys" %}</div>
+			<div class="This-website-allows">{% trans "Your chosen EOS Account Name is:" %} <span class="chosen_account_name">{{account_name}}</span></div>
 			<div class="help">
 				{% include 'buy/keys_help.inc' %}
 			</div>
 		</div>
 		<div class="col">
 			<div class="Mask">
-				<div class="Why-this-service">Provide public keys</div>
-				<p>Please provide the public keys for your new account. Active Public Key can be the same as Owner Public Key but not recommended for security.</p>
+				<div class="Why-this-service">{% trans "Provide public keys" %}</div>
+				<p>{% trans "Please provide the public keys for your new account. Active Public Key can be the same as Owner Public Key but not recommended for security." %}</p>
 				
 				<form action="/submit_public_key/" method="POST">
 					{% csrf_token %}
 				  <div class="form-group">
-				    <label for="owner_key" class="col-form-label">Owner Public Key:</label>
+				    <label for="owner_key" class="col-form-label">{% trans "Owner Public Key:" %}</label>
 					<input type="text" class="form-control" id="owner_key" name="owner_key" >
 				  </div>
 
 					<div class="form-group">
-						<label for="active_key" class=" col-form-label">Active Public Key:</label>
+						<label for="active_key" class=" col-form-label">{% trans "Active Public Key:" %}</label>
 					    <input type="text" class="form-control" id="active_key" name="active_key"  aria-describedby="activeKeyHelp">
 
 					
 				  </div>
 			
-					<button class="btn btn-primary stretch" id="submit_button" type="submit" disabled="disabled">Continue</button>
+					<button class="btn btn-primary stretch" id="submit_button" type="submit" disabled="disabled">{% trans "Continue" %}</button>
 				</form>
 
 			 
@@ -73,10 +74,10 @@ function is_valid_public_key(key) {
 function set_valid(form, valid) {
 	if(valid) {					
 		form.find('button[type=submit]').prop("disabled", false);
-		form.find('button[type=submit]').text('Continue');
+		form.find('button[type=submit]').text('{% trans "Continue" %}');
 	} else {
 		form.find('button[type=submit]').prop("disabled", true);
-		form.find('button[type=submit]').text('Please enter valid public keys');
+		form.find('button[type=submit]').text('{% trans "Please enter valid public keys" %}');
 	}
 }
 function validate_form() {

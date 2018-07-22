@@ -1,9 +1,10 @@
 {% extends "buy/base.html" %}
+{% load i18n %}
 {% load static %}
 
 		{% block head %}
 		 	{{block.super}}
 		{% endblock %}
 	{% block body %}
-	<span>Sorry, the account {{account_name}} is no longer available, <a href="/choose/">please choose a different account name</a>.</span>
+	<span>{% blocktrans %}Sorry, the account {{account_name}} is no longer available, <a href="/choose/">please choose a different account name</a>.{% endblocktrans %}</span>
 	{% endblock %}

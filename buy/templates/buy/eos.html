@@ -1,4 +1,5 @@
 {% extends "buy/base.html" %}
+{% load i18n %}
 {% load static %}
 	{% block head %}
 		{{block.super}}
@@ -8,92 +9,92 @@
 	{% endblock %}
 	{% block body %}
 	<div class="Mask">
-    <h1>EOS Smart Contract Account Creator</h1>
+    <h1>{% trans "EOS Smart Contract Account Creator" %}</h1>
     <p>
-        <a href="https://eos-account-creator.com/">EOS Account Creator</a> is proud to present the world's first <a href="https://github.com/angelol/smart_account_creator">open source</a> smart contract account creator.
-        You can use it to create an account when you have EOS on an exchange.
+        {% blocktrans %}<a href="https://eos-account-creator.com/">EOS Account Creator</a> is proud to present the world's first <a href="https://github.com/angelol/smart_account_creator">open source</a> smart contract account creator.
+        You can use it to create an account when you have EOS on an exchange.{% endblocktrans %}
     </p>
-    <h2>Instructions</h2>
+    <h2>{% trans "Instructions" %}</h2>
     <form>
       
       <div class="form-group">
-        <label for="select1">Which exchange are you withdrawing from?</label>
+        <label for="select1">{% trans "Which exchange are you withdrawing from?" %}</label>
         <select class="form-control" id="select1">
-          <option class="default">--Please Choose--</option>
-          <option value="binance">Binance</option>
-          <option value="other">Other Exchange</option>
+          <option class="default">{% trans "--Please Choose--" %}</option>
+          <option value="binance">{% trans "Binance " %}</option>
+          <option value="other">{% trans "Other Exchange" %}</option>
         </select>
       </div>
     </form>
     <div class="instructions" style="display:none;">
       <p class="binance">
-        Binance does not allow long memos, so it's not possible to set a different active key. We are using the owner key for both permissions.
+        {% trans "Binance does not allow long memos, so it's not possible to set a different active key. We are using the owner key for both permissions." %}
       </p>
   		<p>
-        Make an EOS token transfer with the following data:
+        {% trans "Make an EOS token transfer with the following data:" %}
       </p>
-      Recipient: <span class="recipient">accountcreat</span>
+      {% trans "Recipient" %}: <span class="recipient">accountcreat</span>
       <button class="copy" data-clipboard-target=".recipient">
         <img src="https://cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/svg/clippy.svg" alt="Copy to clipboard">
     </button>
     <br />
       <div class="binance">
-        Memo: <span class="memo-binance">{{purchase.account_name}}-{{purchase.owner_key}}</span>
+        {% trans "Memo" %}: <span class="memo-binance">{{purchase.account_name}}-{{purchase.owner_key}}</span>
         <button class="copy" data-clipboard-target=".memo-binance">
           <img src="https://cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/svg/clippy.svg" alt="Copy to clipboard">
       </button>
       </div>
       <div class="other">
-        Memo: <span class="memo-other">{{purchase.account_name}}-{{purchase.owner_key}}-{{purchase.active_key}}</span>
+        {% trans "Memo" %}: <span class="memo-other">{{purchase.account_name}}-{{purchase.owner_key}}-{{purchase.active_key}}</span>
         <button class="copy" data-clipboard-target=".memo-other">
           <img src="https://cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/svg/clippy.svg" alt="Copy to clipboard">
       </button>
       </div>
         
       <br />
-      Amount: Any amount, but has to be bigger than {{minimum|floatformat:4}} EOS
+      {% blocktrans with minimum=minimum|floatformat:4 %}Amount: Any amount, but has to be bigger than {{minimum}} EOS{% endblocktrans %}
       <p>
-        If you transfer less than the required minimum amount or any other error occurs, the transferred funds will be automatically refunded by the smart contract.
+        {% trans "If you transfer less than the required minimum amount or any other error occurs, the transferred funds will be automatically refunded by the smart contract." %}
       </p>
       <p>
-        If you transfer more than required, the remaining balance will be forwarded to your newly created account.
+        {% trans "If you transfer more than required, the remaining balance will be forwarded to your newly created account." %}
       </p>
     </div>
 	</div>
   <p></p>
   <div class="Mask">
-    <h3>Help</h3><p/>
-    <h5>How do I withdraw from an Exchange?</h5>
+    <h3>{% trans "Help" %}</h3><p/>
+    <h5>{% trans "How do I withdraw from an Exchange?" %}</h5>
     <p>
-      Every exchange is a little bit different, but every exchange should allow you to withdraw to your account name while using a memo. In the following example, we are using Binance.
+      {% trans "Every exchange is a little bit different, but every exchange should allow you to withdraw to your account name while using a memo. In the following example, we are using Binance." %}
       <ol>
-        <li>Log in to Binance</li>
-        <li>From the top navigation bar, select Funds->Withdrawals</li>
-        <li>In the upcoming list, select EOS</li>
-        <li>In the upcoming withdrawals form (see screenshot below), copy and paste the values from above. Paste the recipient account name from above (accountcreat) into the field "EOS Withdrawal Address", the memo from above into the Field "EOS Withdrawal MEMO". Use any amount you wish to withdraw into your new account but at least {{minimum|floatformat:4}} EOS.
+        <li>{% trans "Log in to Binance" %}</li>
+        <li>{% trans "From the top navigation bar, select Funds->Withdrawals" %}</li>
+        <li>{% trans "In the upcoming list, select EOS" %}</li>
+        <li>{% blocktrans with minimum=minimum|floatformat:4 %}In the upcoming withdrawals form (see screenshot below), copy and paste the values from above. Paste the recipient account name from above (accountcreat) into the field "EOS Withdrawal Address", the memo from above into the Field "EOS Withdrawal MEMO". Use any amount you wish to withdraw into your new account but at least {{minimum}} EOS. {% endblocktrans %}
       </ol>
         
       <img src="{% static "buy/binance_2.png" %}" style="width: 100%; max-width:500px">
     </p>
-    <h5>How does it work?</h5>
+    <h5>{% trans "How does it work?" %}</h5>
     <p>
-      When you withdraw your EOS to the accountcreat smart contract, it will perform the following steps in order:
+      {% trans "When you withdraw your EOS to the accountcreat smart contract, it will perform the following steps in order:" %}
       <ol>
-        <li>Create a new account using your specified name, owner key and active key</li>
-        <li>Buy 4KB of RAM for your new account with parts of the transferred EOS. Every account that is created on the EOS network needs 4 KB of RAM to exist.</li>
-        <li>Delegate and transfer 0.1 EOS for CPU and 0.1 EOS for NET.</li>
-        <li>Deduct our fee of 0.5% or a minimum of 0.1 EOS and forward the remaining EOS balance to your new account</li>
+        <li>{% trans "Create a new account using your specified name, owner key and active key" %}</li>
+        <li>{% trans "Buy 4KB of RAM for your new account with parts of the transferred EOS. Every account that is created on the EOS network needs 4 KB of RAM to exist." %}</li>
+        <li>{% trans "Delegate and transfer 0.1 EOS for CPU and 0.1 EOS for NET." %}</li>
+        <li>{% trans "Deduct our fee of 0.5% or a minimum of 0.1 EOS and forward the remaining EOS balance to your new account" %}</li>
       </ol>
-      Since this is a smart contract, all of this happens instantly, automatically and trustless. Should any of the above actions fail, the transaction will be rolled back which means the money will automatically be refunded to you.
+      {% trans "Since this is a smart contract, all of this happens instantly, automatically and trustless. Should any of the above actions fail, the transaction will be rolled back which means the money will automatically be refunded to you." %}
     </p>
-    <h5>Where is the source code of the smart contract?</h5>
+    <h5>{% trans "Where is the source code of the smart contract?" %}</h5>
     <p>
-      It's open source on <a href="https://github.com/angelol/smart_account_creator">github</a>. If you want to use this code or need help modifying it to your needs, contact me at <a href="mailto:hello@eos-account-creator.com">hello@eos-account-creator.com</a>.
+      {% blocktrans %}It's open source on <a href="https://github.com/angelol/smart_account_creator">github</a>. If you want to use this code or need help modifying it to your needs, contact me at{% endblocktrans %} <a href="mailto:hello@eos-account-creator.com">hello@eos-account-creator.com</a>.
     </p>
       
   </div>
   
-	Need help? If you have any questions, please visit our <a href="https://t.me/eos_account_creator" target="_new">telegram group</a>.
+	{% trans 'Need help? If you have any questions, please visit our <a href="https://t.me/eos_account_creator" target="_new">telegram group</a>.' %}
 	
 	
 	{% endblock %}

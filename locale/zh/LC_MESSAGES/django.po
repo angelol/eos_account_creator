@@ -1,0 +1,570 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-07-22 22:24+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: buy/templates/buy/account_name_invalid.html:9
+msgid ""
+"Sorry, the account {{account_name}} is not a valid account name. EOS account "
+"names must be exactly 12 characters long and consist only of lower case "
+"letters and number from 1 to 5."
+msgstr ""
+
+#: buy/templates/buy/account_name_invalid.html:9
+msgid "Please choose a different account name"
+msgstr ""
+
+#: buy/templates/buy/account_not_available.html:9
+#, python-format
+msgid ""
+"Sorry, the account %(account_name)s is no longer available, <a href=\"/"
+"choose/\">please choose a different account name</a>."
+msgstr ""
+
+#: buy/templates/buy/base.html:66
+msgid "FAQ"
+msgstr "FAQ 常见问题"
+
+#: buy/templates/buy/base.html:67
+msgid "Why do I need this service?"
+msgstr "我为什么需要这项服务？"
+
+#: buy/templates/buy/base.html:68
+msgid ""
+"The way EOS works is that new accounts can only be created by someone with "
+"an existing account. If you have a friend who has an EOS account, you can "
+"ask him to create one for you. If you don't, this website can be your friend "
+"for a small fee."
+msgstr "如果您想在EOS的网络上创建一个新帐户，您必须通过一个已拥有EOS帐户的人来创建。 如果您的朋友已有EOS帐户，您可以请他为您创建一个帐户。 如果您没有，或者不想这么做，可以选择使用我们的服务。我们将收取少量费用。"
+
+#: buy/templates/buy/base.html:69
+msgid "How much does it cost?"
+msgstr "创建一个账户需要多少钱？"
+
+#: buy/templates/buy/base.html:70
+#, python-format
+msgid ""
+" \"The cost of one EOS account is currently USD %(price)s. Included in the "
+"price are 0.2 staked EOS that will be transferred to your control and 4 KB "
+"of RAM."
+msgstr "一个EOS账户的费用目前为%(price)s美元。 价格中包含0.2个EOS和4 KB的RAM。这些都将成为您的资产。"
+
+#: buy/templates/buy/base.html:71
+msgid "Which payment methods do you accept?"
+msgstr "我们接受哪些付款方式？"
+
+#: buy/templates/buy/base.html:72
+msgid ""
+"You can pay with credit card and the cryptocurrencies EOS, Bitcoin, Bitcoin "
+"Cash, Ethereum and Litecoin."
+msgstr "您可以使用信用卡或虚拟币：EOS，比特币，比特币现金，以太币和莱特币来支付。"
+
+#: buy/templates/buy/base.html:73
+msgid "Is this website safe to use?"
+msgstr "这个网站是否可以安全使用？"
+
+#: buy/templates/buy/base.html:74
+msgid ""
+"Yes. You generate the keys safely offline and only use your public keys on "
+"the website. Public keys are safe to share. The source code is on <a href="
+"\"https://github.com/angelol/eos_account_creator\" target=\"_new\">GitHub</"
+"a> and can be audited. The activity of this website can be checked on the "
+"EOS blockchain. This tool uses the EOS account <b>accountcreat</b> to "
+"generate new accounts, the <a href=\"https://eostracker.io/accounts/"
+"accountcreat\" target=\"_new\">activity can be checked</a> in any block "
+"explorer. If you have further questions, please get in touch through our <a "
+"href=\"https://t.me/eos_account_creator\" target=\"_new\">telegram group</a>."
+msgstr "是的！ 您可以离线生成密钥对，只在这个网站上输入您的公钥。 公钥就像银行卡账号，可以安全地共享。 网站的源代码在<a href="
+"\"https://github.com/angelol/eos_account_creator\" target=\"_new\">GitHub</a>上，可以进行审计。 此工具使用EOS账户accountcreat生成新账户，可以在EOS区块链上查看。 如果您还有其他问题，请通过我们的电报群联系我们。"
+
+#: buy/templates/buy/base.html:76
+msgid "Is this tool open source?"
+msgstr "这个工具是开源的吗？"
+
+#: buy/templates/buy/base.html:77
+msgid "Yes!"
+msgstr "是的！"
+
+#: buy/templates/buy/breadcrumbs.inc:3
+msgid "Choose Account Name"
+msgstr "选择账户名称"
+
+#: buy/templates/buy/breadcrumbs.inc:4
+msgid "Provide Public Keys"
+msgstr "请提供您的公钥"
+
+#: buy/templates/buy/breadcrumbs.inc:5 buy/templates/buy/purchase.html:13
+msgid "Payment"
+msgstr "支付"
+
+#: buy/templates/buy/card_declined.html:9
+msgid "Sorry, your credit card was declined with the following message:"
+msgstr ""
+
+#: buy/templates/buy/choose.html:13
+msgid ""
+"Choose \n"
+"account name"
+msgstr "选择账户名称"
+
+#: buy/templates/buy/choose.html:15
+msgid ""
+"Please choose your EOS Account Name. <a class=\"faq_link\" href=\"#\">Check "
+"our FAQ</a> for more info."
+msgstr ""
+"请选择您的EOS帐户名称。 查看我们的<a class=\"faq_link\" href=\"#\">FAQ</a>可"
+"获取更多信息。"
+
+#: buy/templates/buy/choose.html:19
+msgid "Choose account name"
+msgstr "选择账户名称"
+
+#: buy/templates/buy/choose.html:20
+msgid ""
+"EOS Account names must be exactly 12 characters long and consist of lower "
+"case characters and digits up until 5."
+msgstr ""
+"EOS账户名称长度必须为12个字符，由小写字符和数字组成. 数字只能选用从1至5的五位"
+"数\t字。"
+
+#: buy/templates/buy/choose.html:25 buy/templates/buy/choose.html:34
+msgid "Account name"
+msgstr "账户名称"
+
+#: buy/templates/buy/choose.html:28
+msgid "I'm feeling lucky"
+msgstr "手气不错"
+
+#: buy/templates/buy/choose.html:43
+msgid "The account name is already taken, please choose another one"
+msgstr ""
+
+#: buy/templates/buy/choose.html:49 buy/templates/buy/choose.html:115
+#: buy/templates/buy/keys.html:38
+msgid "Continue"
+msgstr "继续"
+
+#: buy/templates/buy/choose.html:122
+msgid "Please enter a valid name"
+msgstr "请输入一个有效账户名"
+
+#: buy/templates/buy/eos.html:12
+msgid "EOS Smart Contract Account Creator"
+msgstr ""
+
+#: buy/templates/buy/eos.html:17
+msgid "Instructions"
+msgstr ""
+
+#: buy/templates/buy/eos.html:21
+msgid "Which exchange are you withdrawing from?"
+msgstr ""
+
+#: buy/templates/buy/eos.html:23
+msgid "--Please Choose--"
+msgstr ""
+
+#: buy/templates/buy/eos.html:24
+msgid "Binance "
+msgstr ""
+
+#: buy/templates/buy/eos.html:25
+msgid "Other Exchange"
+msgstr ""
+
+#: buy/templates/buy/eos.html:31
+msgid ""
+"Binance does not allow long memos, so it's not possible to set a different "
+"active key. We are using the owner key for both permissions."
+msgstr ""
+
+#: buy/templates/buy/eos.html:34
+msgid "Make an EOS token transfer with the following data:"
+msgstr ""
+
+#: buy/templates/buy/eos.html:36
+msgid "Recipient"
+msgstr ""
+
+#: buy/templates/buy/eos.html:42 buy/templates/buy/eos.html:48
+msgid "Memo"
+msgstr ""
+
+#: buy/templates/buy/eos.html:55
+#, python-format
+msgid "Amount: Any amount, but has to be bigger than %(minimum)s EOS"
+msgstr ""
+
+#: buy/templates/buy/eos.html:57
+msgid ""
+"If you transfer less than the required minimum amount or any other error "
+"occurs, the transferred funds will be automatically refunded by the smart "
+"contract."
+msgstr ""
+
+#: buy/templates/buy/eos.html:60
+msgid ""
+"If you transfer more than required, the remaining balance will be forwarded "
+"to your newly created account."
+msgstr ""
+
+#: buy/templates/buy/eos.html:66
+msgid "Help"
+msgstr ""
+
+#: buy/templates/buy/eos.html:67
+msgid "How do I withdraw from an Exchange?"
+msgstr ""
+
+#: buy/templates/buy/eos.html:69
+msgid ""
+"Every exchange is a little bit different, but every exchange should allow "
+"you to withdraw to your account name while using a memo. In the following "
+"example, we are using Binance."
+msgstr ""
+
+#: buy/templates/buy/eos.html:71
+msgid "Log in to Binance"
+msgstr ""
+
+#: buy/templates/buy/eos.html:72
+msgid "From the top navigation bar, select Funds->Withdrawals"
+msgstr ""
+
+#: buy/templates/buy/eos.html:73
+msgid "In the upcoming list, select EOS"
+msgstr ""
+
+#: buy/templates/buy/eos.html:74
+msgid ""
+"In the upcoming withdrawals form (see screenshot below), copy and paste the "
+"values from above. Paste the recipient account name from above "
+"(accountcreat) into the field "
+msgstr ""
+
+#: buy/templates/buy/eos.html:79
+msgid "How does it work?"
+msgstr ""
+
+#: buy/templates/buy/eos.html:81
+msgid ""
+"When you withdraw your EOS to the accountcreat smart contract, it will "
+"perform the following steps in order:"
+msgstr ""
+
+#: buy/templates/buy/eos.html:83
+msgid ""
+"Create a new account using your specified name, owner key and active key"
+msgstr ""
+
+#: buy/templates/buy/eos.html:84
+msgid ""
+"Buy 4KB of RAM for your new account with parts of the transferred EOS. Every "
+"account that is created on the EOS network needs 4 KB of RAM to exist."
+msgstr ""
+
+#: buy/templates/buy/eos.html:86
+#, python-format
+msgid ""
+"Deduct our fee of 0.5%% or a minimum of 0.1 EOS and forward the remaining "
+"EOS balance to your new account"
+msgstr ""
+
+#: buy/templates/buy/eos.html:88
+msgid ""
+"Since this is a smart contract, all of this happens instantly, automatically "
+"and trustless. Should any of the above actions fail, the transaction will be "
+"rolled back which means the money will automatically be refunded to you."
+msgstr ""
+
+#: buy/templates/buy/eos.html:90
+msgid "Where is the source code of the smart contract?"
+msgstr ""
+
+#: buy/templates/buy/eos.html:92
+msgid ""
+"It's open source on <a href=\"https://github.com/angelol/"
+"smart_account_creator\">github</a>. If you want to use this code or need "
+"help modifying it to your needs, contact me at"
+msgstr ""
+
+#: buy/templates/buy/eos.html:97
+msgid ""
+"Need help? If you have any questions, please visit our <a href=\"https://t."
+"me/eos_account_creator\" target=\"_new\">telegram group</a>."
+msgstr ""
+
+#: buy/templates/buy/help.inc:4
+msgid "Why do I need two keys, owner and active?"
+msgstr "我为什么需要两组密匙，所有权（Owner）和使用权（Active）？"
+
+#: buy/templates/buy/help.inc:5
+msgid ""
+"The active key is the one you're gonna use for daily operations like "
+"interacting with dApps or money transfers. This would be the key that you're "
+"gonna import into your favorite wallet or Scatter if you want to interact "
+"with dApps. If this key gets compromised, you will be able to regain control "
+"of your account using the owner key and cancel outgoing transfers that "
+"haven't gone through yet."
+msgstr "Active Key是您将用于日常操作的密钥，例如与dApp互动或汇款。 如果您想使用钱包或则与dApp互动就需要用Active Key。 如果此密钥遭到黑客，您将能使用您的Owner Key夺回您账户的控制权并且取消尚未完成的转账。"
+
+#: buy/templates/buy/help.inc:6
+msgid ""
+"The owner key is very important as whoever holds it is the real owner of the "
+"account. You will need it if you want to transfer control of the account to "
+"someone else. You can also use it to change the keys of your account. You "
+"can also use it to prove ownership of your account in case your active key "
+"gets compromised. That's why you should generate this key in an offline key "
+"generator in only store it in cold storage."
+msgstr "Owner Key是非常重要的，因为拥有它的人才是该账户的真正拥有者。 如果您想将账户的控制权转移给其他人，则需要它。 您还可以使用它来更改账户的密钥。 您还可以使用它来证明您的账户的所有权，以防您的Active Key遭遇黑客。 这就是为什么你应该在离线密钥生成器中生成这个密钥然后安全保存。"
+
+#: buy/templates/buy/index.html:15
+msgid "Account creator"
+msgstr "账户创建工具"
+
+#: buy/templates/buy/index.html:16
+msgid ""
+"This website allows you to create an EOS account if you don't have one yet. "
+"<a class=\"faq_link\" href=\"#\">Check our FAQ</a> for more info."
+msgstr ""
+"如果您还没有EOS账户，此网站可以帮您创建一个。 请查看我们的<a class=\"faq_link"
+"\" href=\"#\">FAQ</a>以获取更多信息。"
+
+#: buy/templates/buy/index.html:25
+msgid "Why this service?"
+msgstr "为什么需要这项服务？"
+
+#: buy/templates/buy/index.html:26
+msgid ""
+"The way EOS works is that new accounts can only be created by someone with "
+"an existing account. Creating an account also requires to stake a certain "
+"amount of EOS and to buy some RAM."
+msgstr ""
+"如果您想在EOS的网络上创建一个新账户，您必须通过一位已拥有EOS账户的人协助创"
+"建。"
+
+#: buy/templates/buy/index.html:27
+msgid ""
+"If you create an EOS account on this website, it comes with 0.2 EOS staked "
+"for CPU and Network bandwidth as well as 4KB of RAM."
+msgstr ""
+"如果您在本网站上创建一个EOS账户，它会附带0.2 EOS用于抵押CPU和Bandwidth以及"
+"4KB RAM。"
+
+#: buy/templates/buy/index.html:35 buy/templates/buy/success.html:57
+msgid "Get started"
+msgstr "开始创建"
+
+#: buy/templates/buy/index.html:62
+msgid "This website uses cookies because it absolutely needs them."
+msgstr ""
+
+#: buy/templates/buy/keys.html:13 buy/templates/buy/keys.html:21
+msgid "Provide public keys"
+msgstr "请提供您的公钥"
+
+#: buy/templates/buy/keys.html:14 buy/templates/buy/purchase.html:14
+#: buy/templates/buy/success.html:22
+msgid "Your chosen EOS Account Name is:"
+msgstr "您选择的EOS账户名称是："
+
+#: buy/templates/buy/keys.html:22
+msgid ""
+"Please provide the public keys for your new account. Active Public Key can "
+"be the same as Owner Public Key but not recommended for security."
+msgstr ""
+"请提供新账户的公钥。 Active Public Key可以与Owner Public Key相同，但出于安全"
+"考虑，不建议这么做。"
+
+#: buy/templates/buy/keys.html:27 buy/templates/buy/purchase.html:18
+#: buy/templates/buy/success.html:25
+msgid "Owner Public Key:"
+msgstr "Owner Public Key:"
+
+#: buy/templates/buy/keys.html:32 buy/templates/buy/purchase.html:23
+#: buy/templates/buy/success.html:30
+msgid "Active Public Key:"
+msgstr "Active Public Key:"
+
+#: buy/templates/buy/keys.html:80
+msgid "Please enter valid public keys"
+msgstr "请提供有效的公钥"
+
+#: buy/templates/buy/keys_help.inc:2
+msgid "What are those keys and how do I generate them?"
+msgstr "公钥和私钥是什么？ 我又如何可以生成它们？"
+
+#: buy/templates/buy/keys_help.inc:3
+msgid ""
+"In order to access your new EOS account, you will need two key pairs, owner "
+"and active. Each key pair consists of a private key and a public key. The "
+"public key is safe to give out and will be publicly visible in the "
+"blockchain. The private key must be kept secret and stored securely."
+msgstr ""
+"如果您想使用您新建的EOS账户，您需要两组密钥对。 一对证明所有权（Owner Public "
+"Key），另外一对证明使用权（Active Public Key）。 每组密钥对由私钥和公钥组"
+"成。 公钥就像银行卡账号，它所记录的一切交易将在区块链中公开显示。 私钥就像提"
+"款密码，必须安全保存。"
+
+#: buy/templates/buy/keys_help.inc:4
+msgid "Here are several generators you can use:"
+msgstr "您可以安全使用以下几个密钥对生成器："
+
+#: buy/templates/buy/keys_help.inc:6
+msgid "Easy to use desktop wallet, supports generating keys offline"
+msgstr "易于使用的桌面钱包，支持离线生成密钥"
+
+#: buy/templates/buy/keys_help.inc:7
+msgid "offline key generator, easy to use, but no wallet included"
+msgstr "离线密钥生成器，易于使用，但不不支持钱包功能"
+
+#: buy/templates/buy/keys_help.inc:8
+msgid "Chrome extension, recommended for daily use"
+msgstr "Chrome扩展程序，建议日常使用"
+
+#: buy/templates/buy/keys_help.inc:9
+msgid ""
+"Official wallet by Block.one but command line tool, only for advanced users"
+msgstr "Block.one官方钱包，仅适用于高级用户"
+
+#: buy/templates/buy/keys_help.inc:10
+msgid "Simple javascript generator"
+msgstr ""
+
+#: buy/templates/buy/keys_help.inc:10
+msgid "easiest to use"
+msgstr "最容易使用"
+
+#: buy/templates/buy/purchase.html:31 buy/templates/buy/success.html:47
+msgid "Please consider voting for"
+msgstr "请考虑把您宝贵的一票投给"
+
+#: buy/templates/buy/purchase.html:36
+msgid "One last step"
+msgstr "最后一步"
+
+#: buy/templates/buy/purchase.html:37
+msgid ""
+"After successful payment you will be redirected back here and we will create "
+"the EOS account for you. If you have any questions, please visit our  <a "
+"href=\"https://t.me/eos_account_creator\" target=\"_new\">Telegram group</a>"
+msgstr ""
+"支付成功后您将从新回到此处，我们会为您创建您的EOS账户. 如果您有任何疑问，请加"
+"<a href=\"https://t.me/eos_account_creator\" target=\"_new\">我们的电报群</a>."
+
+#: buy/templates/buy/purchase.html:39
+#, python-format
+msgid "USD %(price)s"
+msgstr "%(price)s 美元"
+
+#: buy/templates/buy/purchase.html:40
+msgid "Current price for account creation"
+msgstr "账户创建的当前价格"
+
+#: buy/templates/buy/purchase.html:46
+msgid "Choose payment option"
+msgstr "选择付款选项"
+
+#: buy/templates/buy/purchase.html:48
+msgid "---Please choose---"
+msgstr "---请选择---"
+
+#: buy/templates/buy/purchase.html:49
+msgid "Credit Card"
+msgstr "信用卡"
+
+#: buy/templates/buy/purchase.html:50
+msgid "Cryptocurrency (Bitcoin, Bitcoin Cash, Ethereum or Litecoin)"
+msgstr "虚拟币 (Bitcoin, Bitcoin Cash, Ethereum 或 Litecoin)"
+
+#: buy/templates/buy/purchase.html:51
+msgid "EOS (Use this if you have EOS on an exchange)"
+msgstr "EOS （如果您有EOS在交易所）"
+
+#: buy/templates/buy/purchase.html:57
+msgid ""
+"I have read an accept the <a href=\"/privacy_policy/\" target=\"_new"
+"\">privacy policy</a> and the <a href=\"https://github.com/EOS-Mainnet/"
+"governance/blob/master/eosio.system/eosio.system-clause-constitution-rc.md\" "
+"target=\"_new\">EOS Constitution</a>"
+msgstr "我已阅读并且接受  <a href=\"/privacy_policy/\" target=\"_new"
+"\">隐私条款</a>  和  <a href=\"https://github.com/EOS-Mainnet/"
+"governance/blob/master/eosio.system/eosio.system-clause-constitution-rc.md\" "
+"target=\"_new\">EOS宪法</a>"
+
+#: buy/templates/buy/purchase.html:146
+#, python-format
+msgid "Pay USD %(price)s with credit card"
+msgstr ""
+
+#: buy/templates/buy/purchase.html:150
+#, python-format
+msgid "Pay USD %(price)s with cryptocurrency"
+msgstr ""
+
+#: buy/templates/buy/purchase.html:154
+msgid "Show instructions"
+msgstr ""
+
+#: buy/templates/buy/purchase.html:159
+msgid "Please choose a payment method"
+msgstr "继续"
+
+#: buy/templates/buy/purchase.html:161
+msgid "Please choose a payment method to continue"
+msgstr "继续"
+
+#: buy/templates/buy/success.html:10
+msgid "Please wait while we await confirmation of your payment…"
+msgstr ""
+
+#: buy/templates/buy/success.html:11 buy/templates/buy/success.html:15
+msgid "Loading"
+msgstr ""
+
+#: buy/templates/buy/success.html:14
+msgid ""
+"Your payment was received. Please stand by while we try to create your EOS "
+"account."
+msgstr ""
+
+#: buy/templates/buy/success.html:21
+msgid "Account created"
+msgstr ""
+
+#: buy/templates/buy/success.html:41
+#, python-format
+msgid "Your EOS Account <b>%(account_name)s</b> was created successfully.</p>"
+msgstr ""
+
+#: buy/templates/buy/success.html:43
+msgid "What's next?"
+msgstr ""
+
+#: buy/templates/buy/success.html:44
+#, python-format
+msgid ""
+" You can check out your new account in the <a href=\"http://explorer."
+"eosvibes.io/search/%(account_name)s\" target=\"_new\">EOS Block Explorer</a>"
+msgstr ""
+
+#: buy/templates/buy/success.html:49
+msgid ""
+"If you have any questions, please visit our  <a href=\"https://t.me/"
+"eos_account_creator\" target=\"_new\">Telegram group.</a>"
+msgstr "如果您有任何疑问，请加我们的<a href=\"https://t.me/"
+"eos_account_creator\" target=\"_new\">电报群</a>"

@@ -1,4 +1,5 @@
 {% extends "buy/base.html" %}
+{% load i18n %}
 {% load static %}
 
 {% block title %}EOS Account Generation Service{% endblock %}
@@ -11,8 +12,8 @@
 <div class="row">
 	<div class="col-sm">
 		<div class="EOS">EOS</div>
-		<div class="Account-creator">Account creator</div>
-		<div class="This-website-allows">This website allows you to create an EOS account if you don't have one yet. <a class="faq_link" href="#">Check our FAQ</a> for more info.</div>
+		<div class="Account-creator">{% trans "Account creator" %}</div>
+		<div class="This-website-allows">{% blocktrans %}This website allows you to create an EOS account if you don't have one yet. <a class="faq_link" href="#">Check our FAQ</a> for more info.{% endblocktrans %}</div>
 		<p></p>		
 		<div class="embed-responsive embed-responsive-16by9">
 		  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/822Oa8pXG5g" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
@@ -21,9 +22,9 @@
 	</div>
 	<div class="col-sm">
 		<div class="Mask">
-			<div class="Why-this-service">Why this service?</div>
-			<p>The way EOS works is that new accounts can only be created by someone with an existing account. Creating an account also requires to stake a certain amount of EOS and to buy some RAM.</p>
-			<p> If you create an EOS account on this website, it comes with 0.2 EOS staked for CPU and Network bandwidth as well as 4KB of RAM.</p>
+			<div class="Why-this-service">{% trans "Why this service?" %}</div>
+			<p>{% trans "The way EOS works is that new accounts can only be created by someone with an existing account. Creating an account also requires to stake a certain amount of EOS and to buy some RAM." %}</p>
+			<p>{% trans "If you create an EOS account on this website, it comes with 0.2 EOS staked for CPU and Network bandwidth as well as 4KB of RAM." %}</p>
 			
 			<div class="group2container">
 			<img src="{% static 'buy/img/group-2.png' %}"
@@ -31,7 +32,7 @@
              {% static 'buy/img/group-2@3x.png' %} 3x"
      class="Group-2">
 		 
-		 <a href="/choose/" class="btn btn-primary get_started_button"><div class="Get-started">Get started</div></a>
+		 <a href="/choose/" class="btn btn-primary get_started_button"><div class="Get-started">{% trans "Get started" %}</div></a>
 		 </div>
 		 
 		 
@@ -58,7 +59,7 @@ window.cookieconsent.initialise({
 	}
   },
   "content": {
-	"message": "This website uses cookies because it absolutely needs them.",
+	"message": "{% trans 'This website uses cookies because it absolutely needs them.' %}",
 	"href": "/privacy_policy/"
   }
 })});
