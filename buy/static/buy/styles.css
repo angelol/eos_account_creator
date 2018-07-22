@@ -74,8 +74,8 @@ footer {
   object-fit: contain;
 }
 
-.FAQ_button {
-  width: 66px;
+.header_button {
+  /* width: 66px; */
   height: 32px;
   border-radius: 4px;
   background-color: #ffffff;
@@ -88,6 +88,9 @@ footer {
   font-stretch: normal;
   line-height: 1.36;
   letter-spacing: 2px;
+}
+form.language {
+  display: inline;
 }
 
 .EOS {

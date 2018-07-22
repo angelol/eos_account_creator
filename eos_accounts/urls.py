@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from django.views.generic.base import TemplateView
 from django.views.decorators.cache import cache_page
+from django.conf.urls import include
 from buy.views import *
 
 urlpatterns = [
@@ -41,4 +42,6 @@ urlpatterns = [
     path('stripe/', stripe, name='stripe'),
     path('eos/', eos, name='eos'),
     path('imprint/', cache_page(60)(TemplateView.as_view(template_name='buy/imprint.html')), name='imprint'),
+    
+    path('i18n/', include('django.conf.urls.i18n')),
 ]

@@ -23,6 +23,7 @@
 		{% endblock %}
 	</head>
 	<body>
+    {% get_current_language as LANGUAGE_CODE %}
     <div class="container-fluid">
     <div class="header row align-items-center">
       <div class="col align-middle" style="text-align:left;  vertical-align: middle;">
@@ -36,8 +37,20 @@
     </div>
 
       <div class="col" style="text-align:right;">
-          <button class="FAQ_button">FAQ</button>
+          <button class="FAQ_button header_button">FAQ</button>
+          
+          <form class="language" action="{% url 'set_language' %}" method="post">{% csrf_token %}
+            <button class="header_button language">
+              {% if LANGUAGE_CODE == 'zh' %}
+                <input name="language" type="hidden" value="en" />English
+              {% elif LANGUAGE_CODE == 'en' %}
+                <input name="language" type="hidden" value="zh" />中文
+              {% endif %}
+            </button>
+          </form>
       </div>
+      
+
       
     </div>
     </div>
@@ -110,6 +123,7 @@
         $(this).prop('src', "{% static 'buy/img/telegram.svg' %}");
       });
     });
+    
     
   </script>
   
