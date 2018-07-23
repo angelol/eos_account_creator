@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-22 22:24+0000\n"
+"POT-Creation-Date: 2018-07-23 00:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,15 +36,15 @@ msgid ""
 "choose/\">please choose a different account name</a>."
 msgstr ""
 
-#: buy/templates/buy/base.html:66
+#: buy/templates/buy/base.html:82
 msgid "FAQ"
 msgstr ""
 
-#: buy/templates/buy/base.html:67
+#: buy/templates/buy/base.html:83
 msgid "Why do I need this service?"
 msgstr ""
 
-#: buy/templates/buy/base.html:68
+#: buy/templates/buy/base.html:84
 msgid ""
 "The way EOS works is that new accounts can only be created by someone with "
 "an existing account. If you have a friend who has an EOS account, you can "
@@ -52,11 +52,11 @@ msgid ""
 "for a small fee."
 msgstr ""
 
-#: buy/templates/buy/base.html:69
+#: buy/templates/buy/base.html:85
 msgid "How much does it cost?"
 msgstr ""
 
-#: buy/templates/buy/base.html:70
+#: buy/templates/buy/base.html:86
 #, python-format
 msgid ""
 " \"The cost of one EOS account is currently USD %(price)s. Included in the "
@@ -64,21 +64,21 @@ msgid ""
 "of RAM."
 msgstr ""
 
-#: buy/templates/buy/base.html:71
+#: buy/templates/buy/base.html:87
 msgid "Which payment methods do you accept?"
 msgstr ""
 
-#: buy/templates/buy/base.html:72
+#: buy/templates/buy/base.html:88
 msgid ""
 "You can pay with credit card and the cryptocurrencies EOS, Bitcoin, Bitcoin "
 "Cash, Ethereum and Litecoin."
 msgstr ""
 
-#: buy/templates/buy/base.html:73
+#: buy/templates/buy/base.html:89
 msgid "Is this website safe to use?"
 msgstr ""
 
-#: buy/templates/buy/base.html:74
+#: buy/templates/buy/base.html:90
 msgid ""
 "Yes. You generate the keys safely offline and only use your public keys on "
 "the website. Public keys are safe to share. The source code is on <a href="
@@ -91,11 +91,11 @@ msgid ""
 "href=\"https://t.me/eos_account_creator\" target=\"_new\">telegram group</a>."
 msgstr ""
 
-#: buy/templates/buy/base.html:76
+#: buy/templates/buy/base.html:92
 msgid "Is this tool open source?"
 msgstr ""
 
-#: buy/templates/buy/base.html:77
+#: buy/templates/buy/base.html:93
 msgid "Yes!"
 msgstr ""
 
@@ -150,7 +150,7 @@ msgid "The account name is already taken, please choose another one"
 msgstr ""
 
 #: buy/templates/buy/choose.html:49 buy/templates/buy/choose.html:115
-#: buy/templates/buy/keys.html:38
+#: buy/templates/buy/keys.html:38 buy/templates/buy/keys.html:77
 msgid "Continue"
 msgstr ""
 
@@ -160,6 +160,14 @@ msgstr ""
 
 #: buy/templates/buy/eos.html:12
 msgid "EOS Smart Contract Account Creator"
+msgstr ""
+
+#: buy/templates/buy/eos.html:14
+msgid ""
+"<a href=\"https://eos-account-creator.com/\">EOS Account Creator</a> is "
+"proud to present the world's first <a href=\"https://github.com/angelol/"
+"smart_account_creator\">open source</a> smart contract account creator.\n"
+"        You can use it to create an account when you have EOS on an exchange."
 msgstr ""
 
 #: buy/templates/buy/eos.html:17
@@ -246,10 +254,13 @@ msgid "In the upcoming list, select EOS"
 msgstr ""
 
 #: buy/templates/buy/eos.html:74
+#, python-format
 msgid ""
 "In the upcoming withdrawals form (see screenshot below), copy and paste the "
 "values from above. Paste the recipient account name from above "
-"(accountcreat) into the field "
+"(accountcreat) into the field \"EOS Withdrawal Address\", the memo from "
+"above into the Field \"EOS Withdrawal MEMO\". Use any amount you wish to "
+"withdraw into your new account but at least %(minimum)s EOS. "
 msgstr ""
 
 #: buy/templates/buy/eos.html:79
@@ -271,6 +282,10 @@ msgstr ""
 msgid ""
 "Buy 4KB of RAM for your new account with parts of the transferred EOS. Every "
 "account that is created on the EOS network needs 4 KB of RAM to exist."
+msgstr ""
+
+#: buy/templates/buy/eos.html:85
+msgid "Delegate and transfer 0.1 EOS for CPU and 0.1 EOS for NET."
 msgstr ""
 
 #: buy/templates/buy/eos.html:86
