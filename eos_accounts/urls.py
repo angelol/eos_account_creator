@@ -36,12 +36,12 @@ urlpatterns = [
     
     path('success/', success, name='success'),
     path('check_progress/', check_progress, name='check_progress'),
-    path('privacy_policy/', cache_page(60)(TemplateView.as_view(template_name='buy/privacy_policy.html'))),
+    path('privacy_policy/', TemplateView.as_view(template_name='buy/privacy_policy.html')),
     path('stripe_charge/', stripe_charge, name='stripe_charge'),
     path('card_declined/<stripe_charge>/', card_declined, name='card_declined'),
     path('stripe/', stripe, name='stripe'),
     path('eos/', eos, name='eos'),
-    path('imprint/', cache_page(60)(TemplateView.as_view(template_name='buy/imprint.html')), name='imprint'),
+    path('imprint/', TemplateView.as_view(template_name='buy/imprint.html'), name='imprint'),
     
     path('i18n/', include('django.conf.urls.i18n')),
 ]

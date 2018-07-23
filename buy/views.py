@@ -17,11 +17,11 @@ def add_price_context_processor(request):
         'price': '%.2f' % Purchase.get_prices_usd()[1],
     }
 
-@cache_page(settings.CACHING_DURATION)
+# @cache_page(settings.CACHING_DURATION)
 def index(request):
     return render(request, "buy/index.html")
     
-@cache_page(settings.CACHING_DURATION)
+# @cache_page(settings.CACHING_DURATION)
 def choose(request):
     return render(request, "buy/choose.html", {
         'breadcrumbs_account_name': True,
