@@ -8,7 +8,7 @@
 	{% endblock %}
 	{% block body %}
 	<div class="row">
-		<div class="col-sm-5">
+		<div class="col-sm-6">
 			<div class="EOS">02</div>
 			<div class="Account-creator">{% trans "Provide public keys" %}</div>
 			<div class="This-website-allows">{% trans "Your chosen EOS Account Name is:" %} <span class="chosen_account_name">{{account_name}}</span></div>
@@ -16,7 +16,7 @@
 				{% include 'buy/keys_help.inc' %}
 			</div>
 		</div>
-		<div class="col-sm-5">
+		<div class="col-sm-6">
 			<div class="Mask">
 				<div class="Why-this-service">{% trans "Provide public keys" %}</div>
 				<p>{% trans "Please provide the public keys for your new account. Active Public Key can be the same as Owner Public Key but not recommended for security." %}</p>
