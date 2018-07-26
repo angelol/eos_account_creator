@@ -171,8 +171,8 @@ STATIC_ROOT = '/django/static/'
 ML = 512
 EOS_API_NODES = ['https://node1.eosvibes.io']
 NEWACCOUNT_RAM_KB = 4
-NEWACCOUNT_NET_STAKE = 0.1
-NEWACCOUNT_CPU_STAKE = 0.1
+NEWACCOUNT_NET_STAKE = 0.05
+NEWACCOUNT_CPU_STAKE = 0.15
 
 try:
     from eos_accounts.local_settings import *
