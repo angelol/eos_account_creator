@@ -14,7 +14,9 @@ from django.views.decorators.cache import cache_page
 
 def add_price_context_processor(request):
     return {
-        'price': '%.2f' % Purchase.get_prices_usd()[1],
+        'price_usd_crypto': '%.2f' % Purchase.get_prices_usd_crypto(),
+        'price_usd_credit': '%.2f' % Purchase.get_prices_usd_credit(),
+        'price_eos_eos': '%.1f' % PriceData.minimum_amount_sac(),
     }
 
 # @cache_page(settings.CACHING_DURATION)
@@ -101,7 +103,7 @@ def buy_action(request):
         )
     )
     if request.POST['payment'] == 'crypto':
-        j = create_charge(purchase.account_name, purchase.owner_key, purchase.active_key, purchase.price_usd())
+        j = create_charge(purchase.account_name, purchase.owner_key, purchase.active_key, purchase.price_usd_crypto())
         hosted_url = j['data']['hosted_url']
         request.session['coinbase_code'] = j['data']['code']
         purchase.coinbase_code = j['data']['code']

@@ -20,11 +20,15 @@ class Purchase(models.Model):
     coinbase_charge = models.TextField()
     coinbase_code = models.CharField(max_length=settings.ML)
     user_uuid = models.UUIDField(null=True)
-    price_cents = models.IntegerField(null=True)
+    
+    price_cents_crypto = models.IntegerField(null=True)
+    price_cents_credit = models.IntegerField(null=True)
+    price_eos_eos = models.DecimalField(max_digits=8, decimal_places=2, null=True)
+    
 
     # cost of goods sold
     cogs_cents = models.IntegerField(null=True)
-    profit = models.DecimalField(max_digits=8, decimal_places=2)
+    profit = models.DecimalField(max_digits=8, decimal_places=2, null=True)
     currency = models.CharField(max_length=settings.ML)
     stripe = models.DateTimeField(null=True)
     coinbase = models.DateTimeField(null=True)
@@ -32,22 +36,34 @@ class Purchase(models.Model):
     def __str__(self):
         return self.account_name
         
-    def price_usd(self):
-        return self.price_cents/100.0
+    def price_usd_crypto(self):
+        return self.price_cents_crypto/100.0
+
+    def price_usd_credit(self):
+        return self.price_cents_credit/100.0
 
     @staticmethod
-    def get_prices_usd():
-        cogs = PriceData.ram_kb_usd() * settings.NEWACCOUNT_RAM_KB + (settings.NEWACCOUNT_NET_STAKE + settings.NEWACCOUNT_CPU_STAKE) * PriceData.price_eos_usd()
-        price = cogs * 1.2 + 3
-        return cogs, price
+    def cogs():
+        return PriceData.ram_kb_usd() * settings.NEWACCOUNT_RAM_KB + (settings.NEWACCOUNT_NET_STAKE + settings.NEWACCOUNT_CPU_STAKE) * PriceData.price_eos_usd()
+        
+    @staticmethod
+    def get_prices_usd_crypto():
+        return Purchase.cogs() * 1.2 + 3
+
+    @staticmethod
+    def get_prices_usd_credit():
+        return Purchase.cogs() * 1.4 + 4
+        
+    @staticmethod
+    def get_prices_eos_eos():
+        return 0.1
 
     def update_price(self):
-        print("update_price called")
-        self.cogs_cents, self.price_cents = [round(x*100) for x in Purchase.get_prices_usd()]
-        cogs = Decimal(str(self.cogs_cents)) / 100
-        price = Decimal(str(self.price_cents)) / 100
-        self.profit = price - cogs
-
+        self.cogs_cents = round(Purchase.cogs()*100)
+        self.price_cents_crypto = round(Purchase.get_prices_usd_crypto()*100)
+        self.price_cents_credit = round(Purchase.get_prices_usd_credit()*100)
+        self.price_eos_eos = Purchase.get_prices_eos_eos()
+        
 
     def complete_purchase_and_save(self):
         import subprocess
@@ -151,7 +167,7 @@ class PriceData(models.Model):
 
 @receiver(pre_save, sender=Purchase)
 def purchase_saved(sender, instance, **kwargs):
-    if not instance.cogs_cents or not instance.price_cents or not instance.profit:
+    if not instance.cogs_cents or not instance.price_cents_credit or not instance.price_cents_crypto:
         print ("Updating price from signal")
         instance.update_price()
 

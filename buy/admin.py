@@ -79,17 +79,17 @@ process.short_description = 'Process'
 
 @admin.register(Purchase)
 class PurchaseAdmin(admin.ModelAdmin):
-    list_display = ('created_at', 'account_name', 'payment_received', 'account_created', 'price', 'profit')
+    list_display = ('created_at', 'account_name', 'payment_received', 'account_created', 'price_crypto', 'profit')
     ordering = ('-created_at', )
-    fields = ('account_name', 'owner_key', 'active_key', 'payment_received', 'account_created', 'coinbase_code', 'price_usd', 'currency', 'stripe', 'coinbase')
+    fields = ('account_name', 'owner_key', 'active_key', 'payment_received', 'account_created', 'coinbase_code', 'price_usd_crypto', 'currency', 'stripe', 'coinbase')
     readonly_fields = fields
     actions = [process]
     search_fields = ('account_name', 'owner_key', 'active_key')
     list_filter = ('payment_received', 'account_created', DateListFilter)
     
-    def price(self, instance):
-        if instance.price_cents:
-            return Decimal(str(instance.price_cents))/100
+    def price_crypto(self, instance):
+        if instance.price_cents_crypto:
+            return Decimal(str(instance.price_cents_crypto))/100
         else:
             return ""
 

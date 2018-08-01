@@ -35,10 +35,7 @@
 			<div class="Mask">
 				<div class="Why-this-service">{% trans "One last step" %}</div>
 				<p>{% trans 'After successful payment you will be redirected back here and we will create the EOS account for you. If you have any questions, please visit our  <a href="https://t.me/eos_account_creator" target="_new">Telegram group</a>' %}.</p>
-				<div class="price_display">
-					<img class="money_wings" src="{% static 'buy/img/money_wings.svg' %}"> <span class="price">{% blocktrans with price=purchase.price_usd|floatformat:2 %}USD {{price}}{% endblocktrans %}</span><br />
-					<span class="price_subtitle">{% trans "Current price for account creation" %}</span>
-				</div>
+				
 
 			 <form class="main" action="/buy_action/" method="POST">
 				 {% csrf_token %}
@@ -52,6 +49,14 @@
 			    </select>
 			  </div>
 				<div class="form-group">
+					<div class="price_display" style="display:none;">
+						<img class="money_wings" src="{% static 'buy/img/money_wings.svg' %}"> <span class="price"></span><br />
+						<span class="price_subtitle">{% trans "Current price for account creation" %}</span>
+					</div>
+				</div>
+				<div class="form-group">
+					
+					
 					<div class="row">
 						<div class="col-sm-10">
 							<label for="constitution">{% trans 'I have read an accept the <a href="/privacy_policy/" target="_new">privacy policy</a> and the <a href="https://github.com/EOS-Mainnet/governance/blob/master/eosio.system/eosio.system-clause-constitution-rc.md" target="_new">EOS Constitution</a>' %}</label>
@@ -61,8 +66,10 @@
 						</div>
 					</div>
 			</div>
-				<input type="hidden" name="price" value="{{purchase.price_usd|floatformat:2}}" />
-				<input type="hidden" name="price_cents" value="{{purchase.price_cents}}" />
+				<input type="hidden" name="price_crypto" value="{{purchase.price_usd_crypto|floatformat:2}}" />
+				<input type="hidden" name="price_credit" value="{{purchase.price_usd_credit|floatformat:2}}" />
+				<input type="hidden" name="price_eos" value="{{price_eos_eos}}" />
+				<input type="hidden" name="price_cents_credit" value="{{purchase.price_cents_credit}}" />
 				<input type="hidden" name="account_name" value="{{purchase.account_name}}" />
 				<input type="hidden" name="owner_key" value="{{purchase.owner_key}}" />
 				<input type="hidden" name="active_key" value="{{purchase.active_key}}" />
@@ -72,6 +79,8 @@
 				</center>
 			</form>
 			 
+			
+			
 			</div> 
 		</div>
 		
@@ -140,20 +149,36 @@
 			let button = $("button[type=submit]");
 			
 			let value = $(e).val();
+			let price_display = $(".price_display");
+			let price_text = $(".price");
+			let price_subtitle = $(".price_subtitle");
 			
-			let price = $("input[name=price]").val();
 			if(value == 'creditcard') {
-				text = "{% blocktrans %}Pay USD {{price}} with credit card{% endblocktrans %}";
+				let price = $("input[name=price_credit]").val();
+				text = "{% blocktrans with price_usd_credit=purchase.price_usd_credit|floatformat:2 %}Pay USD {{price_usd_credit}} with credit card{% endblocktrans %}";
 				submit_fun = pay_creditcard;
 				button.prop("disabled", false);
+				price_display.show();
+				price_text.text("USD " + price);
+				price_subtitle.text("When paying with credit card");
+				
 			} else if (value == 'crypto') {
-				text = "{% blocktrans %}Pay USD {{price}} with cryptocurrency{% endblocktrans %}";
+				let price = $("input[name=price_crypto]").val();
+				text = "{% blocktrans with price_usd_crypto=purchase.price_usd_crypto|floatformat:2 %}Pay USD {{price_usd_crypto}} with cryptocurrency{% endblocktrans %}";
 				submit_fun = pay_crypto;
 				button.prop("disabled", false);
+				price_display.show();
+				price_text.text("USD " + price);
+				price_subtitle.text("When paying with cryptocurrency");
+				
 			} else if (value == 'eos') {
+				let price = $("input[name=price_eos]").val();
 				text = '{% trans "Show instructions" %}';
 				submit_fun = pay_crypto;
 				button.prop("disabled", false);
+				price_display.show();
+				price_text.text(price + " EOS");
+				price_subtitle.text("When paying with EOS");
 			} else {
 				if(mobile()) {
 					text = '{% trans "Please choose a payment method" %}';
@@ -184,7 +209,7 @@
 			handler.open({
 				name: "EOS Account Creator",
 				description: "Your EOS Account "+ $("input[name=account_name]").val(),
-				amount: $("input[name=price_cents]").val(),
+				amount: $("input[name=price_cents_credit]").val(),
 				currency: 'usd',
 				zipCode: true,
 			});
