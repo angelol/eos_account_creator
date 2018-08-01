@@ -86,6 +86,18 @@
     <p>{% blocktrans %}The cost of one EOS account is currently USD {{price_usd_crypto}} when paid with cryptocurrencies, USD {{price_usd_credit}} when paid with credit card and {{price_eos_eos}} EOS when paid with EOS. Included in the price are 0.2 staked EOS that will be transferred to your control and 4 KB of RAM.{% endblocktrans %}</p>
     <h4>{% trans "Which payment methods do you accept?" %}</h4>
     <p>{% trans "You can pay with credit card and the cryptocurrencies EOS, Bitcoin, Bitcoin Cash, Ethereum and Litecoin." %}</p>
+    <h4>{% trans "I didn't send the right amount to coinbase. What can I do?" %}</h4>
+    <p>
+      {% blocktrans %}
+        Please write us an email to <a href="mailto:hello@eos-account-creator.com">hello@eos-account-creator.com</a> including your transaction id and the desired refund address so we can initiate a refund. You can also join our <a href="https://t.me/eos_account_creator" target="_new">telegram group</a> and request help there. 
+      {% endblocktrans %}
+    </p>
+    <h4>{% trans "I sent the payment to coinbase after the payment window expired. What can I do?" %}</h4>
+    <p>
+      {% blocktrans %}
+        Don't panic. We will regularly check expired transactions and push them through. If you want to nudge us, you can join our  <a href="https://t.me/eos_account_creator" target="_new">telegram group</a> or write a quick <a href="mailto:hello@eos-account-creator.com">email</a>.
+      {% endblocktrans %}
+    </p>
     <h4>{% trans "Is this website safe to use?"%}</h4>
     <p>{% trans 'Yes. You generate the keys safely offline and only use your public keys on the website. Public keys are safe to share. The source code is on <a href="https://github.com/angelol/eos_account_creator" target="_new">GitHub</a> and can be audited. The activity of this website can be checked on the EOS blockchain. This tool uses the EOS account <b>accountcreat</b> to generate new accounts, the <a href="https://eostracker.io/accounts/accountcreat" target="_new">activity can be checked</a> in any block explorer. If you have further questions, please get in touch through our <a href="https://t.me/eos_account_creator" target="_new">telegram group</a>.' %}</p>
     {% include 'buy/help.inc' %}
