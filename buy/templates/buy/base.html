@@ -83,13 +83,13 @@
     <h4>{% trans "Why do I need this service?" %}</h4>
     <p>{% trans "The way EOS works is that new accounts can only be created by someone with an existing account. If you have a friend who has an EOS account, you can ask him to create one for you. If you don't, this website can be your friend for a small fee." %}</p>
     <h4>{% trans "How much does it cost?" %}</h4>
-    <p>{% blocktrans %} "The cost of one EOS account is currently USD {{price}}. Included in the price are 0.2 staked EOS that will be transferred to your control and 4 KB of RAM.{% endblocktrans %}</p>
+    <p>{% blocktrans %}The cost of one EOS account is currently USD {{price_usd_crypto}} when paid with cryptocurrencies, USD {{price_usd_credit}} when paid with credit card and {{price_eos_eos}} EOS when paid with EOS. Included in the price are 0.2 staked EOS that will be transferred to your control and 4 KB of RAM.{% endblocktrans %}</p>
     <h4>{% trans "Which payment methods do you accept?" %}</h4>
     <p>{% trans "You can pay with credit card and the cryptocurrencies EOS, Bitcoin, Bitcoin Cash, Ethereum and Litecoin." %}</p>
     <h4>{% trans "Is this website safe to use?"%}</h4>
     <p>{% trans 'Yes. You generate the keys safely offline and only use your public keys on the website. Public keys are safe to share. The source code is on <a href="https://github.com/angelol/eos_account_creator" target="_new">GitHub</a> and can be audited. The activity of this website can be checked on the EOS blockchain. This tool uses the EOS account <b>accountcreat</b> to generate new accounts, the <a href="https://eostracker.io/accounts/accountcreat" target="_new">activity can be checked</a> in any block explorer. If you have further questions, please get in touch through our <a href="https://t.me/eos_account_creator" target="_new">telegram group</a>.' %}</p>
     {% include 'buy/help.inc' %}
-    <h4>{% trans "Is this tool open source?" %}"</h4>
+    <h4>{% trans "Is this tool open source?" %}</h4>
     <p><a href="https://github.com/angelol/eos_account_creator" target="_new">{% trans "Yes!" %}</a>
     </p>
     

@@ -14,11 +14,11 @@ body {
 
 
 a, a:hover {
-  color: #3ecf8e;
+  color: #1da1f2;
 }
 input:focus {
-  box-shadow: inset 0 0 4px 0 #3ecf8e !important;
-  border: solid 1px #3ecf8e !important;
+  box-shadow: inset 0 0 4px 0 #1da1f2 !important;
+  border: solid 1px #1da1f2 !important;
 }
 
 footer {
@@ -48,17 +48,17 @@ footer {
   letter-spacing: 2px;
   text-align: center;
   color: #ffffff;
-  background-color: #3ecf8e;
-  border-color: #3ecf8e;
+  background-color: #1da1f2;
+  border-color: #1da1f2;
 }
 .btn-primary:disabled {
   opacity: 0.6;
-  background-color: #3ecf8e;
-  border-color: #3ecf8e;
+  background-color: #1da1f2;
+  border-color: #1da1f2;
 }
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
-  background-color: #39bc82 !important;
-  border-color: #39bc82 !important;
+  background-color: #006dbf !important;
+  border-color: #006dbf !important;
 }
 
 .header {
@@ -80,7 +80,7 @@ footer {
   background-color: #ffffff;
   border: none;
   cursor:pointer;
-  color: #3ecf8e;
+  color: #1da1f2;
   font-size: 14px;
   font-weight: bold;
   font-style: normal;
@@ -92,7 +92,7 @@ footer {
 
 .FAQ_button {
   border-radius: 4px;
-  border: solid 1px #3ecf8e;
+  border: solid 1px #1da1f2;
   display: inline;
 }
 
@@ -235,7 +235,7 @@ ul.breadcrumbs {
 }
 
 .breadcrumbs li.finished::before {
-    color: #3ecf8e;
+    color: #1da1f2;
     opacity:1.0 !important;
 }
 
@@ -243,7 +243,7 @@ ul.breadcrumbs {
   opacity: 1.0;
 }
 span.chosen_account_name {
-  color: #3ecf8e;
+  color: #1da1f2;
 }
 input#owner_key, input#active_key {
   font-size: 9pt;
@@ -313,10 +313,13 @@ input#owner_key, input#active_key {
 }
 
 #gen_random {
-    color: #3ecf8e;
+    color: #1da1f2;
     cursor:pointer;
 }
 
+/*
+  https://projects.lukehaas.me/css-loaders/
+*/
 .loader {
   margin: 100px auto;
   font-size: 25px;
@@ -334,57 +337,58 @@ input#owner_key, input#active_key {
 @-webkit-keyframes load5 {
   0%,
   100% {
-    box-shadow: 0em -2.6em 0em 0em #3dcf8e, 1.8em -1.8em 0 0em rgba(61,207,142, 0.2), 2.5em 0em 0 0em rgba(61,207,142, 0.2), 1.75em 1.75em 0 0em rgba(61,207,142, 0.2), 0em 2.5em 0 0em rgba(61,207,142, 0.2), -1.8em 1.8em 0 0em rgba(61,207,142, 0.2), -2.6em 0em 0 0em rgba(61,207,142, 0.5), -1.8em -1.8em 0 0em rgba(61,207,142, 0.7);
+    box-shadow: 0em -2.6em 0em 0em #1da1f2, 1.8em -1.8em 0 0em rgba(29,161,242, 0.2), 2.5em 0em 0 0em rgba(29,161,242, 0.2), 1.75em 1.75em 0 0em rgba(29,161,242, 0.2), 0em 2.5em 0 0em rgba(29,161,242, 0.2), -1.8em 1.8em 0 0em rgba(29,161,242, 0.2), -2.6em 0em 0 0em rgba(29,161,242, 0.5), -1.8em -1.8em 0 0em rgba(29,161,242, 0.7);
   }
   12.5% {
-    box-shadow: 0em -2.6em 0em 0em rgba(61,207,142, 0.7), 1.8em -1.8em 0 0em #3dcf8e, 2.5em 0em 0 0em rgba(61,207,142, 0.2), 1.75em 1.75em 0 0em rgba(61,207,142, 0.2), 0em 2.5em 0 0em rgba(61,207,142, 0.2), -1.8em 1.8em 0 0em rgba(61,207,142, 0.2), -2.6em 0em 0 0em rgba(61,207,142, 0.2), -1.8em -1.8em 0 0em rgba(61,207,142, 0.5);
+    box-shadow: 0em -2.6em 0em 0em rgba(29,161,242, 0.7), 1.8em -1.8em 0 0em #1da1f2, 2.5em 0em 0 0em rgba(29,161,242, 0.2), 1.75em 1.75em 0 0em rgba(29,161,242, 0.2), 0em 2.5em 0 0em rgba(29,161,242, 0.2), -1.8em 1.8em 0 0em rgba(29,161,242, 0.2), -2.6em 0em 0 0em rgba(29,161,242, 0.2), -1.8em -1.8em 0 0em rgba(29,161,242, 0.5);
   }
   25% {
-    box-shadow: 0em -2.6em 0em 0em rgba(61,207,142, 0.5), 1.8em -1.8em 0 0em rgba(61,207,142, 0.7), 2.5em 0em 0 0em #3dcf8e, 1.75em 1.75em 0 0em rgba(61,207,142, 0.2), 0em 2.5em 0 0em rgba(61,207,142, 0.2), -1.8em 1.8em 0 0em rgba(61,207,142, 0.2), -2.6em 0em 0 0em rgba(61,207,142, 0.2), -1.8em -1.8em 0 0em rgba(61,207,142, 0.2);
+    box-shadow: 0em -2.6em 0em 0em rgba(29,161,242, 0.5), 1.8em -1.8em 0 0em rgba(29,161,242, 0.7), 2.5em 0em 0 0em #1da1f2, 1.75em 1.75em 0 0em rgba(29,161,242, 0.2), 0em 2.5em 0 0em rgba(29,161,242, 0.2), -1.8em 1.8em 0 0em rgba(29,161,242, 0.2), -2.6em 0em 0 0em rgba(29,161,242, 0.2), -1.8em -1.8em 0 0em rgba(29,161,242, 0.2);
   }
   37.5% {
-    box-shadow: 0em -2.6em 0em 0em rgba(61,207,142, 0.2), 1.8em -1.8em 0 0em rgba(61,207,142, 0.5), 2.5em 0em 0 0em rgba(61,207,142, 0.7), 1.75em 1.75em 0 0em #3dcf8e, 0em 2.5em 0 0em rgba(61,207,142, 0.2), -1.8em 1.8em 0 0em rgba(61,207,142, 0.2), -2.6em 0em 0 0em rgba(61,207,142, 0.2), -1.8em -1.8em 0 0em rgba(61,207,142, 0.2);
+    box-shadow: 0em -2.6em 0em 0em rgba(29,161,242, 0.2), 1.8em -1.8em 0 0em rgba(29,161,242, 0.5), 2.5em 0em 0 0em rgba(29,161,242, 0.7), 1.75em 1.75em 0 0em #1da1f2, 0em 2.5em 0 0em rgba(29,161,242, 0.2), -1.8em 1.8em 0 0em rgba(29,161,242, 0.2), -2.6em 0em 0 0em rgba(29,161,242, 0.2), -1.8em -1.8em 0 0em rgba(29,161,242, 0.2);
   }
   50% {
-    box-shadow: 0em -2.6em 0em 0em rgba(61,207,142, 0.2), 1.8em -1.8em 0 0em rgba(61,207,142, 0.2), 2.5em 0em 0 0em rgba(61,207,142, 0.5), 1.75em 1.75em 0 0em rgba(61,207,142, 0.7), 0em 2.5em 0 0em #3dcf8e, -1.8em 1.8em 0 0em rgba(61,207,142, 0.2), -2.6em 0em 0 0em rgba(61,207,142, 0.2), -1.8em -1.8em 0 0em rgba(61,207,142, 0.2);
+    box-shadow: 0em -2.6em 0em 0em rgba(29,161,242, 0.2), 1.8em -1.8em 0 0em rgba(29,161,242, 0.2), 2.5em 0em 0 0em rgba(29,161,242, 0.5), 1.75em 1.75em 0 0em rgba(29,161,242, 0.7), 0em 2.5em 0 0em #1da1f2, -1.8em 1.8em 0 0em rgba(29,161,242, 0.2), -2.6em 0em 0 0em rgba(29,161,242, 0.2), -1.8em -1.8em 0 0em rgba(29,161,242, 0.2);
   }
   62.5% {
-    box-shadow: 0em -2.6em 0em 0em rgba(61,207,142, 0.2), 1.8em -1.8em 0 0em rgba(61,207,142, 0.2), 2.5em 0em 0 0em rgba(61,207,142, 0.2), 1.75em 1.75em 0 0em rgba(61,207,142, 0.5), 0em 2.5em 0 0em rgba(61,207,142, 0.7), -1.8em 1.8em 0 0em #3dcf8e, -2.6em 0em 0 0em rgba(61,207,142, 0.2), -1.8em -1.8em 0 0em rgba(61,207,142, 0.2);
+    box-shadow: 0em -2.6em 0em 0em rgba(29,161,242, 0.2), 1.8em -1.8em 0 0em rgba(29,161,242, 0.2), 2.5em 0em 0 0em rgba(29,161,242, 0.2), 1.75em 1.75em 0 0em rgba(29,161,242, 0.5), 0em 2.5em 0 0em rgba(29,161,242, 0.7), -1.8em 1.8em 0 0em #1da1f2, -2.6em 0em 0 0em rgba(29,161,242, 0.2), -1.8em -1.8em 0 0em rgba(29,161,242, 0.2);
   }
   75% {
-    box-shadow: 0em -2.6em 0em 0em rgba(61,207,142, 0.2), 1.8em -1.8em 0 0em rgba(61,207,142, 0.2), 2.5em 0em 0 0em rgba(61,207,142, 0.2), 1.75em 1.75em 0 0em rgba(61,207,142, 0.2), 0em 2.5em 0 0em rgba(61,207,142, 0.5), -1.8em 1.8em 0 0em rgba(61,207,142, 0.7), -2.6em 0em 0 0em #3dcf8e, -1.8em -1.8em 0 0em rgba(61,207,142, 0.2);
+    box-shadow: 0em -2.6em 0em 0em rgba(29,161,242, 0.2), 1.8em -1.8em 0 0em rgba(29,161,242, 0.2), 2.5em 0em 0 0em rgba(29,161,242, 0.2), 1.75em 1.75em 0 0em rgba(29,161,242, 0.2), 0em 2.5em 0 0em rgba(29,161,242, 0.5), -1.8em 1.8em 0 0em rgba(29,161,242, 0.7), -2.6em 0em 0 0em #1da1f2, -1.8em -1.8em 0 0em rgba(29,161,242, 0.2);
   }
   87.5% {
-    box-shadow: 0em -2.6em 0em 0em rgba(61,207,142, 0.2), 1.8em -1.8em 0 0em rgba(61,207,142, 0.2), 2.5em 0em 0 0em rgba(61,207,142, 0.2), 1.75em 1.75em 0 0em rgba(61,207,142, 0.2), 0em 2.5em 0 0em rgba(61,207,142, 0.2), -1.8em 1.8em 0 0em rgba(61,207,142, 0.5), -2.6em 0em 0 0em rgba(61,207,142, 0.7), -1.8em -1.8em 0 0em #3dcf8e;
+    box-shadow: 0em -2.6em 0em 0em rgba(29,161,242, 0.2), 1.8em -1.8em 0 0em rgba(29,161,242, 0.2), 2.5em 0em 0 0em rgba(29,161,242, 0.2), 1.75em 1.75em 0 0em rgba(29,161,242, 0.2), 0em 2.5em 0 0em rgba(29,161,242, 0.2), -1.8em 1.8em 0 0em rgba(29,161,242, 0.5), -2.6em 0em 0 0em rgba(29,161,242, 0.7), -1.8em -1.8em 0 0em #1da1f2;
   }
 }
 @keyframes load5 {
   0%,
   100% {
-    box-shadow: 0em -2.6em 0em 0em #3dcf8e, 1.8em -1.8em 0 0em rgba(61,207,142, 0.2), 2.5em 0em 0 0em rgba(61,207,142, 0.2), 1.75em 1.75em 0 0em rgba(61,207,142, 0.2), 0em 2.5em 0 0em rgba(61,207,142, 0.2), -1.8em 1.8em 0 0em rgba(61,207,142, 0.2), -2.6em 0em 0 0em rgba(61,207,142, 0.5), -1.8em -1.8em 0 0em rgba(61,207,142, 0.7);
+    box-shadow: 0em -2.6em 0em 0em #1da1f2, 1.8em -1.8em 0 0em rgba(29,161,242, 0.2), 2.5em 0em 0 0em rgba(29,161,242, 0.2), 1.75em 1.75em 0 0em rgba(29,161,242, 0.2), 0em 2.5em 0 0em rgba(29,161,242, 0.2), -1.8em 1.8em 0 0em rgba(29,161,242, 0.2), -2.6em 0em 0 0em rgba(29,161,242, 0.5), -1.8em -1.8em 0 0em rgba(29,161,242, 0.7);
   }
   12.5% {
-    box-shadow: 0em -2.6em 0em 0em rgba(61,207,142, 0.7), 1.8em -1.8em 0 0em #3dcf8e, 2.5em 0em 0 0em rgba(61,207,142, 0.2), 1.75em 1.75em 0 0em rgba(61,207,142, 0.2), 0em 2.5em 0 0em rgba(61,207,142, 0.2), -1.8em 1.8em 0 0em rgba(61,207,142, 0.2), -2.6em 0em 0 0em rgba(61,207,142, 0.2), -1.8em -1.8em 0 0em rgba(61,207,142, 0.5);
+    box-shadow: 0em -2.6em 0em 0em rgba(29,161,242, 0.7), 1.8em -1.8em 0 0em #1da1f2, 2.5em 0em 0 0em rgba(29,161,242, 0.2), 1.75em 1.75em 0 0em rgba(29,161,242, 0.2), 0em 2.5em 0 0em rgba(29,161,242, 0.2), -1.8em 1.8em 0 0em rgba(29,161,242, 0.2), -2.6em 0em 0 0em rgba(29,161,242, 0.2), -1.8em -1.8em 0 0em rgba(29,161,242, 0.5);
   }
   25% {
-    box-shadow: 0em -2.6em 0em 0em rgba(61,207,142, 0.5), 1.8em -1.8em 0 0em rgba(61,207,142, 0.7), 2.5em 0em 0 0em #3dcf8e, 1.75em 1.75em 0 0em rgba(61,207,142, 0.2), 0em 2.5em 0 0em rgba(61,207,142, 0.2), -1.8em 1.8em 0 0em rgba(61,207,142, 0.2), -2.6em 0em 0 0em rgba(61,207,142, 0.2), -1.8em -1.8em 0 0em rgba(61,207,142, 0.2);
+    box-shadow: 0em -2.6em 0em 0em rgba(29,161,242, 0.5), 1.8em -1.8em 0 0em rgba(29,161,242, 0.7), 2.5em 0em 0 0em #1da1f2, 1.75em 1.75em 0 0em rgba(29,161,242, 0.2), 0em 2.5em 0 0em rgba(29,161,242, 0.2), -1.8em 1.8em 0 0em rgba(29,161,242, 0.2), -2.6em 0em 0 0em rgba(29,161,242, 0.2), -1.8em -1.8em 0 0em rgba(29,161,242, 0.2);
   }
   37.5% {
-    box-shadow: 0em -2.6em 0em 0em rgba(61,207,142, 0.2), 1.8em -1.8em 0 0em rgba(61,207,142, 0.5), 2.5em 0em 0 0em rgba(61,207,142, 0.7), 1.75em 1.75em 0 0em #3dcf8e, 0em 2.5em 0 0em rgba(61,207,142, 0.2), -1.8em 1.8em 0 0em rgba(61,207,142, 0.2), -2.6em 0em 0 0em rgba(61,207,142, 0.2), -1.8em -1.8em 0 0em rgba(61,207,142, 0.2);
+    box-shadow: 0em -2.6em 0em 0em rgba(29,161,242, 0.2), 1.8em -1.8em 0 0em rgba(29,161,242, 0.5), 2.5em 0em 0 0em rgba(29,161,242, 0.7), 1.75em 1.75em 0 0em #1da1f2, 0em 2.5em 0 0em rgba(29,161,242, 0.2), -1.8em 1.8em 0 0em rgba(29,161,242, 0.2), -2.6em 0em 0 0em rgba(29,161,242, 0.2), -1.8em -1.8em 0 0em rgba(29,161,242, 0.2);
   }
   50% {
-    box-shadow: 0em -2.6em 0em 0em rgba(61,207,142, 0.2), 1.8em -1.8em 0 0em rgba(61,207,142, 0.2), 2.5em 0em 0 0em rgba(61,207,142, 0.5), 1.75em 1.75em 0 0em rgba(61,207,142, 0.7), 0em 2.5em 0 0em #3dcf8e, -1.8em 1.8em 0 0em rgba(61,207,142, 0.2), -2.6em 0em 0 0em rgba(61,207,142, 0.2), -1.8em -1.8em 0 0em rgba(61,207,142, 0.2);
+    box-shadow: 0em -2.6em 0em 0em rgba(29,161,242, 0.2), 1.8em -1.8em 0 0em rgba(29,161,242, 0.2), 2.5em 0em 0 0em rgba(29,161,242, 0.5), 1.75em 1.75em 0 0em rgba(29,161,242, 0.7), 0em 2.5em 0 0em #1da1f2, -1.8em 1.8em 0 0em rgba(29,161,242, 0.2), -2.6em 0em 0 0em rgba(29,161,242, 0.2), -1.8em -1.8em 0 0em rgba(29,161,242, 0.2);
   }
   62.5% {
-    box-shadow: 0em -2.6em 0em 0em rgba(61,207,142, 0.2), 1.8em -1.8em 0 0em rgba(61,207,142, 0.2), 2.5em 0em 0 0em rgba(61,207,142, 0.2), 1.75em 1.75em 0 0em rgba(61,207,142, 0.5), 0em 2.5em 0 0em rgba(61,207,142, 0.7), -1.8em 1.8em 0 0em #3dcf8e, -2.6em 0em 0 0em rgba(61,207,142, 0.2), -1.8em -1.8em 0 0em rgba(61,207,142, 0.2);
+    box-shadow: 0em -2.6em 0em 0em rgba(29,161,242, 0.2), 1.8em -1.8em 0 0em rgba(29,161,242, 0.2), 2.5em 0em 0 0em rgba(29,161,242, 0.2), 1.75em 1.75em 0 0em rgba(29,161,242, 0.5), 0em 2.5em 0 0em rgba(29,161,242, 0.7), -1.8em 1.8em 0 0em #1da1f2, -2.6em 0em 0 0em rgba(29,161,242, 0.2), -1.8em -1.8em 0 0em rgba(29,161,242, 0.2);
   }
   75% {
-    box-shadow: 0em -2.6em 0em 0em rgba(61,207,142, 0.2), 1.8em -1.8em 0 0em rgba(61,207,142, 0.2), 2.5em 0em 0 0em rgba(61,207,142, 0.2), 1.75em 1.75em 0 0em rgba(61,207,142, 0.2), 0em 2.5em 0 0em rgba(61,207,142, 0.5), -1.8em 1.8em 0 0em rgba(61,207,142, 0.7), -2.6em 0em 0 0em #3dcf8e, -1.8em -1.8em 0 0em rgba(61,207,142, 0.2);
+    box-shadow: 0em -2.6em 0em 0em rgba(29,161,242, 0.2), 1.8em -1.8em 0 0em rgba(29,161,242, 0.2), 2.5em 0em 0 0em rgba(29,161,242, 0.2), 1.75em 1.75em 0 0em rgba(29,161,242, 0.2), 0em 2.5em 0 0em rgba(29,161,242, 0.5), -1.8em 1.8em 0 0em rgba(29,161,242, 0.7), -2.6em 0em 0 0em #1da1f2, -1.8em -1.8em 0 0em rgba(29,161,242, 0.2);
   }
   87.5% {
-    box-shadow: 0em -2.6em 0em 0em rgba(61,207,142, 0.2), 1.8em -1.8em 0 0em rgba(61,207,142, 0.2), 2.5em 0em 0 0em rgba(61,207,142, 0.2), 1.75em 1.75em 0 0em rgba(61,207,142, 0.2), 0em 2.5em 0 0em rgba(61,207,142, 0.2), -1.8em 1.8em 0 0em rgba(61,207,142, 0.5), -2.6em 0em 0 0em rgba(61,207,142, 0.7), -1.8em -1.8em 0 0em #3dcf8e;
+    box-shadow: 0em -2.6em 0em 0em rgba(29,161,242, 0.2), 1.8em -1.8em 0 0em rgba(29,161,242, 0.2), 2.5em 0em 0 0em rgba(29,161,242, 0.2), 1.75em 1.75em 0 0em rgba(29,161,242, 0.2), 0em 2.5em 0 0em rgba(29,161,242, 0.2), -1.8em 1.8em 0 0em rgba(29,161,242, 0.5), -2.6em 0em 0 0em rgba(29,161,242, 0.7), -1.8em -1.8em 0 0em #1da1f2;
   }
 }
+
 
 .money_wings {
     margin-top:-10px;
