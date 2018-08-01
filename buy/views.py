@@ -177,7 +177,7 @@ def stripe_charge(request):
     token = request.POST['token']
     stripe.api_key = settings.STRIPE_API_KEY
     charge = stripe.Charge.create(
-        amount=request.purchase.price_cents,
+        amount=request.purchase.price_cents_credit,
         currency='usd',
         description="Your personal EOS account: %s" % request.purchase.account_name,
         source=token,
