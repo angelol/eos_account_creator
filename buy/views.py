@@ -188,13 +188,13 @@ def stripe_charge(request):
         },
     )
     sc = StripeCharge.objects.create(
-        price_cents = request.purchase.price_cents,
+        price_cents = request.purchase.price_cents_credit,
         currency=request.purchase.currency,
         response = str(charge),
         purchase = request.purchase,
         user_uuid = request.session['uuid']
     )
-    assert charge['amount'] == request.purchase.price_cents
+    assert charge['amount'] == request.purchase.price_cents_credit
     assert charge['currency'] == request.purchase.currency
     assert charge['metadata']['account_name'] == request.purchase.account_name
     
