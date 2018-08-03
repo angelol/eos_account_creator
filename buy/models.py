@@ -37,9 +37,13 @@ class Purchase(models.Model):
         return self.account_name
         
     def price_usd_crypto(self):
+        if not self.price_cents_crypto:
+            self.update_price()
         return self.price_cents_crypto/100.0
 
     def price_usd_credit(self):
+        if not self.price_cents_credit:
+            self.update_price()
         return self.price_cents_credit/100.0
 
     @staticmethod
