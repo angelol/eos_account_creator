@@ -71,11 +71,12 @@ class Purchase(models.Model):
 
     def complete_purchase_and_save(self):
         import subprocess
-        subprocess.run(["/usr/bin/env", "node", "buy/gen_account.js", self.account_name, self.owner_key, self.active_key], check=True)
-        time.sleep(1)
-        if self.did_registration_work():
-            self.account_created = True
-            self.save()
+        if not self.did_registration_work():
+            subprocess.run(["/usr/bin/env", "node", "buy/gen_account.js", self.account_name, self.owner_key, self.active_key], check=True)
+            time.sleep(1)
+            if self.did_registration_work():
+                self.account_created = True
+                self.save()
 
     def did_registration_work(self):
         c = eosapi.Client(nodes=settings.EOS_API_NODES)
