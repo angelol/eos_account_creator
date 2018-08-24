@@ -222,6 +222,7 @@ def card_declined(request, stripe_charge):
 @require_public_keys
 @require_purchase
 def eos(request):
+    request.purchase.regaccount()
     return render(request, "buy/eos.html", {
         'purchase': request.purchase,
         'minimum': PriceData.minimum_amount_sac(),

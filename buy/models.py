@@ -4,9 +4,15 @@ from django.db import models
 import eosapi
 import time
 import json
+import secrets
+import base58
+import hashlib
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from decimal import Decimal
+
+def get_nonce():
+    return base58.b58encode(secrets.token_bytes(8)).decode('utf-8')
 
 # Create your models here.
 class Purchase(models.Model):
@@ -25,7 +31,9 @@ class Purchase(models.Model):
     price_cents_credit = models.IntegerField(null=True)
     price_eos_eos = models.DecimalField(max_digits=8, decimal_places=2, null=True)
     
-
+    # for eos payment method
+    nonce = models.CharField(max_length=53, default=get_nonce)
+    
     # cost of goods sold
     cogs_cents = models.IntegerField(null=True)
     profit = models.DecimalField(max_digits=8, decimal_places=2, null=True)
@@ -96,6 +104,16 @@ class Purchase(models.Model):
         except eosapi.exceptions.HttpAPIError:
             return False
                     
+    def memo(self):
+        return '%s%s' % (self.account_name, self.nonce)
+        
+    def hash(self):
+        return hashlib.sha256(self.memo().encode('utf-8')).hexdigest()
+    
+    def regaccount(self):
+        import subprocess
+        subprocess.run(["/usr/bin/env", "node", "buy/regaccount.js", self.hash(), self.owner_key, self.active_key], check=True)
+        
     def as_json(self):
         return {
             'account_name': self.account_name,

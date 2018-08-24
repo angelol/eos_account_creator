@@ -4,3 +4,4 @@ requests
 stripe
 raven
 django-rosetta
+base58

@@ -15,37 +15,10 @@
         You can use it to create an account when you have EOS on an exchange.{% endblocktrans %}
     </p>
     <h2>{% trans "Instructions" %}</h2>
-    <form>
-      
-      <div class="form-group">
-        <label for="select1">{% trans "Which exchange are you withdrawing from?" %}</label>
-        <select class="form-control" id="select1">
-          <option class="default">{% trans "--Please Choose--" %}</option>
-          <option value="binance">{% trans "Binance " %}</option>
-          <option value="other">{% trans "Other Exchange" %}</option>
-        </select>
-      </div>
-    </form>
-    <div class="instructions" style="display:none;">
-      <p class="binance">
-        {% trans "Binance does not allow long memos, so it's not possible to use it for account creation." %}
-      </p>
-  		<p>
-        {% trans "Make an EOS token transfer with the following data:" %}
-      </p>
-      {% trans "Recipient" %}: <span class="recipient">accountcreat</span>
-      <button class="copy" data-clipboard-target=".recipient">
-        <img src="https://cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/svg/clippy.svg" alt="Copy to clipboard">
-    </button>
-    <br />
-      <div class="binance">
-        {% trans "Memo" %}: <span class="memo-binance">{{purchase.account_name}}-{{purchase.owner_key}}</span>
-        <button class="copy" data-clipboard-target=".memo-binance">
-          <img src="https://cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/svg/clippy.svg" alt="Copy to clipboard">
-      </button>
-      </div>
+
+    <div class="instructions">
       <div class="other">
-        {% trans "Memo" %}: <span class="memo-other">{{purchase.account_name}}-{{purchase.owner_key}}-{{purchase.active_key}}</span>
+        {% trans "Memo" %}: <span class="memo-other">{{purchase.memo}}</span>
         <button class="copy" data-clipboard-target=".memo-other">
           <img src="https://cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/svg/clippy.svg" alt="Copy to clipboard">
       </button>
@@ -107,19 +80,19 @@
 <script>
 	$(function() {
 			new ClipboardJS('.copy');
-			$("#select1").change(function() {
-				console.log($(this).val());
-				let e = $(this);
-				e.find('option.default').hide();
-				$('.instructions').show();
-				if(e.val() == "binance") {
-					$(".binance").show();
-					$(".other").hide();
-				} else {
-					$(".binance").hide();
-					$(".other").show();
-				}
-			});
+			// $("#select1").change(function() {
+			// 	console.log($(this).val());
+			// 	let e = $(this);
+			// 	e.find('option.default').hide();
+			// 	$('.instructions').show();
+			// 	if(e.val() == "binance") {
+			// 		$(".binance").show();
+			// 		$(".other").hide();
+			// 	} else {
+			// 		$(".binance").hide();
+			// 		$(".other").show();
+			// 	}
+			// });
 	});
 	
 	
