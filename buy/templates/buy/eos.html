@@ -18,6 +18,10 @@
 
     <div class="instructions">
       <div class="other">
+				<p>
+	        {% trans "Make an EOS token transfer with the following data:" %}
+	      </p>
+				{% trans "Recipient" %}: <span class="recipient">accountcreat</span><br />
         {% trans "Memo" %}: <span class="memo-other">{{purchase.memo}}</span>
         <button class="copy" data-clipboard-target=".memo-other">
           <img src="https://cdnjs.cloudflare.com/ajax/libs/octicons/4.4.0/svg/clippy.svg" alt="Copy to clipboard">
