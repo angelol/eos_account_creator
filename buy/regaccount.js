@@ -2,7 +2,6 @@ let fs = require('fs');
 let Eos = require('eosjs');
 let ecc = require('eosjs-ecc');
 let crypto = require('crypto');
-let Base58 = require("base-58")
 
 let httpEndpoint = 'https://node1.eosvibes.io';
 let chainId = 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906';
@@ -10,7 +9,7 @@ let chainId = 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906'
 let creator = 'accountcreat';
 var secret = fs.readFileSync('buy/key.txt', {encoding: 'utf8'});
 let keyProvider = [secret];
-eos = Eos({httpEndpoint, chainId, keyProvider});
+let eos = Eos({httpEndpoint, chainId, keyProvider});
 
 
 function main() {
