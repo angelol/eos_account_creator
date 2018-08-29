@@ -3,7 +3,7 @@ let Eos = require('eosjs');
 let ecc = require('eosjs-ecc');
 let crypto = require('crypto');
 
-let httpEndpoint = 'https://node1.eosvibes.io';
+let httpEndpoint = 'https://publicapi-mainnet.eosauthority.com';
 let chainId = 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906';
 
 let creator = 'accountcreat';
