@@ -16,25 +16,31 @@ def require_account_name(func):
     @wraps(func)
     def inner(request, *args, **kwargs):
         set_uuid(request)
+        request.account_name = None
         d = request.GET.get('d')
         if d:
-            j = json.loads(base64.b64decode(d))
-            request.purchase, created = Purchase.objects.update_or_create(
-                account_name=j['n'],
-                defaults=dict(
-                    owner_key=j['o'],
-                    active_key=j['a'],
-                    user_uuid=request.session['uuid'],
-                    currency='usd',
-                )
-            )
-            if not created:
-                request.purchase.update_price()
-                request.purchase.save()
-            request.session['account_name']= j['n']
-            request.account_name = j['n']
-            request.session['owner_key'] = j['o']
-            request.session['active_key'] = j['a']
+            try:
+                j = json.loads(base64.b64decode(d))
+                account_name = j['n']
+                if is_valid_account_name(account_name) and is_eos_account_available(account_name):
+                    request.purchase, created = Purchase.objects.update_or_create(
+                        account_name=j['n'],
+                        defaults=dict(
+                            owner_key=j['o'],
+                            active_key=j['a'],
+                            user_uuid=request.session['uuid'],
+                            currency='usd',
+                        )
+                    )
+                    if not created:
+                        request.purchase.update_price()
+                        request.purchase.save()
+                    request.session['account_name']= j['n']
+                    request.account_name = j['n']
+                    request.session['owner_key'] = j['o']
+                    request.session['active_key'] = j['a']
+            except Exception:
+                pass
         else:
             request.account_name = request.session.get('account_name')
         if request.account_name:
