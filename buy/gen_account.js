@@ -1,20 +1,10 @@
-let Eos = require('eosjs');
-let fs = require('fs');
-
-let httpEndpoint = 'https://publicapi-mainnet.eosauthority.com';
-let chainId = 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906';
+let eos = require('./common').eos;
 
 let creator = 'accountcreat';
-
-
 let newaccount = process.argv[2];
 let owner_key = process.argv[3];
 let active_key = process.argv[4];
 
-var secret = fs.readFileSync('buy/key.txt', {encoding: 'utf8'});
-let keyProvider = [secret];
-
-eos = Eos({httpEndpoint, chainId, keyProvider});
 eos.transaction(tr => {
   tr.newaccount({
     creator: creator,

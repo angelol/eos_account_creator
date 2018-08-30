@@ -1,26 +1,11 @@
-let fs = require('fs');
-let Eos = require('eosjs');
-let ecc = require('eosjs-ecc');
-let crypto = require('crypto');
-
-let httpEndpoint = 'https://publicapi-mainnet.eosauthority.com';
-let chainId = 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906';
-
-let creator = 'accountcreat';
-var secret = fs.readFileSync('buy/key.txt', {encoding: 'utf8'});
-let keyProvider = [secret];
-let eos = Eos({httpEndpoint, chainId, keyProvider});
-
+let eos = require('./common').eos;
 
 function main() {
   let creator = 'accountcreat';
-
   let hash = process.argv[2];
   let owner_key = process.argv[3];
   let active_key = process.argv[4];  
-  console.log(hash);
-  console.log(owner_key);
-  console.log(active_key);
+  
   eos.transaction(
     {
       actions: [
@@ -47,7 +32,7 @@ function main() {
       let error = JSON.stringify(e);
       console.log("ERROR: " + error);
       
-    });
+  });
 
 }
 
