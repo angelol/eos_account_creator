@@ -170,7 +170,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = '/django/static/'
 ML = 512
 EOS_API_NODES = ['https://publicapi-mainnet.eosauthority.com']
-NEWACCOUNT_RAM_KB = 4
+NEWACCOUNT_RAM_KB = 3
 NEWACCOUNT_NET_STAKE = 0.05
 NEWACCOUNT_CPU_STAKE = 0.15
 

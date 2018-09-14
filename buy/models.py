@@ -60,11 +60,11 @@ class Purchase(models.Model):
         
     @staticmethod
     def get_prices_usd_crypto():
-        return Purchase.cogs() * 1.2 + 3
+        return (Purchase.cogs() + 3) * 1.2
 
     @staticmethod
     def get_prices_usd_credit():
-        return Purchase.cogs() * 1.4 + 4
+        return (Purchase.cogs() + 4) * 1.4
         
     @staticmethod
     def get_prices_eos_eos():
