@@ -76,18 +76,18 @@ class Purchase(models.Model):
         self.price_cents_credit = round(Purchase.get_prices_usd_credit()*100)
         self.price_eos_eos = Purchase.get_prices_eos_eos()
         
-
-    def complete_purchase_and_save(self):
-        import subprocess
+    def update_registration_status(self):
         if self.did_registration_work():
             self.account_created = True
             self.save()
-        else:
+
+    def complete_purchase_and_save(self):
+        import subprocess
+        self.update_registration_status()
+        if not self.account_created:
             subprocess.run(["/usr/bin/env", "node", "buy/gen_account.js", self.account_name, self.owner_key, self.active_key], check=True)
             time.sleep(1)
-            if self.did_registration_work():
-                self.account_created = True
-                self.save()
+            self.update_registration_status()
 
     def did_registration_work(self):
         c = eosapi.Client(nodes=settings.EOS_API_NODES)

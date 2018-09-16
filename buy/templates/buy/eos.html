@@ -80,23 +80,40 @@
 	{% endblock %}
 	
 {% block bodyscript %}
+<input name="account_name" type="hidden" value="{{purchase.account_name}}"></input>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/eosjs-api@6.3.2/lib/eos-api.min.js" integrity="sha256-h7IXnVwGCsZYzHROytbuFL7QGP0V9hucrgOAM+YMKgQ=" crossorigin="anonymous"></script>
+
 <script>
+	let eos = EosApi({
+		httpEndpoint: 'https://publicapi-mainnet.eosauthority.com'
+	});
+	let account_name = $("input[name=account_name]").val();
+	function check_completed() {
+		eos.getAccount(account_name).then((x) => {
+			// console.log("Account was created!");
+			show_success();
+		}).catch((err) => {
+				// console.log("Account is free");
+			setTimeout(check_completed, 5000);
+		});;
+			
+	}
+	
+	function show_success() {
+		$.ajax({
+			url: "/check_registration_status/",
+			method: "POST",
+			success: function(data) {
+				window.location.href = '/success/';
+			}
+		});
+	}
+	
 	$(function() {
 			new ClipboardJS('.copy');
-			// $("#select1").change(function() {
-			// 	console.log($(this).val());
-			// 	let e = $(this);
-			// 	e.find('option.default').hide();
-			// 	$('.instructions').show();
-			// 	if(e.val() == "binance") {
-			// 		$(".binance").show();
-			// 		$(".other").hide();
-			// 	} else {
-			// 		$(".binance").hide();
-			// 		$(".other").show();
-			// 	}
-			// });
+			setTimeout(check_completed, 5000);
 	});
 	
 	

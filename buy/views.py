@@ -149,6 +149,14 @@ def success(request):
 @require_account_name
 @require_public_keys
 @require_purchase
+def check_registration_status(request):
+    request.purchase.update_registration_status()
+    return HttpResponse("ok")
+
+@csrf_exempt
+@require_account_name
+@require_public_keys
+@require_purchase
 def check_progress(request):
     return JsonResponse({
         'purchase': request.purchase.as_json(),

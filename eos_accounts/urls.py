@@ -35,6 +35,8 @@ urlpatterns = [
     
     
     path('success/', success, name='success'),
+    path('check_registration_status/', check_registration_status, name='check_registration_status'),
+
     path('check_progress/', check_progress, name='check_progress'),
     path('privacy_policy/', TemplateView.as_view(template_name='buy/privacy_policy.html')),
     path('stripe_charge/', stripe_charge, name='stripe_charge'),
