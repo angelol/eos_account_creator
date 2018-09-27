@@ -62,6 +62,9 @@ def submit_public_key(request):
     owner_key = request.POST['owner_key']
     active_key = request.POST['active_key'].strip()
     owner_key = request.POST['owner_key'].strip()
+    
+    assert (is_valid_public_key(owner_key) and is_valid_public_key(active_key)), "Invalid public keys provided"
+    
     request.session['active_key'] = active_key
     request.session['owner_key'] = active_key
 
