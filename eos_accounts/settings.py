@@ -173,6 +173,7 @@ EOS_API_NODES = ['https://publicapi-mainnet.eosauthority.com']
 NEWACCOUNT_RAM_KB = 3
 NEWACCOUNT_NET_STAKE = 0.05
 NEWACCOUNT_CPU_STAKE = 0.15
+BURNED_KEYS = ("EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV", "EOS6qnCLMm5d67JdP11EF31Kf4UUNr6ktUKBqPsDhSXADT1CHfNG2", "EOS6vizDzpZMxtt27WVVCUVYEFHXgaLhEfPuLQAXfpAJaf2oWAcwg", "EOS7KKga2itCjyLAm6n4GHqujN4arBv3GQEWpZwQqSDWyNEj7iuxQ", "EOS6iBVEaRDS3mofUJpa8bjD94vohHrsSqqez1wcsWjhPpeNArfBF")
 
 try:
     from eos_accounts.local_settings import *

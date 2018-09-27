@@ -67,9 +67,10 @@ $(function() {
 	validate();
 });
 
+let blacklist = JSON.parse('{{blacklist|safe}}');
 function is_valid_public_key(key) {
 	key = key.trim();
-	if(key == 'EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV') {
+	if(blacklist.indexOf(key) != -1) {
 		return false;
 	}
 	return eosjs_ecc.isValidPublic(key);

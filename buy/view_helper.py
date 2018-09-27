@@ -77,10 +77,7 @@ def is_valid_account_name(account_name):
     return re.match("^([a-z1-5]){12}$", account_name)
     
 def is_valid_public_key(key):
-    blacklist = (
-        'EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV',
-    )
-    return key not in blacklist
+    return key not in settings.BURNED_KEYS
 
 def is_eos_account_available(account_name):
     c = eosapi.Client(nodes=settings.EOS_API_NODES)

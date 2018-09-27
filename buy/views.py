@@ -54,6 +54,7 @@ def keys(request):
         'account_name': request.account_name,
         'breadcrumbs_public_keys': True,
         'breadcrumbs_choose_finished': True,
+        'blacklist': json.dumps(settings.BURNED_KEYS),
     })
     
 @require_account_name
