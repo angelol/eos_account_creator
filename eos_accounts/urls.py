@@ -23,6 +23,8 @@ from buy.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name="index"),
+    path('update_permissions/', update_permissions, name="update_permissions"),
+
     path('choose/', choose, name='choose'),
     path('submit_account_name/', submit_account_name, name='submit_account_name'),
     path('keys/', keys, name='keys'),

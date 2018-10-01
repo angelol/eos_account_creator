@@ -1,0 +1,81 @@
+
+
+.ls-1{
+  letter-spacing: 1px;
+}
+
+.fs-14{
+  font-size: 14px !important; 
+}
+.fs-12{
+  font-size: 12px !important;
+}
+.fs-18{
+  font-size: 18px !important;
+}
+
+.heading{
+  font-size: 48px;
+}
+.t-up{
+  text-transform: uppercase !important
+}
+.fw-bolder{
+  font-weight: bolder !important
+}
+
+.btn-primary {
+  background-color: #1da1f2 !important;
+  border-color: #1da1f2 !important;
+}
+
+.card-text{
+  font-size: 15px !important;
+}
+.card-body{
+  padding: 12px !important;
+}
+
+.key{
+  letter-spacing: 2px;
+  font-size: 11px;
+}
+
+.form-group label{
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #555;
+  font-weight: 700;
+  font-size: 12.5px;
+}
+.form-group label b {
+  text-transform: none !important
+}
+
+legend{
+  width: auto !important;
+  max-width: auto !important
+}
+.ainfo p{
+  margin-bottom: 2px !important;
+}
+.ainfo p label1 {
+  background: #eee;
+  display: inline-block;
+  width: 150px;
+  padding: 5px;
+  text-transform: uppercase;
+  font-size: 12px;
+  margin-right: 5px;
+  letter-spacing: 1px;
+  margin-bottom: 0 !important;
+}
+.account-info strong {
+  color: #999;
+}
+
+.v {
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}

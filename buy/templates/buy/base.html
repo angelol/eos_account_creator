@@ -4,7 +4,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-      <meta name="alfacoins-site-verification" content="5b3ecef10064b5b3ecef1006805b3ecef1006b5_ALFAcoins">
       <meta name="viewport" content="width=device-width">
       <meta name="viewport" content="initial-scale=1.0">
 		<title>{% block title %}{% endblock %}</title>
@@ -66,9 +65,27 @@
     <div class="row">
       <footer>
     		<div class="footer-buttons">
-                <a href="{% url 'imprint' %}" class="greyout">Imprint</a>
-    			<a href="https://github.com/angelol/eos_account_creator" target="_new" class="greyout"><img src="{% static 'buy/img/GitHub-Mark-120px-plus.png' %}"></a>
-    			<a href="https://t.me/eos_account_creator" target="_new"><img src="{% static 'buy/img/telegram.svg' %}" class="telegram"></a>
+          <div class="row">
+            <div class="col-md-7">
+              
+            </div>
+            <div class="col-md-5">
+              <div class="row">
+                <div class="col-md-3">
+                  <a href="{% url 'update_permissions' %}" class="greyout">Permission Updater</a>
+                </div>
+                <div class="col-md-3">
+                  <a href="{% url 'imprint' %}" class="greyout">Imprint</a>
+                </div>
+                <div class="col-md-3">
+            			<a href="https://github.com/angelol/eos_account_creator" target="_new" class="greyout"><img src="{% static 'buy/img/GitHub-Mark-120px-plus.png' %}"></a>
+                </div>
+                <div class="col-md-3">
+            			<a href="https://t.me/eos_account_creator" target="_new"><img src="{% static 'buy/img/telegram.svg' %}" class="telegram"></a>
+                </div>
+              </div>
+            </div>
+          </div>
     		</div>
     	</footer>
     </div>

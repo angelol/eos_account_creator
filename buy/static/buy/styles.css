@@ -406,3 +406,9 @@ input#owner_key, input#active_key {
   height:100%;
 }
 
+.t-up{
+  text-transform: uppercase !important
+}
+
+
+

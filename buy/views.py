@@ -22,6 +22,9 @@ def add_price_context_processor(request):
 # @cache_page(settings.CACHING_DURATION)
 def index(request):
     return render(request, "buy/index.html")
+
+def update_permissions(request):
+    return render(request, "buy/update_permissions.html")
     
 # @cache_page(settings.CACHING_DURATION)
 def choose(request):
