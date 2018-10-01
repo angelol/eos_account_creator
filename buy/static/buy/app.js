@@ -32,7 +32,7 @@ new Vue({
       tx: null,
       eos: null,
       eosOptions: {
-        httpEndpoint: 'https://publicapi-mainnet.eosauthority.com',
+        httpEndpoint: 'https://api.eosnewyork.io',
         verbose: false,
       },
       eosAccount: null,
@@ -42,7 +42,7 @@ new Vue({
         name: "EOS Mainnet",
         protocol: 'https',
         blockchain: 'eos',
-        host: 'publicapi-mainnet.eosauthority.com',
+        host: 'api.eosnewyork.io',
         port: 443,
         chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906'
       }

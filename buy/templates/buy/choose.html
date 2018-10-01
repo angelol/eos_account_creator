@@ -132,7 +132,7 @@ account name{% endblocktrans %}</div>
 	
 	$(function() {
 		eos = EosApi({
-			httpEndpoint: 'https://publicapi-mainnet.eosauthority.com'
+			httpEndpoint: '{{eos_endpoint}}'
 		});
 		
 		$("#gen_random").click(function(event) { 

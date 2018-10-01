@@ -17,6 +17,7 @@ def add_price_context_processor(request):
         'price_usd_crypto': '%.2f' % Purchase.get_prices_usd_crypto(),
         'price_usd_credit': '%.2f' % Purchase.get_prices_usd_credit(),
         'price_eos_eos': '%.1f' % PriceData.minimum_amount_sac(),
+        'eos_endpoint': settings.EOS_API_NODES[0],
     }
 
 # @cache_page(settings.CACHING_DURATION)
