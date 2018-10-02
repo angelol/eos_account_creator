@@ -22,13 +22,11 @@ eos.transaction(tr => {
     receiver: newaccount,
     stake_net_quantity: '0.0500 EOS',
     stake_cpu_quantity: '0.1500 EOS',
-    transfer: 1
-  })
+    transfer: 0
+  });
 }).then((data) => {
   console.log(data.transaction_id);
-
 }).catch((e) => {
     let error = JSON.stringify(e);
     console.log("ERROR: " + error);
-    
   });
