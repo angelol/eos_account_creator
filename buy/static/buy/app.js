@@ -147,7 +147,6 @@ new Vue({
         const scatter = window.scatter;
         window.scatter = null;
         this.scatter = scatter
-        this.forgetIdentity() 
         this.scatter.getIdentity(options)
           .then(function (identity) {
             identity.accounts.forEach((p) => {
