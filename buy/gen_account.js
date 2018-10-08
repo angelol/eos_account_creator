@@ -29,4 +29,4 @@ eos.transaction(tr => {
 }).catch((e) => {
     let error = JSON.stringify(e);
     console.log("ERROR: " + error);
-  });
+});
