@@ -237,15 +237,26 @@ new Vue({
             if(opt !== null){
               tx.updateauth(opt, {authorization: `${self.eup.account}@${self.eup.authority}`})
               // console.log("opt: ", JSON.stringify(opt))
-              if(opt.permission == 'voting') {
-                tx.linkauth({
-                  account: opt.account,
-                  code: 'eosio',
-                  'type': 'voteproducer',
-                  requirement: 'voting'
-                }, {authorization: `${self.eup.account}@owner`})
-              }
+              
             }
+          })
+        })
+        .then(r => {
+          return eos.transaction(function(tx){
+            opts.forEach(function(opt){
+              if(opt !== null){
+                if(opt.permission == 'voting') {
+                  tx.linkauth({
+                    account: opt.account,
+                    code: 'eosio',
+                    'type': 'voteproducer',
+                    requirement: 'voting'
+                  }, {
+                    authorization: `${self.eup.account}@${self.eup.authority}`
+                  })
+                }
+              }
+            })
           })
         })
         .then(r => {
