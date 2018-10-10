@@ -61,6 +61,11 @@
                   <input type="text" class="form-control" name="owner" v-model.trim="account.owner" />
                   <small class="pt-1 text-muted t-up ls-1">Do not touch, if you do not want to update.</small>
                 </div>
+                <div class="form-group">
+                  <label>Voting-only Permission <small>(Public key or account name)</small></label>
+                  <input type="text" class="form-control" name="voting" v-model.trim="account.voting" />
+                  <small class="pt-1 text-muted t-up ls-1">Do not touch, if you do not want to create a voting-only permission. Voting-only permissions can only be used to vote, not to transfer tokens.</small>
+                </div>
                 <div class="account-info" v-if="eosAccount">
                   {% verbatim %}
                   <table class="table bg-light">

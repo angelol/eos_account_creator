@@ -22,7 +22,8 @@ new Vue({
       account: {
         name: '',
         active: '',
-        owner: ''
+        owner: '',
+        voting: ''
       },
       userConfirmation: false,
       q: "",
@@ -42,7 +43,7 @@ new Vue({
         name: "EOS Mainnet",
         protocol: 'https',
         blockchain: 'eos',
-        host: 'api.eosnewyork.io',
+        host: 'eos.greymass.com',
         port: 443,
         chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906'
       }
@@ -77,7 +78,7 @@ new Vue({
           return false;
         }
       }
-      if(this.isEmpty(this.account.active) && this.isEmpty(this.account.owner)) {
+      if(this.isEmpty(this.account.active) && this.isEmpty(this.account.owner) && this.isEmpty(this.account.voting)) {
         this.msg = {
           type: "error",
           message: "Please enter something",
@@ -225,14 +226,25 @@ new Vue({
           chainId: self.network.chainId
         })        
         const account = self.account.name
+        // console.log("self.account.voting: ", self.account.voting)
         const opts = [
           self.prepareOpts(account, '', self.account.owner, 'owner'),
-          self.prepareOpts(account, 'owner', self.account.active, 'active')
+          self.prepareOpts(account, 'owner', self.account.active, 'active'),
+          self.prepareOpts(account, 'active', self.account.voting, 'voting')
         ]
         eos.transaction(function(tx){
           opts.forEach(function(opt){
             if(opt !== null){
               tx.updateauth(opt, {authorization: `${self.eup.account}@${self.eup.authority}`})
+              // console.log("opt: ", JSON.stringify(opt))
+              if(opt.permission == 'voting') {
+                tx.linkauth({
+                  account: opt.account,
+                  code: 'eosio',
+                  'type': 'voteproducer',
+                  requirement: 'voting'
+                }, {authorization: `${self.eup.account}@owner`})
+              }
             }
           })
         })
