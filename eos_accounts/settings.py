@@ -35,7 +35,7 @@ if os.path.exists(safe_join(BASE_DIR, 'eos_accounts/live.py')):
     STAGING = False
 
 
-ALLOWED_HOSTS = ['localhost', 'eos-account-creator.com', 'preview.eos-account-creator.com', '192.168.0.26', '192.168.0.73', '192.168.0.206', '192.168.0.23']
+ALLOWED_HOSTS = ['localhost', 'eos-account-creator.com', 'preview.eos-account-creator.com', '192.168.0.26', '192.168.0.73', '192.168.0.206', '192.168.0.23', '127.0.0.1']
 CANONICAL_BASE_URL = 'https://eos-account-creator.com/'
 
 # Application definition

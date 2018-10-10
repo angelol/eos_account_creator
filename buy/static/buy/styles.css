@@ -245,8 +245,8 @@ ul.breadcrumbs {
 span.chosen_account_name {
   color: #1da1f2;
 }
-input#owner_key, input#active_key {
-  font-size: 9pt;
+input#owner_key, input#active_key, input#voting_key {
+  font-size: 11pt;
 }
 
 
@@ -312,7 +312,7 @@ input#owner_key, input#active_key {
   font-size:12px;
 }
 
-#gen_random {
+#gen_random, #connect_ledger {
     color: #1da1f2;
     cursor:pointer;
 }

@@ -20,20 +20,31 @@
 			<div class="Mask">
 				<div class="Why-this-service">{% trans "Provide public keys" %}</div>
 				<p>{% trans "Please provide the public keys for your new account. Active Public Key can be the same as Owner Public Key but not recommended for security." %}</p>
-				
+
 				<form action="/submit_public_key/" method="POST">
 					{% csrf_token %}
 				  <div class="form-group">
-				    <label for="owner_key" class="col-form-label">{% trans "Owner Public Key:" %}</label>
+						<div class="row">
+							<div class="col">
+								<label for="account_name_input">{% trans "Account name" %}</label>
+							</div>
+							<div class="col text-right">
+								<span id="connect_ledger">{% trans "Connect Ledger" %}</span><br/>
+							</div>
+						</div>
 					<input type="text" class="form-control" id="owner_key" name="owner_key" >
 				  </div>
 
 					<div class="form-group">
 						<label for="active_key" class=" col-form-label">{% trans "Active Public Key:" %}</label>
 					    <input type="text" class="form-control" id="active_key" name="active_key"  aria-describedby="activeKeyHelp">
-
-					
 				  </div>
+					
+					<!-- <div class="form-group voting_key">
+						<label for="voting_key" class=" col-form-label">{% trans "Voting-Only Public Key" %}</label>
+					    <input type="text" class="form-control" id="voting_key" name="voting_key"  aria-describedby="votingKeyHelp">
+							<small class="pt-1 text-muted ls-1">Optional. Leave empty if you don't want to set a voting key.</small>
+				  </div> -->
 			
 					<button class="btn btn-primary stretch" id="submit_button" type="submit" disabled="disabled">{% trans "Continue" %}</button>
 				</form>
@@ -45,6 +56,51 @@
 		
 	</div>
 	
+	<!-- Modal -->
+<div class="modal" id="connectLedgerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Connect Ledger</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Please connect your Ledger device and open the EOS App. When you're ready, please click continue.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Continue</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="verifyKeyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+	<div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title" id="exampleModalCenterTitle">Connect Ledger</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<div class="modal-body">
+			Please verify and confirm the public key on your device:<br />
+			<span class="public_key_ledger"></span>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+		</div>
+	</div>
+</div>
+</div>
+
+
+</div>
+	
 	{% include 'buy/breadcrumbs.inc' %}
 	
 	
@@ -53,20 +109,57 @@
 	
 	{% block bodyscript %}
 	<script src="https://cdn.jsdelivr.net/npm/eosjs-ecc@4.0.1/dist/eosjs-ecc.js"></script>
+	<script src="{% static 'buy/ledger.js' %}"></script>
 	<script>
 	
 $(function() {
 	$('input').on("keyup", validate);
 	$('input').on("change", validate);
 	$('input').on("paste", validate);
+	$("#connect_ledger").click(function() {
+		$('#connectLedgerModal').modal();
+	});
 	
-	function validate() {
-		validate_form();
-		validate_inputs();
-	}
+	
 	validate();
+	setup_modals();
 });
 
+function setup_modals() {
+	console.log("setup_modals")
+	$('#connectLedgerModal').on('show.bs.modal', function (event) {
+  var modal = $(this)
+	
+	modal.find(".btn-primary").click(function() {
+		modal.modal('hide')
+		get_public_key().then((key) => {
+			ledger_verify().then((key) => {
+				console.log("verified! ", key)
+				$('input[name=owner_key]').val(key)
+				$('input[name=active_key]').val(key)
+				validate()
+				$("#verifyKeyModal").modal('hide')
+			})
+			$('.public_key_ledger').text(key)
+			$("#verifyKeyModal").modal()
+		}).catch(err => {
+			console.log("Err: ", err)
+			$('#connectLedgerModal').modal();
+		})
+		
+	})
+	
+  // modal.find('.modal-title').text('New message to ' + recipient)
+  // modal.find('.modal-body input').val(recipient)
+})
+}
+
+
+function validate() {
+	console.log("validate")
+	validate_form();
+	validate_inputs();
+}
 let blacklist = JSON.parse('{{blacklist|safe}}');
 function is_valid_public_key(key) {
 	key = key.trim();
@@ -124,6 +217,25 @@ function validate_inputs() {
 		img_active_invalid.show();
 
 	}
+}
+
+function get_public_key() {
+	return TransportU2F.create()
+	.then((transport) => {
+		let eos = new Eos(transport)
+		return eos.getPublicKey(bip44Path, false).then(o => {
+		  return o.wif
+		})
+	})
+}
+function ledger_verify() {
+	return TransportU2F.create()
+	.then((transport) => {
+		let eos = new Eos(transport)
+		return eos.getPublicKey(bip44Path, true).then(o => {
+		  return o.wif
+		})
+	})
 }
 
 
