@@ -133,8 +133,12 @@ new Vue({
       var options = {
         accounts: [this.network]
       }
-      if(!scatter) {
-        scatter = this.scatter;
+      var scatter;
+      if(window.ScatterJS) {
+        window.ScatterJS.plugins( new ScatterEOS() );
+        scatter = window.ScatterJS.scatter
+      } else {
+        scatter = this.scatter
       }
       scatter.connect('eos-account-creator.com').then(connected => {
         if(!connected) {
@@ -145,8 +149,7 @@ new Vue({
           }
           return;
         }
-        const scatter = window.scatter;
-        window.scatter = null;
+        window.ScatterJS = null;
         this.scatter = scatter
         this.scatter.getIdentity(options)
           .then(function (identity) {
