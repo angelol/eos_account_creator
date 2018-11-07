@@ -33,7 +33,7 @@ new Vue({
       tx: null,
       eos: null,
       eosOptions: {
-        httpEndpoint: 'https://api.eosnewyork.io',
+	      httpEndpoint: 'https://eos.greymass.com',
         verbose: false,
       },
       eosAccount: null,
