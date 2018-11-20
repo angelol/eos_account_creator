@@ -17,6 +17,11 @@ eos.transaction(tr => {
     receiver: newaccount,
     bytes: 3000
   })
+  tr.buyrambytes({
+    payer: creator,
+    receiver: creator,
+    bytes: 160
+  })
   tr.delegatebw({
     from: creator,
     receiver: newaccount,
