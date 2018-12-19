@@ -43,7 +43,6 @@
 				 <div class="form-group">
 			    <label for="exampleFormControlSelect1">{% trans "Country of residence" %}</label>
 			    <select name="country" class="form-control" id="choose_country" {% if purchase.country_from_ip %}disabled="disabled"{% endif %}>
-						{% if purchase.country_from_ip %}<input name="country" type="hidden" value="{{purchase.country_from_ip}}"/>{% endif %}
 						{% if not purchase.country %}
 							<option>{% trans "---Please choose---" %}</option>
 						{% endif %}
@@ -52,6 +51,9 @@
 							<option value={{country.0}} {% if country.0 == purchase.country_from_ip.code %}selected="selected"{% endif %}>{{country.1}}</option>
 						{% endfor %}
 			    </select>
+
+					{% if purchase.country_from_ip %}<input name="country" type="hidden" value="{{purchase.country_from_ip.code}}"/>{% endif %}
+
 			  </div>
 				
 				 <div class="form-group">
