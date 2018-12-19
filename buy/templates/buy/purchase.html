@@ -191,6 +191,7 @@
 				console.log("vat: ", vat);
 				price += vat;
 				price = price.toFixed(2);
+				$("input[name=price_gross_cents]").val(price*100)
 				console.log("price: ", price);
 
 				text = "Pay USD " + price +" with credit card";

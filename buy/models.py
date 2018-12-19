@@ -98,8 +98,6 @@ class Purchase(models.Model):
         
         self.vat_percentage = VATRates.get(self.country_given.code) / 100
         self.vat = self.price_net * self.vat_percentage
-        print("self.payment_method: ", self.payment_method)
-        print("update_price self.vat: ", self.vat)
         self.price_gross = self.price_net + self.vat
         self.profit = self.price_net - Purchase.cogs()
             
