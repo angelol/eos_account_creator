@@ -215,8 +215,9 @@ def stripe_charge(request):
     )
     token = request.POST['token']
     stripe.api_key = settings.STRIPE_API_KEY
+    price_cents_credit = request.purchase.price_cents_credit()
     charge = stripe.Charge.create(
-        amount=request.purchase.price_cents_credit,
+        amount=price_cents_credit,
         currency='usd',
         description="Your personal EOS account: %s" % request.purchase.account_name,
         source=token,
@@ -227,13 +228,13 @@ def stripe_charge(request):
         },
     )
     sc = StripeCharge.objects.create(
-        price_cents = request.purchase.price_cents_credit,
+        price_cents = price_cents_credit,
         currency=request.purchase.currency,
         response = str(charge),
         purchase = request.purchase,
         user_uuid = request.session['uuid']
     )
-    assert charge['amount'] == request.purchase.price_cents_credit
+    assert charge['amount'] == price_cents_credit
     assert charge['currency'] == request.purchase.currency
     assert charge['metadata']['account_name'] == request.purchase.account_name
     
