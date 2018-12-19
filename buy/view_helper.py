@@ -90,7 +90,7 @@ def is_eos_account_available(account_name):
         
 def get_client_ip(request):
     # return '94.130.149.5'
-    return request.META.get('REMOTE_ADDR')
+    return request.META.get('X_FORWADED_FOR')
 
 def get_country(ip):
     return GeoIP2().country(ip)['country_code']
