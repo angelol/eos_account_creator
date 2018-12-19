@@ -93,6 +93,8 @@ class Purchase(models.Model):
             self.price_net = Purchase.get_prices_usd_credit()
         elif self.payment_method == 'crypto':
             self.price_net = Purchase.get_prices_usd_crypto()
+        else:
+            self.price_net = 0
         
         self.vat_percentage = VATRates.get(self.country_given.code) / 100
         self.vat = self.price_net * self.vat_percentage
