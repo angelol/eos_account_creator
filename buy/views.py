@@ -6,11 +6,12 @@ from django.http import HttpResponse
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from .view_helper import *
-from .models import CoinbaseEvent, PriceData, StripeCharge
+from .models import CoinbaseEvent, PriceData, StripeCharge, VATRates
 from .coinbase import *
 from django.http import JsonResponse
 from django.utils import timezone
 from django.views.decorators.cache import cache_page
+from django_countries import countries
 
 def add_price_context_processor(request):
     return {
@@ -72,6 +73,16 @@ def submit_public_key(request):
     
     request.session['active_key'] = active_key
     request.session['owner_key'] = active_key
+    
+    try:
+        ip = get_client_ip(request)
+    except Exception:
+        ip = None
+        
+    try:
+        country = get_country(ip)
+    except Exception:
+        country = None
 
     p, created = Purchase.objects.update_or_create(
         account_name=request.account_name, 
@@ -80,10 +91,12 @@ def submit_public_key(request):
             active_key=active_key, 
             user_uuid=request.session['uuid'],
             currency='usd',
+            ip=ip,
+            country_from_ip=country,
         )
     )
     if not created:
-        p.update_price()
+        # p.update_price()
         p.save()
     return redirect("/purchase/")
     
@@ -97,6 +110,8 @@ def purchase(request):
         'breadcrumbs_payment': True,
         'breadcrumbs_choose_finished': True,
         'breadcrumbs_keys_finished': True,
+        'countries': list(countries),
+        'vat_rates': json.dumps(VATRates.all()),
     })
 
 
@@ -108,10 +123,18 @@ def buy_action(request):
             owner_key=request.POST['owner_key'], 
             active_key=request.POST['active_key'], 
             user_uuid=request.POST['uuid'],
+            payment_method='credit',
+            country_given=request.POST['country'],
         )
     )
-    if request.POST['payment'] == 'crypto':
-        j = create_charge(purchase.account_name, purchase.owner_key, purchase.active_key, purchase.price_usd_crypto())
+    if purchase.country_from_ip == purchase.country_given:
+        assert purchase.country_from_ip == purchase.country_given, 'Country given does not match with IP address'
+        
+    purchase.payment_method = request.POST['payment']
+    purchase.update_price()
+    purchase.save()
+    if purchase.payment_method  == 'crypto':
+        j = create_charge(purchase.account_name, purchase.owner_key, purchase.active_key, purchase.price_gross)
         hosted_url = j['data']['hosted_url']
         request.session['coinbase_code'] = j['data']['code']
         purchase.coinbase_code = j['data']['code']

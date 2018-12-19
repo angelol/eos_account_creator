@@ -22,14 +22,14 @@
 				<div class="form-group">
 					<label for="active_key" class=" col-form-label">{% trans "Active Public Key:" %}</label>
 						<input type="text" class="form-control" id="active_key" name="active_key" size="53" readonly="readonly" placeholder="{{purchase.active_key}}">
-
-				
 				</div>
 		
 			</form>
 			<div>
 				{% trans "Please consider voting for" %} <a href="https://eosvibes.io/" target="_new">eosvibesbloc</a>
 			</div>
+			{{purchase.ip}} <br />
+			{{purchase.country_from_ip.name|default:"None"}}
 		</div>
 		<div class="col-sm-6">
 			<div class="Mask">
@@ -39,6 +39,20 @@
 
 			 <form class="main" action="/buy_action/" method="POST">
 				 {% csrf_token %}
+				 
+				 <div class="form-group">
+			    <label for="exampleFormControlSelect1">{% trans "Country of residence" %}</label>
+			    <select name="country" class="form-control" id="choose_country" {% if purchase.country_from_ip %}disabled="disabled"{% endif %}>
+						{% if not purchase.country %}
+							<option>{% trans "---Please choose---" %}</option>
+						{% endif %}
+
+						{% for country in countries %}
+							<option value={{country.0}} {% if country.0 == purchase.country_from_ip.code %}selected="selected"{% endif %}>{{country.1}}</option>
+						{% endfor %}
+			    </select>
+			  </div>
+				
 				 <div class="form-group">
 			    <label for="exampleFormControlSelect1">{% trans "Choose payment option" %}</label>
 			    <select name="payment" class="form-control" id="exampleFormControlSelect1">
@@ -66,10 +80,10 @@
 						</div>
 					</div>
 			</div>
-				<input type="hidden" name="price_crypto" value="{{purchase.price_usd_crypto|floatformat:2}}" />
-				<input type="hidden" name="price_credit" value="{{purchase.price_usd_credit|floatformat:2}}" />
+				<input type="hidden" name="price_crypto" value="{{price_usd_crypto|floatformat:2}}" />
+				<input type="hidden" name="price_credit" value="{{price_usd_credit|floatformat:2}}" />
 				<input type="hidden" name="price_eos" value="{{price_eos_eos}}" />
-				<input type="hidden" name="price_cents_credit" value="{{purchase.price_cents_credit}}" />
+				<input type="hidden" name="price_gross_cents" value="{{purchase.price_gross_cents}}" />
 				<input type="hidden" name="account_name" value="{{purchase.account_name}}" />
 				<input type="hidden" name="owner_key" value="{{purchase.owner_key}}" />
 				<input type="hidden" name="active_key" value="{{purchase.active_key}}" />
@@ -96,12 +110,24 @@
 
 	<script>
 		var handler;
+		var vat_rates = JSON.parse('{{vat_rates|safe}}');
+		
+		function calculate_vat(net, country) {
+			var rate = vat_rates[country];
+			if(rate) {
+				return net * rate / 100;	
+			} else {
+				return 0;
+			}
+			
+			
+		}
 		
 		var xToken;
 		$(function() {
-			$("select[name=payment]").change(function() {
+			$("select").change(function() {
 				
-				update_form($(this));
+				update_form();
 			});
 			
 			handler = StripeCheckout.configure({
@@ -142,7 +168,8 @@
 			return window.matchMedia("only screen and (max-width: 500px)").matches;
 			
 		}
-		function update_form(e) {
+		function update_form() {
+			let e = $("select[name=payment]");
 			var text;
 			var submit_fun;
 			let form = $("form");
@@ -153,9 +180,17 @@
 			let price_text = $(".price");
 			let price_subtitle = $(".price_subtitle");
 			
+			let country = $("#choose_country").val();
 			if(value == 'creditcard') {
-				let price = $("input[name=price_credit]").val();
-				text = "{% blocktrans with price_usd_credit=purchase.price_usd_credit|floatformat:2 %}Pay USD {{price_usd_credit}} with credit card{% endblocktrans %}";
+				let price = parseFloat($("input[name=price_credit]").val());
+				let vat = calculate_vat(price, country);
+				console.log("price: ", price);
+				console.log("vat: ", vat);
+				price += vat;
+				price = price.toFixed(2);
+				console.log("price: ", price);
+
+				text = "Pay USD " + price +" with credit card";
 				submit_fun = pay_creditcard;
 				button.prop("disabled", false);
 				price_display.show();
@@ -163,8 +198,11 @@
 				price_subtitle.text("When paying with credit card");
 				
 			} else if (value == 'crypto') {
-				let price = $("input[name=price_crypto]").val();
-				text = "{% blocktrans with price_usd_crypto=purchase.price_usd_crypto|floatformat:2 %}Pay USD {{price_usd_crypto}} with cryptocurrency{% endblocktrans %}";
+				let price = parseFloat($("input[name=price_crypto]").val());
+				let vat = calculate_vat(parseFloat(price), country);
+				price += vat;
+				price = price.toFixed(2);
+				text = "Pay USD " + price + " with cryptocurrency";
 				submit_fun = pay_crypto;
 				button.prop("disabled", false);
 				price_display.show();
@@ -195,7 +233,7 @@
 			
 			
 		}
-		update_form($("select[name=payment]"));
+		update_form();
 
 		function pay_creditcard(event) {
 			event.preventDefault();
@@ -209,7 +247,7 @@
 			handler.open({
 				name: "EOS Account Creator",
 				description: "Your EOS Account "+ $("input[name=account_name]").val(),
-				amount: $("input[name=price_cents_credit]").val(),
+				amount: $("input[name=price_gross_cents]").val(),
 				currency: 'usd',
 				zipCode: true,
 			});

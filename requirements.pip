@@ -5,3 +5,5 @@ stripe
 raven
 django-rosetta
 base58
+django-countries
+geoip2

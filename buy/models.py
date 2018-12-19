@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.utils import timezone
 from django.db import models
+from django_countries.fields import CountryField
 import eosapi
 import time
 import json
@@ -26,10 +27,16 @@ class Purchase(models.Model):
     coinbase_charge = models.TextField()
     coinbase_code = models.CharField(max_length=settings.ML)
     user_uuid = models.UUIDField(null=True)
+    ip = models.GenericIPAddressField(null=True, blank=True)
+    country_from_ip = CountryField(null=True)
+    country_given = CountryField(null=True)
     
-    price_cents_crypto = models.IntegerField(null=True)
-    price_cents_credit = models.IntegerField(null=True)
-    price_eos_eos = models.DecimalField(max_digits=8, decimal_places=2, null=True)
+    # final prices on invoice
+    payment_method = models.CharField(max_length=settings.ML, choices=(('credit',)*2, ('crypto',)*2), null=True)
+    price_net = models.DecimalField(max_digits=8, decimal_places=2, null=True)
+    vat_percentage = models.DecimalField(max_digits=8, decimal_places=2, null=True)
+    vat = models.DecimalField(max_digits=8, decimal_places=2, null=True)
+    price_gross = models.DecimalField(max_digits=8, decimal_places=2, null=True)
     
     # for eos payment method
     nonce = models.CharField(max_length=53, default=get_nonce)
@@ -43,16 +50,6 @@ class Purchase(models.Model):
     
     def __str__(self):
         return self.account_name
-        
-    def price_usd_crypto(self):
-        if not self.price_cents_crypto:
-            self.update_price()
-        return self.price_cents_crypto/100.0
-
-    def price_usd_credit(self):
-        if not self.price_cents_credit:
-            self.update_price()
-        return self.price_cents_credit/100.0
 
     @staticmethod
     def cogs():
@@ -64,18 +61,44 @@ class Purchase(models.Model):
 
     @staticmethod
     def get_prices_usd_credit():
-        return (Purchase.cogs() + 4) * 1.4
+        return (Purchase.cogs() + 4) * 1.2
         
     @staticmethod
     def get_prices_eos_eos():
         return 0.1
 
-    def update_price(self):
-        self.cogs_cents = round(Purchase.cogs()*100)
-        self.price_cents_crypto = round(Purchase.get_prices_usd_crypto()*100)
-        self.price_cents_credit = round(Purchase.get_prices_usd_credit()*100)
-        self.price_eos_eos = Purchase.get_prices_eos_eos()
+    def price_gross_cents(self):
+        if self.price_gross:
+            return round(self.price_gross*100)
+        else:
+            return None
         
+    def price_cents_credit(self):
+        return round(Purchase.get_prices_usd_credit()*100)
+        
+    def price_cents_crypto(self):
+        return round(Purchase.get_prices_usd_crypto()*100)
+        
+    def cogs_cents(self):
+        return round(Purchase.cogs()*100)
+    
+    def update_price(self):    
+        assert self.payment_method, "No payment method set"
+        # assert self.country_from_ip , "No country from IP"        
+        # assert self.country_given , "No country given"
+        if self.country_from_ip:
+            assert self.country_from_ip == self.country_given, "Countries don't match"
+        
+        if self.payment_method == 'credit':
+            self.price_net = Purchase.get_prices_usd_credit()
+        elif self.payment_method == 'crypto':
+            self.price_net = Purchase.get_prices_usd_crypto()
+        
+        self.vat = self.price_net * VATRates.get(self.country_given.code) / 100
+        print("self.payment_method: ", self.payment_method)
+        print("update_price self.vat: ", self.vat)
+        self.price_gross = self.price_net + self.vat
+            
     def update_registration_status(self):
         if self.did_registration_work():
             self.account_created = True
@@ -193,9 +216,10 @@ class PriceData(models.Model):
 
 @receiver(pre_save, sender=Purchase)
 def purchase_saved(sender, instance, **kwargs):
-    if not instance.cogs_cents or not instance.price_cents_credit or not instance.price_cents_crypto:
-        print ("Updating price from signal")
-        instance.update_price()
+    pass
+    # if not instance.cogs_cents or not instance.price_cents_credit or not instance.price_cents_crypto:
+    #     print ("Updating price from signal")
+    #     instance.update_price()
 
 
 
@@ -206,5 +230,42 @@ class StripeCharge(models.Model):
     response = models.TextField()
     user_uuid = models.UUIDField(null=True)
     purchase = models.ForeignKey(Purchase, on_delete=models.SET_NULL, null=True)
+    
+class VATRates(models.Model):
+    updated_at = models.DateTimeField(auto_now=True)
+    data = models.TextField()
+    
+    @staticmethod
+    def update():
+        import requests
+        url = 'https://vatapi.com/v1/vat-rates'
+        headers = {'Apikey' : settings.VATAPI_APIKEY}
+        response = requests.get(url, headers=headers)
+        response_data = response.json()['countries']
+        data = {}
+        for d in response_data:
+            country = list(d.keys())[0]
+            value = list(d.values())[0]
+            data[country] = value
+        
+        VATRates.objects.update_or_create(id=1, defaults=dict(
+            data=json.dumps(data),
+        ))
+    
+    @staticmethod
+    def get(country):
+        data = json.loads(VATRates.objects.all()[0].data)
+        try:
+            return data[country]['rates']['standard']['value']
+        except KeyError:
+            return 0
+    
+    @staticmethod
+    def all():
+        data = json.loads(VATRates.objects.all()[0].data)
+        return {x: data[x]['rates']['standard']['value'] for x in data}
+        
+    
+    
     
     

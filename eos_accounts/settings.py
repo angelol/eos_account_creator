@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_countries',
     'buy',
 ]
 if not DEBUG:
@@ -162,6 +163,9 @@ LANGUAGES = [
   ('en', 'English'),
   ('zh', '中文'),
 ]
+
+GEOIP_PATH = safe_join(BASE_DIR, 'eos_accounts/')
+GEOIP_COUNTRY = safe_join(BASE_DIR, 'eos_accounts/GeoLite2-Country.mmdb')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/

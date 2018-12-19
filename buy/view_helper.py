@@ -2,6 +2,7 @@ from django.conf import settings
 from functools import wraps
 from django.shortcuts import redirect
 from buy.models import Purchase, PriceData
+from django.contrib.gis.geoip2 import GeoIP2
 import eosapi
 import uuid
 import re
@@ -86,4 +87,11 @@ def is_eos_account_available(account_name):
         return False
     except eosapi.exceptions.HttpAPIError:
         return True
+        
+def get_client_ip(request):
+    # return '94.130.149.5'
+    return request.META.get('REMOTE_ADDR')
+
+def get_country(ip):
+    return GeoIP2().country(ip)['country_code']
 

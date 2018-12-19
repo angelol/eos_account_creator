@@ -81,7 +81,7 @@ process.short_description = 'Process'
 class PurchaseAdmin(admin.ModelAdmin):
     list_display = ('created_at', 'account_name', 'payment_received', 'account_created', 'price_crypto', 'profit')
     ordering = ('-created_at', )
-    fields = ('account_name', 'owner_key', 'active_key', 'payment_received', 'account_created', 'coinbase_code', 'price_usd_crypto', 'currency', 'stripe', 'coinbase')
+    fields = ('account_name', 'owner_key', 'active_key', 'payment_received', 'account_created', 'coinbase_code', 'currency', 'stripe', 'coinbase')
     readonly_fields = fields
     actions = [process]
     search_fields = ('account_name', 'owner_key', 'active_key')
